@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".welcome.WelcomeActivity">
+
+    <LinearLayout
+        android:id="@+id/linearMain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:padding="2dp"
+            android:foreground="?attr/selectableItemBackground"
+            android:layout_marginTop="10dp"
+            android:id="@+id/textCreateAccount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/work_sans_semibold"
+            android:text="@string/createAccount"
+            android:textColor="@color/textColorPrimary" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/poppins_bold"
+            android:lines="2"
+            android:text="@string/subtitleMyCarta"
+            android:textColor="@color/buttonPrimary"
+            android:textSize="18sp" />
+
+<!--        <com.roughike.swipeselector.SwipeSelector-->
+<!--            android:id="@+id/swipeSelector"-->
+<!--            android:value="@+value/swipeSelector"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content" />-->
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:layout_marginTop="12dp"
+            android:src="@drawable/easier" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/buttonSignIn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_primary"
+            android:fontFamily="@font/work_sans_semibold"
+            android:text="Sign in"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:layout_marginTop="4dp"
+            android:id="@+id/textPrivacyPolicy"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/work_sans_semibold"
+            android:text="@string/fui_terms_of_service"
+            android:textColor="@color/grayPrimary" />
+    </LinearLayout>
+
+</RelativeLayout>

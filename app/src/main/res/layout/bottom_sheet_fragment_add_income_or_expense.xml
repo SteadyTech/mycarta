@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".home.fragment.money.bottom_sheet.AddIncomeOrExpenseBottomSheet">
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize">
+
+        <RelativeLayout
+            android:layout_marginEnd="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:foreground="?attr/selectableItemBackground"
+                android:id="@+id/icClose"
+                android:layout_alignParentStart="true"
+                android:layout_centerInParent="true"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_close"/>
+
+            <TextView
+                android:id="@+id/titleToolbar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Income"
+                android:textSize="16sp"
+                android:fontFamily="@font/poppins_bold"
+                android:layout_centerInParent="true"
+                android:textColor="@color/colorIncome"/>
+
+        </RelativeLayout>
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.core.widget.NestedScrollView
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inputLayoutName"
+                android:layout_margin="6dp"
+                android:layout_width="match_parent"
+                android:padding="2dp"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:backgroundTint="@color/backgroundGrayPrimary"
+                    android:id="@+id/inputName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:maxLength="25"
+                    android:hint="Income Name"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inputLayoutMoney"
+                android:layout_margin="6dp"
+                android:layout_width="match_parent"
+                android:padding="2dp"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:backgroundTint="@color/backgroundGrayPrimary"
+                    android:id="@+id/inputMoneys"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:maxLength="9"
+                    android:hint="Total Income"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:layout_margin="4dp"
+                android:textSize="12sp"
+                android:fontFamily="@font/roboto_bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Category"/>
+
+            <Spinner
+                android:padding="8dp"
+                android:background="@drawable/bg_spinner_income"
+                android:layout_margin="4dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/spinnerCategory"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inputLayoutDescription"
+                android:layout_margin="6dp"
+                android:layout_width="match_parent"
+                android:padding="2dp"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:backgroundTint="@color/backgroundGrayPrimary"
+                    android:gravity="top"
+                    android:id="@+id/inputDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLength="52"
+                    android:lines="4"
+                    android:hint="Description"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <Button
+                android:id="@+id/buttonSave"
+                android:layout_margin="4dp"
+                android:textColor="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_income"
+                android:text="Save Income"/>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

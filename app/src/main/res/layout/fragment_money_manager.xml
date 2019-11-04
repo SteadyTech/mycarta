@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".home.fragment.money.MoneyManagerFragment"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#403F66"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:padding="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/account"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:fontFamily="@font/work_sans_semibold"
+                android:text="Money Manager"
+                android:autoSizeMaxTextSize="32sp"
+                android:autoSizeMinTextSize="14sp"
+                android:autoSizeTextType="uniform"
+                android:textColor="@color/white"
+                android:textSize="32sp" />
+
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Current Balance"
+                    android:textSize="14sp"
+                    android:textColor="@color/endColorVisa"
+                    android:fontFamily="@font/roboto_bold"/>
+
+                <TextView
+                    android:id="@+id/textCurrentBalance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/poppins_bold"
+                    android:autoSizeMaxTextSize="18sp"
+                    android:autoSizeMinTextSize="14sp"
+                    android:autoSizeTextType="uniform"
+                    android:maxLines="1"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="40dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Total Income"
+                        android:textSize="14sp"
+                        android:textColor="@color/endColorVisa"
+                        android:fontFamily="@font/roboto_bold"/>
+
+                    <TextView
+                        android:id="@+id/textTotalIncome"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/poppins_bold"
+                        android:autoSizeMaxTextSize="24sp"
+                        android:autoSizeMinTextSize="14sp"
+                        android:autoSizeTextType="uniform"
+                        android:maxLines="1"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:text="Total Spending"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:textColor="@color/endColorVisa"
+                        android:fontFamily="@font/roboto_bold"/>
+
+                    <TextView
+                        android:id="@+id/textTotalSpending"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/poppins_bold"
+                        android:autoSizeMaxTextSize="24sp"
+                        android:autoSizeMinTextSize="14sp"
+                        android:autoSizeTextType="uniform"
+                        android:maxLines="1"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearButton"
+                android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/buttonIncome"
+                    android:textColor="@color/white"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/button_income"
+                    android:textAllCaps="false"
+                    android:fontFamily="@font/work_sans_semibold"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Add Income"/>
+
+                <Button
+                    android:id="@+id/buttonExpense"
+                    android:textColor="@color/white"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/button_expense"
+                    android:textAllCaps="false"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:fontFamily="@font/work_sans_semibold"
+                    android:layout_height="wrap_content"
+                    android:text="Add Expense"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Graphic"
+                android:textSize="18sp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/poppins_bold"/>
+
+            <lecho.lib.hellocharts.view.PieChartView
+                android:id="@+id/chartPie"
+                android:layout_width="match_parent"
+                android:layout_height="240dp"/>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <include layout="@layout/bottom_sheet_fragment_list_money_manager"/>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

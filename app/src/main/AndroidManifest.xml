@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="me.muhammadfaisal.mycarta">
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning"
+        tools:replace="android:icon">
+        <activity android:name=".home.fragment.card.view.CardPayActivity"></activity>
+        <activity android:name=".home.fragment.article.DetailArticleActivity" />
+        <activity android:name=".home.fragment.account.view.ChangePinActivity" />
+        <activity android:name=".splashscreen.SplashScreenActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".home.fragment.account.view.ChangePasswordActivity" />
+        <activity
+            android:name=".home.HomeActivity"
+            android:label="@string/title_activity_home" />
+        <activity android:name=".forgot_password.ForgotPasswordActivity" />
+        <activity android:name=".register.RegisterActivity" />
+        <activity android:name=".welcome.WelcomeActivity" />
+        <activity
+            android:name=".login.LoginActivity"
+            android:parentActivityName=".welcome.WelcomeActivity" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+
+        <service
+            android:name=".keyboard.CartaBoardService"
+            android:label="Carta Board"
+            android:permission="android.permission.BIND_INPUT_METHOD">
+            <intent-filter>
+                <action android:name="android.view.InputMethod" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.view.im"
+                android:resource="@xml/method" />
+        </service>
+    </application>
+
+</manifest>

@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".home.fragment.card.bottom_sheet.edit.EditCardBottomSheetFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize">
+
+        <RelativeLayout
+            android:layout_marginEnd="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:foreground="?attr/selectableItemBackground"
+                android:id="@+id/icClose"
+                android:layout_alignParentStart="true"
+                android:layout_centerInParent="true"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_close"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Edit Card"
+                android:textSize="16sp"
+                android:fontFamily="@font/poppins_bold"
+                android:layout_centerInParent="true"
+                android:textColor="@color/buttonPrimary"/>
+
+        </RelativeLayout>
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.core.widget.NestedScrollView
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:hint="@string/name_on_card"
+                android:background="@drawable/bg_spinner_blue">
+
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/inputCardHolderName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="6dp"
+                    android:maxLength="18"
+                    android:padding="4dp"
+                    app:met_floatingLabel="highlight"
+                    app:met_primaryColor="#4CAF50" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_margin="4dp"
+                    android:layout_weight="0.4"
+                    android:hint="@string/number_card"
+                    android:background="@drawable/bg_spinner_blue"
+                    android:layout_height="wrap_content">
+
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/inputCardNumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="6dp"
+                        android:inputType="number"
+                        android:maxLength="16"
+                        android:padding="2dp"
+                        app:met_floatingLabel="highlight"
+                        app:met_primaryColor="#4CAF50" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:hint="@string/cvv"
+                    android:layout_weight="1.5"
+                    android:layout_margin="4dp"
+                    android:background="@drawable/bg_spinner_blue"
+                    android:layout_height="wrap_content">
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:inputType="number"
+                        android:id="@+id/inputCvv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="6dp"
+                        android:maxLength="3"
+                        android:padding="2dp"
+                        app:met_floatingLabel="highlight"
+                        app:met_primaryColor="#4CAF50" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/poppins_bold"
+                        android:text="Card Type" />
+
+                    <Spinner
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_spinner_blue"
+                        android:id="@+id/spinnerCardType"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_margin="6dp"
+                        android:padding="4dp"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/poppins_bold"
+                        android:text="Month Expire" />
+
+                    <Spinner
+                        android:background="@drawable/bg_spinner_blue"
+                        android:layout_weight="1"
+                        android:id="@+id/spinnerMonthExp"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_margin="6dp"
+                        android:padding="4dp"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/poppins_bold"
+                        android:text="Year Expire" />
+
+                    <Spinner
+                        android:background="@drawable/bg_spinner_blue"
+                        android:layout_weight="1"
+                        android:id="@+id/spinnerYearExp"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_margin="6dp"
+                        android:padding="4dp"/>
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:hintAnimationEnabled="true"
+                android:hint="Pin"
+                android:layout_margin="4dp"
+                android:background="@drawable/bg_spinner_blue"
+                app:passwordToggleEnabled="true">
+
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:inputType="numberPassword"
+                    android:id="@+id/inputPin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="6dp"
+                    android:maxLength="6"
+                    android:padding="2dp"
+                    app:met_floatingLabel="highlight"
+                    app:met_primaryColor="#4CAF50" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:background="@drawable/bg_spinner_blue"
+                android:layout_margin="4dp"
+                android:hint="Description"
+                android:layout_height="wrap_content">
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/inputDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="6dp"
+                    android:maxLength="24"
+                    android:padding="2dp"
+                    app:met_floatingLabel="highlight"
+                    app:met_primaryColor="#4CAF50" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+
+            <Button
+                android:id="@+id/buttonSave"
+                android:layout_margin="4dp"
+                android:textColor="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_primary"
+                android:text="Save"/>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

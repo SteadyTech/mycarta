@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:orientation="vertical"
+    tools:context=".home.fragment.account.view.ChangePinActivity">
+
+    <ImageView
+        android:padding="2dp"
+        android:foreground="?attr/selectableItemBackground"
+        android:id="@+id/imageBack"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/ic_back_gray" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/work_sans_semibold"
+        android:textColor="@color/textColorPrimary"
+        android:text="Change PIN"
+        android:textSize="24sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="@font/work_sans_semibold"
+        android:textColor="@color/textColorPrimary"
+        android:text="@string/secure_account"
+        android:textSize="14sp" />
+
+    <me.muhammadfaisal.mycarta.helper.PinEditText
+        android:id="@+id/inputLatestPin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:cursorVisible="false"
+        android:digits="1234567890"
+        android:inputType="numberPassword"
+        android:maxLength="4"
+        android:textIsSelectable="false"
+        android:textSize="20sp" />
+
+    <Button
+        android:elevation="4dp"
+        android:id="@+id/buttonChangePIN"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/button_primary"
+        android:fontFamily="@font/work_sans_semibold"
+        android:text="Change Password"
+        android:textColor="@color/white" />
+
+</LinearLayout>

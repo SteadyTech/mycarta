@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "139910619141",
+    "firebase_url": "https://mycarta-4ed98.firebaseio.com",
+    "project_id": "mycarta-4ed98",
+    "storage_bucket": "mycarta-4ed98.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:139910619141:android:636b8d8d84608271897c6c",
+        "android_client_info": {
+          "package_name": "me.muhammadfaisal.mycarta"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "139910619141-ueuai2f3kpm54hadd549em2b2bnks3qu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "me.muhammadfaisal.mycarta",
+            "certificate_hash": "b64185e4223524b260aec414dfdaa468cd405657"
+          }
+        },
+        {
+          "client_id": "139910619141-gme7qn3cfb8fnq1f348m60obh702h33h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCoeWFAxMPmcUqG70E7dGdTxtQAuPl6Kg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "139910619141-gme7qn3cfb8fnq1f348m60obh702h33h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

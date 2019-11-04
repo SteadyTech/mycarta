@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:foreground="?attr/selectableItemBackground"
+        android:layout_margin="8dp"
+        app:cardElevation="4dp"
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="8dp"
+        app:cardBackgroundColor="@color/white">
+
+        <RelativeLayout
+            android:padding="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imageCategory"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:src="@drawable/ic_logout"
+                android:layout_alignParentStart="true"/>
+
+            <LinearLayout
+                android:paddingStart="6dp"
+                android:layout_margin="4dp"
+                android:layout_toEndOf="@+id/imageCategory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto"
+                    android:text="Income or Expense Name"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+                <TextView
+                    android:id="@+id/textIncomeOrExpense"
+                    android:textSize="12sp"
+                    android:textColor="@color/colorIncome"
+                    android:fontFamily="@font/roboto_bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Income or Expense Name"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textDateTime"
+                android:fontFamily="@font/lato_light"
+                android:textSize="12sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:text="Date Time"/>
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

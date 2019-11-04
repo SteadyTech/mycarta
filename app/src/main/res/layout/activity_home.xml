@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".home.HomeActivity">
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottomLinear"
+        android:layout_alignParentTop="true" />
+
+    <com.gauravk.bubblenavigation.BubbleNavigationLinearView
+        android:id="@+id/bottomLinear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:elevation="8dp"
+        android:orientation="horizontal"
+        android:padding="4dp">
+
+        <com.gauravk.bubblenavigation.BubbleToggleView
+            android:id="@+id/toggleHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:bt_active="true"
+            app:bt_colorActive="#BA68C8"
+            app:bt_colorInactive="@color/grayPrimary"
+            app:bt_icon="@drawable/ic_home"
+            app:bt_title="Home" />
+
+        <com.gauravk.bubblenavigation.BubbleToggleView
+            android:id="@+id/toggleCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:bt_active="true"
+            app:bt_colorActive="#4DB6AC"
+            app:bt_colorInactive="@color/grayPrimary"
+            app:bt_icon="@drawable/ic_card"
+            app:bt_title="Cards" />
+
+
+        <com.gauravk.bubblenavigation.BubbleToggleView
+            android:id="@+id/toggleMoney"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:bt_active="true"
+            app:bt_colorActive="#FFB74D"
+            app:bt_colorInactive="@color/grayPrimary"
+            app:bt_icon="@drawable/ic_saving"
+            app:bt_title="Money Manager" />
+
+
+        <com.gauravk.bubblenavigation.BubbleToggleView
+            android:id="@+id/toggleArticle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:bt_colorActive="#E57373"
+            app:bt_colorInactive="@color/grayPrimary"
+            app:bt_icon="@drawable/ic_article"
+            app:bt_title="Article" />
+
+        <com.gauravk.bubblenavigation.BubbleToggleView
+            android:id="@+id/toggleAcccount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:bt_active="true"
+            app:bt_colorActive="@color/buttonPrimary"
+            app:bt_colorInactive="@color/grayPrimary"
+            app:bt_icon="@drawable/ic_avatar"
+            app:bt_title="Account" />
+
+    </com.gauravk.bubblenavigation.BubbleNavigationLinearView>
+
+</RelativeLayout>

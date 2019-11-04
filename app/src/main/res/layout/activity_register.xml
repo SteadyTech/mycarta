@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".register.RegisterActivity">
+
+    <ImageView
+        android:foreground="?attr/selectableItemBackground"
+        android:id="@+id/imageBack"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/ic_back_gray" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="@font/work_sans_semibold"
+        android:textColor="@color/textColorPrimary"
+        android:text="You will be easier!"
+        android:textSize="24sp" />
+
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:inputType="textEmailAddress"
+        app:met_floatingLabel="highlight"
+        app:met_primaryColor="#4CAF50"
+        android:layout_margin="6dp"
+        android:id="@+id/inputEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/email" />
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        app:met_floatingLabel="highlight"
+        app:met_primaryColor="#4CAF50"
+        android:layout_margin="6dp"
+        android:inputType="textPassword"
+        android:id="@+id/inputPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/password" />
+
+    <Button
+        android:id="@+id/buttonRegister"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:background="@drawable/button_primary"
+        android:fontFamily="@font/work_sans_semibold"
+        android:text="Register"
+        android:textColor="@color/white" />
+
+    <LinearLayout
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:gravity="end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Already Account?"
+            android:textColor="@color/grayPrimary"
+            android:textSize="12sp"
+            android:padding="4dp"/>
+        <TextView
+            android:id="@+id/textSignIn"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sign in"
+            android:textColor="@color/buttonPrimary"
+            android:textSize="12sp"
+            android:padding="4dp"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>
