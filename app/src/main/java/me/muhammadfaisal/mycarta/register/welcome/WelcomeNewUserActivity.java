@@ -51,7 +51,7 @@ public class WelcomeNewUserActivity extends AppCompatActivity implements View.On
 
     @Override
     public void onClick(View view) {
-        if (view == cardNext){
+        if (view == cardNext) {
             openPinBottomSheet();
         }
     }

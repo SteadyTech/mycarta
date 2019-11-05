@@ -707,8 +707,6 @@ public class PinBottomSheetFragment extends BottomSheetDialogFragment {
         title.setText("Setup Your PIN");
         button.setText("OK");
 
-        final SweetAlertDialog dialogError = new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE);
-
         final SweetAlertDialog dialogProgress = new SweetAlertDialog(getActivity(), SweetAlertDialog.PROGRESS_TYPE);
         dialogProgress.setContentText("Loading");
 
@@ -724,8 +722,8 @@ public class PinBottomSheetFragment extends BottomSheetDialogFragment {
                 } else {
                     final Long pinEditText = Long.parseLong(inputPIN.getText().toString());
                     dialogProgress.cancel();
-                    reference.push()
-                            .setValue(new Pin(pinEditText));
+                    reference.push().setValue(new Pin(pinEditText));
+
                     Toast.makeText(getActivity(), "Your Pin Has Been Saved!", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(getActivity(), HomeActivity.class), ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
                     getActivity().finish();

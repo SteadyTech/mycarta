@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "139910619141-bna24hpcturj0j0qmog5tn09q4ssn06d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "me.muhammadfaisal.mycarta",
+            "certificate_hash": "b3ae6566a6a93866feedb424046d0b475783a05a"
+          }
+        },
+        {
           "client_id": "139910619141-ueuai2f3kpm54hadd549em2b2bnks3qu.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

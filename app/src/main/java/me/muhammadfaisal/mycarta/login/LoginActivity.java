@@ -93,7 +93,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         btnLoginWithGoogle = findViewById(R.id.buttonSignInWithGoogle);
 
         auth = FirebaseAuth.getInstance();
-        reference = FirebaseDatabase.getInstance().getReference().child("users").child(auth.getCurrentUser().getUid());
 
         btnLogin.setOnClickListener(this);
         imageBack.setOnClickListener(this);
@@ -101,7 +100,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         textSignUp.setOnClickListener(this);
         btnLoginWithGoogle.setOnClickListener(this);
 
-        sharedPreferences = getSharedPreferences("login",MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("login", MODE_PRIVATE);
     }
 
     @Override
@@ -134,7 +133,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 firebaseAuthWithGoogle(account);
             } catch (Exception e) {
-                Log.d("error", "ERROR CUY" + e.getCause());
+                Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -154,7 +153,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 if (!task.isSuccessful()) {
                     dialogProgress.setContentText(task.getException().toString());
                     dialogProgress.cancel();
-                }else{
+                } else {
                     intentLoginWithGoogle(dialogProgress);
                 }
             }
@@ -162,19 +161,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void intentLoginWithGoogle(SweetAlertDialog dialogProgress) {
-
         user = auth.getCurrentUser();
         dialogProgress.cancel();
         sharedPreferencesForLogin();
 
+        reference = FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid());
+
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                User users = dataSnapshot.getValue(User.class);
 
-                if (users.getName() == null ){
+                if (dataSnapshot.getValue() == null) {
                     functionInsertName();
-                }else{
+                } else {
                     callingPinBottomSheet();
                 }
             }
@@ -184,6 +183,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             }
         });
+
     }
 
     private void functionInsertName() {
@@ -222,7 +222,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         } else if (password.isEmpty()) {
             inputPassword.setError("Password can't be empty");
         } else {
-            IntentLoginWithUsernameAndPassword(email,password);
+            IntentLoginWithUsernameAndPassword(email, password);
         }
     }
 
