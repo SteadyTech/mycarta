@@ -30,6 +30,7 @@
                 android:foreground="?attr/selectableItemBackground"
                 android:id="@+id/textBarcode"
                 android:text="Barcode"
+                android:textColor="@color/colorPrimary"
                 android:fontFamily="@font/poppins_bold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -47,18 +48,12 @@
                     android:src="@drawable/ic_launcher"
                     android:id="@+id/imageNumberCardBarcode"
                     android:layout_width="match_parent"
-                    android:layout_height="120dp"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Cardholder Number"
-                    android:fontFamily="@font/roboto"
-                    android:gravity="end"/>
+                    android:layout_height="320dp"/>
 
             </com.github.aakira.expandablelayout.ExpandableLinearLayout>
 
             <TextView
+                android:textColor="@color/colorPrimary"
                 android:layout_marginTop="12dp"
                 android:id="@+id/textQR"
                 android:layout_width="match_parent"
@@ -77,16 +72,113 @@
                 <ImageView
                     android:id="@+id/imageNumberCardQR"
                     android:layout_width="match_parent"
-                    android:layout_height="120dp"
+                    android:layout_height="320dp"
                     android:padding="8dp"
                     android:src="@drawable/ic_launcher" />
 
-                <TextView
+            </com.github.aakira.expandablelayout.ExpandableLinearLayout>
+
+            <TextView
+                android:layout_marginTop="12dp"
+                android:id="@+id/textHowToUse"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_bold"
+                android:textColor="@color/colorPrimary"
+                android:foreground="?attr/selectableItemBackground"
+                android:padding="4dp"
+                android:text="How to use CartaPay?" />
+
+            <com.github.aakira.expandablelayout.ExpandableLinearLayout
+                android:id="@+id/expandableHowToUse"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <me.muhammadfaisal.mycarta.helper.BulletTextView
+                    android:fontFamily="@font/roboto_bold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/roboto"
-                    android:gravity="end"
-                    android:text="Cardholder Number" />
+                    android:text="Open MyCarta APP"/>
+
+                <me.muhammadfaisal.mycarta.helper.BulletTextView
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/roboto_bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Move to tab Cards and choose the cards you want to make a payment"
+                    tools:ignore="HardcodedText" />
+
+                <me.muhammadfaisal.mycarta.helper.BulletTextView
+                    android:fontFamily="@font/roboto_bold"
+                    android:layout_marginTop="4dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Click Pay button below cards display in cards tab"
+                    tools:ignore="HardcodedText" />
+
+                <me.muhammadfaisal.mycarta.helper.BulletTextView
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/roboto_bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="The Barcode or QR is your card number"
+                    tools:ignore="HardcodedText" />
+
+                <me.muhammadfaisal.mycarta.helper.BulletTextView
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/roboto_bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Show Pay Page into a cashier for a scan the Barcode or QRCode"
+                    tools:ignore="HardcodedText" />
+
+                <me.muhammadfaisal.mycarta.helper.BulletTextView
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/roboto_bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="If card number correctly , transaction completely"
+                    tools:ignore="HardcodedText" />
+
+            </com.github.aakira.expandablelayout.ExpandableLinearLayout>
+
+            <TextView
+                android:textColor="@color/colorPrimary"
+                android:layout_marginTop="12dp"
+                android:id="@+id/textWhy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_bold"
+                android:foreground="?attr/selectableItemBackground"
+                android:padding="4dp"
+                android:text="Why Choose Carta Pay?" />
+
+            <com.github.aakira.expandablelayout.ExpandableLinearLayout
+                android:id="@+id/expandableWHy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <me.muhammadfaisal.mycarta.helper.BulletTextView
+                    android:fontFamily="@font/roboto_bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="CartaPay make a transaction cashless and cardless!"/>
+
+                <me.muhammadfaisal.mycarta.helper.BulletTextView
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/roboto_bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Pay what you need just scan the barcode!"/>
+
+                <me.muhammadfaisal.mycarta.helper.BulletTextView
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/roboto_bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Minimize data theft crime"/>
 
             </com.github.aakira.expandablelayout.ExpandableLinearLayout>
 

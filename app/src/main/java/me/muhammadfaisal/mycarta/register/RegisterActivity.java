@@ -22,18 +22,23 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import me.muhammadfaisal.mycarta.R;
 import me.muhammadfaisal.mycarta.home.HomeActivity;
 import me.muhammadfaisal.mycarta.login.LoginActivity;
+import me.muhammadfaisal.mycarta.register.model.User;
+import me.muhammadfaisal.mycarta.register.welcome.WelcomeNewUserActivity;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
     Button btnRegister;
-    EditText inputEmail, inputPassword;
+    EditText inputEmail, inputPassword, inputName;
     public FirebaseAuth auth;
     ImageView imageBack;
+    DatabaseReference reference;
     TextView textSignIn;
     public FirebaseUser user;
 
@@ -58,7 +63,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         btnRegister = findViewById(R.id.buttonRegister);
         inputEmail = findViewById(R.id.inputEmail);
         inputPassword = findViewById(R.id.inputPassword);
+        inputName =  findViewById(R.id.inputName);
         imageBack = findViewById(R.id.imageBack);
+        reference = FirebaseDatabase.getInstance().getReference();
 
         textSignIn = findViewById(R.id.textSignIn);
 
@@ -88,6 +95,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private void methodRegister() {
         final String email = inputEmail.getText().toString().trim();
         final String password = inputPassword.getText().toString().trim();
+        final String name = inputName.getText().toString().trim();
 
 
         if (email.isEmpty()) {
@@ -100,6 +108,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             final SweetAlertDialog dialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
             dialog.getProgressHelper().setBarColor(Color.parseColor("#445EE9"));
             dialog.setTitle("Loading");
+            dialog.setCancelable(false);
             dialog.show();
 
             auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
@@ -110,15 +119,22 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                         Toast.makeText(RegisterActivity.this, "Failed To Login ! Because" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     } else {
                         dialog.cancel();
-
                         user = auth.getCurrentUser();
-                        Bundle b = new Bundle();
-                        b.putString("email", email);
-                        startActivity(new Intent(RegisterActivity.this, LoginActivity.class), ActivityOptions.makeSceneTransitionAnimation(RegisterActivity.this).toBundle());
-                        finish();
+                        createUser(user.getUid() , name , email, password);
                     }
                 }
             });
         }
+    }
+
+    private void createUser(String uid,String name, String email, String password) {
+        User users = new User(uid, email, name);
+
+        reference.child("users").child(uid).setValue(users);
+
+        Bundle b = new Bundle();
+        b.putString("email", email);
+        startActivity(new Intent(RegisterActivity.this, WelcomeNewUserActivity.class), ActivityOptions.makeSceneTransitionAnimation(RegisterActivity.this).toBundle());
+        finish();
     }
 }

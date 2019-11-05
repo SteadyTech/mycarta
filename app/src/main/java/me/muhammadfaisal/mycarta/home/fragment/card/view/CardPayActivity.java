@@ -3,6 +3,7 @@ package me.muhammadfaisal.mycarta.home.fragment.card.view;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,9 +28,10 @@ import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
 public class CardPayActivity extends AppCompatActivity implements View.OnClickListener {
 
-    TextView textBarcode, textQR;
+    TextView textBarcode, textQR, textHow, textWhy;
     ImageView numberBarcode, numberQR;
-    ExpandableLinearLayout expandBarcode, expandQR;
+    ExpandableLinearLayout expandBarcode, expandQR, expandHow, expandWhy;
+    ImageView imageBack;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,21 +41,36 @@ public class CardPayActivity extends AppCompatActivity implements View.OnClickLi
 
         initWidget();
 
+        setToFullBrightness();
+    }
+
+    private void setToFullBrightness() {
+        WindowManager.LayoutParams layoutParams = getWindow().getAttributes();
+        layoutParams.screenBrightness = 1F;
+        getWindow().setAttributes(layoutParams);
     }
 
     private void initWidget() {
         textBarcode = findViewById(R.id.textBarcode);
         textQR = findViewById(R.id.textQR);
+        textHow = findViewById(R.id.textHowToUse);
+        textWhy = findViewById(R.id.textWhy);
         numberBarcode = findViewById(R.id.imageNumberCardBarcode);
         numberQR = findViewById(R.id.imageNumberCardQR);
         expandBarcode = findViewById(R.id.expandableBarcode);
         expandQR = findViewById(R.id.expandableQR);
+        expandHow = findViewById(R.id.expandableHowToUse);
+        expandWhy = findViewById(R.id.expandableWHy);
+        imageBack = findViewById(R.id.imageBack);
 
         numberCardBarcode();
         numberCardQR();
 
         textBarcode.setOnClickListener(this);
         textQR.setOnClickListener(this);
+        textHow.setOnClickListener(this);
+        textWhy.setOnClickListener(this);
+        imageBack.setOnClickListener(this);
     }
 
     private void numberCardQR() {
@@ -89,10 +106,33 @@ public class CardPayActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void onClick(View view) {
-        if (view == textBarcode){
+        if (view == textBarcode) {
             openBarcode();
-        }else{
+        } else if (view == textQR) {
             openQR();
+        } else if (view == textHow) {
+            openHowToUse();
+        } else if (view == textWhy) {
+            openWhyCartaPay();
+        } else{
+            finish();
+        }
+
+    }
+
+    private void openWhyCartaPay() {
+        if (expandWhy.isExpanded()){
+            expandWhy.collapse();
+        }else{
+            expandWhy.expand();
+        }
+    }
+
+    private void openHowToUse() {
+        if (expandHow.isExpanded()){
+            expandHow.collapse();
+        }else{
+            expandHow.expand();
         }
     }
 

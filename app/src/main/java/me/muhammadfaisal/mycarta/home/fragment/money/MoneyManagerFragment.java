@@ -58,7 +58,6 @@ public class MoneyManagerFragment extends Fragment implements View.OnClickListen
     ArrayList<MoneyManager> moneyManagers  = new ArrayList<>();
     RecyclerView.LayoutManager manager;
     ProgressBar progressBar;
-    public AppBarLayout appBar;
 
     public TextView textMoney, textTotalIncome, textTotalExpense;
 
@@ -163,7 +162,7 @@ public class MoneyManagerFragment extends Fragment implements View.OnClickListen
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 try {
-                    reference.child("money_manager").child(user.getUid()).child(moneyManagers.get(viewHolder.getAdapterPosition()).getKey()).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    reference.child("money_manager").child(user.getUid()).child(moneyManagers.get(1).getKey()).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (!task.isSuccessful()){

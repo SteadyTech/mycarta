@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -20,7 +21,11 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import me.muhammadfaisal.mycarta.R;
@@ -29,6 +34,7 @@ import me.muhammadfaisal.mycarta.home.fragment.account.bottom_sheet.ChangeCartaB
 import me.muhammadfaisal.mycarta.home.fragment.account.view.ChangePasswordActivity;
 import me.muhammadfaisal.mycarta.login.LoginActivity;
 import me.muhammadfaisal.mycarta.pin.PinBottomSheetFragment;
+import me.muhammadfaisal.mycarta.register.model.User;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -71,20 +77,26 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
         textChangePin = v.findViewById(R.id.textChangePin);
 
         auth = FirebaseAuth.getInstance();
+        reference = FirebaseDatabase.getInstance().getReference().child("users").child(auth.getCurrentUser().getUid());
 
         String email = auth.getCurrentUser().getEmail();
-        String name = auth.getCurrentUser().getDisplayName();
 
         textEmail.setText(email);
 
-        if(name.equals("")){
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                User users = dataSnapshot.getValue(User.class);
 
-            String uid = auth.getUid().substring(0, 16);
+                textName.setText(users.getName());
+            }
 
-            textName.setText("User"+uid);
-        }else{
-            textName.setText(name);
-        }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
 
         if (auth.getCurrentUser().getPhotoUrl() != null){
             String picture = auth.getCurrentUser().getPhotoUrl().toString();
@@ -100,6 +112,10 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
         textCartaBoard.setOnClickListener(this);
         textChangePin.setOnClickListener(this);
         textAbout.setOnClickListener(this);
+    }
+
+    private void getData(DataSnapshot dataSnapshot) {
+
     }
 
     @Override

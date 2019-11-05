@@ -16,15 +16,18 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:icon">
-        <activity android:name=".home.fragment.card.view.CardPayActivity"></activity>
-        <activity android:name=".home.fragment.article.DetailArticleActivity" />
-        <activity android:name=".home.fragment.account.view.ChangePinActivity" />
-        <activity android:name=".splashscreen.SplashScreenActivity">
+        <activity android:name=".login.insert_name.InsertNameActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".register.welcome.WelcomeNewUserActivity" />
+        <activity android:name=".home.fragment.card.view.CardPayActivity" />
+        <activity android:name=".home.fragment.account.view.ChangePinActivity" />
+        <activity android:name=".splashscreen.SplashScreenActivity">
+
         </activity>
         <activity android:name=".home.fragment.account.view.ChangePasswordActivity" />
         <activity

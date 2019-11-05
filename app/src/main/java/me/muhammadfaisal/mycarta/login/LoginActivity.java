@@ -9,10 +9,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.transition.Explode;
-import android.transition.Fade;
-import android.transition.Transition;
-import android.transition.TransitionInflater;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -22,7 +18,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.firebase.ui.auth.data.model.User;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -38,13 +33,20 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import me.muhammadfaisal.mycarta.R;
 import me.muhammadfaisal.mycarta.forgot_password.ForgotPasswordActivity;
 import me.muhammadfaisal.mycarta.home.HomeActivity;
+import me.muhammadfaisal.mycarta.login.insert_name.InsertNameActivity;
 import me.muhammadfaisal.mycarta.pin.PinBottomSheetFragment;
 import me.muhammadfaisal.mycarta.register.RegisterActivity;
+import me.muhammadfaisal.mycarta.register.model.User;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -56,6 +58,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public FirebaseUser user;
     SharedPreferences sharedPreferences;
     public GoogleSignInClient googleSignInClient;
+    DatabaseReference reference;
 
     public int RC_SIGN_IN = 1;
 
@@ -90,6 +93,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         btnLoginWithGoogle = findViewById(R.id.buttonSignInWithGoogle);
 
         auth = FirebaseAuth.getInstance();
+        reference = FirebaseDatabase.getInstance().getReference().child("users").child(auth.getCurrentUser().getUid());
 
         btnLogin.setOnClickListener(this);
         imageBack.setOnClickListener(this);
@@ -158,10 +162,33 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void intentLoginWithGoogle(SweetAlertDialog dialogProgress) {
+
         user = auth.getCurrentUser();
         dialogProgress.cancel();
         sharedPreferencesForLogin();
-        callingPinBottomSheet();
+
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                User users = dataSnapshot.getValue(User.class);
+
+                if (users.getName() == null ){
+                    functionInsertName();
+                }else{
+                    callingPinBottomSheet();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void functionInsertName() {
+        startActivity(new Intent(LoginActivity.this, InsertNameActivity.class), ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+        finish();
     }
 
     private void callingPinBottomSheet() {
@@ -189,6 +216,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private void methodLogin() {
         final String email = inputEmail.getText().toString().trim();
         final String password = inputPassword.getText().toString().trim();
+
         if (email.isEmpty()) {
             inputEmail.setError("Email can't be empty");
         } else if (password.isEmpty()) {

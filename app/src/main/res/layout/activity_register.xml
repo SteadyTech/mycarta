@@ -31,6 +31,16 @@
         app:met_floatingLabel="highlight"
         app:met_primaryColor="#4CAF50"
         android:layout_margin="6dp"
+        android:id="@+id/inputName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Name" />
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:inputType="textEmailAddress"
+        app:met_floatingLabel="highlight"
+        app:met_primaryColor="#4CAF50"
+        android:layout_margin="6dp"
         android:id="@+id/inputEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

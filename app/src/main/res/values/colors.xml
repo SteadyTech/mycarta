@@ -20,4 +20,5 @@
     <color name="colorExpense">#E57373</color>
     <color name="white_opacity_50">#80FFFFFF</color>
     <color name="buttonPay">#4CAF50</color>
+    <color name="skyBlue">#5399D3</color>
 </resources>

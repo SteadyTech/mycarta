@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +20,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -137,7 +141,7 @@ public class MoneyManagerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     break;
             }
 
-            setDataToCharts(moneyManager);
+            setDataToCharts();
 
             dataViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -155,8 +159,20 @@ public class MoneyManagerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 }
             });
         }else{
+
+            final Date c = Calendar.getInstance().getTime();
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            final String dateNow = sdf.format(c);
             DateViewHolder dateViewHolder = (DateViewHolder) holder;
-            dateViewHolder.textDate.setText((String) hashMap.get("header"));
+
+            String dataDate = (String) hashMap.get("header");
+
+            if(dataDate.equals(dateNow)){
+                dateViewHolder.textDate.setText("Today");
+            }else{
+                dateViewHolder.textDate.setText((String) hashMap.get("header"));
+            }
+
         }
 
 
@@ -167,7 +183,8 @@ public class MoneyManagerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         getTotalExpense();
     }
 
-    private void setDataToCharts(MoneyManager moneyManagerHashMap) {
+    private void setDataToCharts() {
+
         long totalExpense = 0;
 
         for (MoneyManager moneyManager : moneyManagers){

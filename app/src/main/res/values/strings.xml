@@ -49,4 +49,20 @@
     <string name="how_to_use_carta_board">
         <b>This is BETA Version !\n\nPlease wait until Released Version</b>
     </string>
+    <string name="how_to_use_carta_pay">
+        <b>
+        \u2022 Open MyCarta APP\n\n
+        \u2022 Move to tab Cards and choose the cards you want to make a payment\n\n
+        \u2022 Click Pay button below cards display in cards tab\n\n
+        \u2022 The Barcode or QR is your card number\n\n
+        \u2022 Show Pay Page into a cashier for a scan the Barcode or QRCode\n\n
+        \u2022 If card number correctly , transaction completely
+        </b>
+    </string>
+    <string name="why_carta_pay">
+        \u2022 CartaPay make a transaction cashless and cardless!
+        \u2022 Pay what you need just scan the barcode!
+        \u2022 Minimize data theft crime
+    </string>
+
 </resources>
