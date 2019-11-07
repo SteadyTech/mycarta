@@ -42,6 +42,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
+import lecho.lib.hellocharts.view.LineChartView;
 import lecho.lib.hellocharts.view.PieChartView;
 import me.muhammadfaisal.mycarta.R;
 import me.muhammadfaisal.mycarta.home.fragment.money.adapter.MoneyManagerAdapter;
@@ -62,6 +63,8 @@ public class MoneyManagerFragment extends Fragment implements View.OnClickListen
     public TextView textMoney, textTotalIncome, textTotalExpense;
 
     public PieChartView pieChart;
+
+    public LineChartView lineChartView;
 
     Button buttonIncome, buttonExpense;
 
@@ -125,7 +128,6 @@ public class MoneyManagerFragment extends Fragment implements View.OnClickListen
 
         String stringDate = null;
         map = new ArrayList<>();
-        boolean isDate = false;
 
         for (DataSnapshot snapshot : dataSnapshot.getChildren()){
 
@@ -151,34 +153,7 @@ public class MoneyManagerFragment extends Fragment implements View.OnClickListen
             hashMap.put("detail", moneyManager);
             map.add(hashMap);
         }
-
-        ItemTouchHelper itemTouchHelper =new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.RIGHT) {
-            @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                Toast.makeText(getActivity(), "Moved", Toast.LENGTH_SHORT).show();
-                return false;
-            }
-
-            @Override
-            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                try {
-                    reference.child("money_manager").child(user.getUid()).child(moneyManagers.get(1).getKey()).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (!task.isSuccessful()){
-                                Toast.makeText(getActivity(), task.getException().toString(), Toast.LENGTH_SHORT).show();
-                            }else{
-                                Toast.makeText(getActivity(), "Success to Delete!", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
-                }catch (Exception e){
-                    Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_LONG).show();
-                }
-            }
-        });
-        itemTouchHelper.attachToRecyclerView(recyclerView);
-
+        
         recyclerView.setVisibility(View.VISIBLE);
         progressBar.setVisibility(View.GONE);
     }
@@ -191,6 +166,7 @@ public class MoneyManagerFragment extends Fragment implements View.OnClickListen
         textTotalExpense = v.findViewById(R.id.textTotalSpending);
         card = v.findViewById(R.id.cardView);
         pieChart = v.findViewById(R.id.chartPie);
+        lineChartView = v.findViewById(R.id.chartLine);
 
         buttonIncome.setOnClickListener(this);
         buttonExpense.setOnClickListener(this);

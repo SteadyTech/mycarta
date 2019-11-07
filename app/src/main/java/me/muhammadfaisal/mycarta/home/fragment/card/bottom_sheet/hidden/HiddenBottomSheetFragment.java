@@ -191,7 +191,7 @@ public class HiddenBottomSheetFragment extends BottomSheetDialogFragment{
             @Override
             public void onClick(View view) {
                 ClipboardManager clipboardManager = (ClipboardManager) getActivity().getSystemService(getActivity().CLIPBOARD_SERVICE);
-                ClipData clip = ClipData.newPlainText("Copy", "Cardholder Name\n" + textCardName.getText().toString() + "\n\nNumber Card\n" + textCardNumber.getText().toString() + "\n\nCVV\n" + textCardCVV.getText().toString() + "\n\nExpiry\n" + textExpiry.getText().toString() + "\n\nPIN\n" + inputPin.getText().toString() + "\n\nDescription\n" + inputDescription.getText().toString() +"\n\nDownload MyCarta! Make your life smarter , easier ,banner_happier!");
+                ClipData clip = ClipData.newPlainText("Copy", "Cardholder Name\n" + textCardName.getText().toString() + "\n\nNumber Card\n" + textCardNumber.getText().toString() + "\n\nCVV\n" + textCardCVV.getText().toString() + "\n\nExpiry\n" + textExpiry.getText().toString() + "\n\nPIN\n" + inputPin.getText().toString() + "\n\nDescription\n" + inputDescription.getText().toString() +"\n\nDownload MyCarta! Make your life easier and happier!");
                 clipboardManager.setPrimaryClip(clip);
                 Toast.makeText(getActivity(), "Copied To Clipboard!", Toast.LENGTH_SHORT).show();
             }

@@ -110,6 +110,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:foreground="?attr/selectableItemBackground"
                     android:drawableStart="@drawable/ic_edit_gray"
                     android:id="@+id/textChangePin"
                     android:gravity="center"
@@ -174,6 +175,7 @@
                     android:background="@color/grayPrimary"/>
 
                 <TextView
+                    android:foreground="?attr/selectableItemBackground"
                     android:id="@+id/textAbout"
                     android:drawableStart="@drawable/ic_info_gray"
                     android:gravity="center"

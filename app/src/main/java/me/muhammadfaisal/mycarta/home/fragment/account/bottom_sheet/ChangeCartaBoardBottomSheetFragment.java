@@ -24,6 +24,7 @@ import me.muhammadfaisal.mycarta.R;
 public class ChangeCartaBoardBottomSheetFragment extends BottomSheetDialogFragment implements View.OnClickListener {
 
     CarouselView carouselView;
+    ImageView icCLose;
 
     Button buttonSwitch;
 
@@ -51,6 +52,7 @@ public class ChangeCartaBoardBottomSheetFragment extends BottomSheetDialogFragme
         buttonSwitch = v.findViewById(R.id.buttonSwitchKeyboard);
         textHowToUse = v.findViewById(R.id.textHowToUse);
         expandableLinearLayout = v.findViewById(R.id.expandableLayout);
+        icCLose = v.findViewById(R.id.icClose);
 
         carouselView.setPageCount(images.length);
         carouselView.setIndicatorVisibility(View.GONE);
@@ -66,6 +68,12 @@ public class ChangeCartaBoardBottomSheetFragment extends BottomSheetDialogFragme
         buttonSwitch.setOnClickListener(this);
         textHowToUse.setOnClickListener(this);
 
+        icCLose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dismiss();
+            }
+        });
     }
 
     @Override

@@ -16,9 +16,6 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:icon">
-        <activity android:name=".login.insert_name.InsertNameActivity">
-
-        </activity>
         <activity android:name=".register.welcome.WelcomeNewUserActivity" />
         <activity android:name=".home.fragment.card.view.CardPayActivity" />
         <activity android:name=".home.fragment.account.view.ChangePinActivity" />

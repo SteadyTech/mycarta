@@ -24,10 +24,9 @@
     <string name="cvv">CVV</string>
     <string name="typeCard">Card Type (<i>Visa, Master Card</i>)</string>
     <string name="pin">Pin</string>
-    <string name="about_app">About App</string>
     <string name="security_data">Security Data</string>
-    <string name="secure_account">Make your account secure by changing password every 1 month</string>
-    <string name="secure_pin">Make your account secure by changing pin every 1 week</string>
+    <string name="secure_account">Make your account secure by changing password every month</string>
+    <string name="secure_pin">Make your account secure by changing pin every week</string>
 
     <string name="terms_of_service">
         <b>Terms and conditions</b>\n\nThese terms and conditions ("Terms", "Agreement") are an agreement between Mobile Application Developer ("Mobile Application Developer", "us", "we" or "our") and you ("User", "you" or "your"). This Agreement sets forth the general terms and conditions of your use of the My Carta mobile application and any of its products or services (collectively, "Mobile Application" or "Services").\n\n
@@ -64,5 +63,7 @@
         \u2022 Pay what you need just scan the barcode!
         \u2022 Minimize data theft crime
     </string>
+    <string name="about_app">About App</string>
+    <string name="about_mycarta">MyCarta is application to make your life <b>smarter, easier, happier !</b> Why? Because MyCarta can keep your card data without risk.\n\nData in database will be encrypted and no ones can know your data!.\n\nAnd MyCarta can record your spending or income and with the article how to saving money and budget planning that can make your life <b>smarter, easier, happier!.</b></string>
 
 </resources>

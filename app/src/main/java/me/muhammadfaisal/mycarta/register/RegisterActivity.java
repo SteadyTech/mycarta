@@ -120,14 +120,14 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     } else {
                         dialog.cancel();
                         user = auth.getCurrentUser();
-                        createUser(user.getUid() , name , email, password);
+                        createUser(user.getUid() , name , email);
                     }
                 }
             });
         }
     }
 
-    private void createUser(String uid,String name, String email, String password) {
+    private void createUser(String uid,String name, String email) {
         User users = new User(uid, email, name);
 
         reference.child("users").child(uid).setValue(users);

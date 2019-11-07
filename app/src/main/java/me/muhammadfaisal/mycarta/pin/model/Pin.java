@@ -19,11 +19,4 @@ public class Pin {
         this.pin = pin;
     }
 
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
-    }
 }

@@ -43,7 +43,6 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 import me.muhammadfaisal.mycarta.R;
 import me.muhammadfaisal.mycarta.forgot_password.ForgotPasswordActivity;
 import me.muhammadfaisal.mycarta.home.HomeActivity;
-import me.muhammadfaisal.mycarta.login.insert_name.InsertNameActivity;
 import me.muhammadfaisal.mycarta.pin.PinBottomSheetFragment;
 import me.muhammadfaisal.mycarta.register.RegisterActivity;
 import me.muhammadfaisal.mycarta.register.model.User;
@@ -93,6 +92,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         btnLoginWithGoogle = findViewById(R.id.buttonSignInWithGoogle);
 
         auth = FirebaseAuth.getInstance();
+        reference = FirebaseDatabase.getInstance().getReference();
 
         btnLogin.setOnClickListener(this);
         imageBack.setOnClickListener(this);
@@ -164,31 +164,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         user = auth.getCurrentUser();
         dialogProgress.cancel();
         sharedPreferencesForLogin();
-
-        reference = FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid());
-
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                if (dataSnapshot.getValue() == null) {
-                    functionInsertName();
-                } else {
-                    callingPinBottomSheet();
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
+        createUser(user.getUid() , user.getEmail() , user.getDisplayName());
+        callingPinBottomSheet();
     }
 
-    private void functionInsertName() {
-        startActivity(new Intent(LoginActivity.this, InsertNameActivity.class), ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
-        finish();
+    private void createUser(String uid, String email, String displayName) {
+        User users = new User(uid, email, displayName);
+
+        reference.child("users").child(uid).setValue(users);
     }
 
     private void callingPinBottomSheet() {

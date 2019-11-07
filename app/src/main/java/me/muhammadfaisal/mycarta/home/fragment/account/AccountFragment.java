@@ -42,7 +42,7 @@ import me.muhammadfaisal.mycarta.register.model.User;
 public class AccountFragment extends Fragment implements View.OnClickListener {
 
     CircleImageView imageProfile;
-    TextView textName,textEmail, textCartaBoard, textAbout, textChangePin;
+    TextView textName, textEmail, textCartaBoard, textAbout, textChangePin;
 
     Button buttonLogout, buttonChangePassword;
 
@@ -88,7 +88,12 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User users = dataSnapshot.getValue(User.class);
 
-                textName.setText(users.getName());
+                if (dataSnapshot.getValue() != null) {
+                    textName.setText(users.getName());
+                } else {
+                    textName.setText(auth.getCurrentUser().getDisplayName());
+                }
+
             }
 
             @Override
@@ -98,7 +103,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
         });
 
 
-        if (auth.getCurrentUser().getPhotoUrl() != null){
+        if (auth.getCurrentUser().getPhotoUrl() != null) {
             String picture = auth.getCurrentUser().getPhotoUrl().toString();
 
             Glide.with(getActivity())
@@ -114,25 +119,21 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
         textAbout.setOnClickListener(this);
     }
 
-    private void getData(DataSnapshot dataSnapshot) {
-
-    }
-
     @Override
     public void onClick(View view) {
-        if (view == buttonLogout){
+        if (view == buttonLogout) {
             methodLogout();
         }
-        if (view == buttonChangePassword){
+        if (view == buttonChangePassword) {
             startActivity(new Intent(getActivity(), ChangePasswordActivity.class));
         }
-        if (view == textCartaBoard){
+        if (view == textCartaBoard) {
             methodChangeCartaBoard();
         }
-        if (view == textChangePin){
+        if (view == textChangePin) {
             methodChangePIN();
         }
-        if (view == textAbout){
+        if (view == textAbout) {
             methodAboutApp();
         }
     }

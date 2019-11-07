@@ -21,4 +21,5 @@
     <color name="white_opacity_50">#80FFFFFF</color>
     <color name="buttonPay">#4CAF50</color>
     <color name="skyBlue">#5399D3</color>
+    <color name="darkGray">#707883</color>
 </resources>

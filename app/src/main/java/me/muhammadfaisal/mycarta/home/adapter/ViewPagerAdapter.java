@@ -1,16 +1,9 @@
 package me.muhammadfaisal.mycarta.home.adapter;
 
-import android.content.Context;
-import android.util.AttributeSet;
-import android.view.MotionEvent;
-
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.fragment.app.FragmentStatePagerAdapter;
-import androidx.viewpager.widget.ViewPager;
 
 import java.util.ArrayList;
 
@@ -31,6 +24,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
     public int getCount() {
         return viewPagerAdapters.size();
     }
+
     public void addFragment(Fragment fragment){
         viewPagerAdapters.add(fragment);
     }

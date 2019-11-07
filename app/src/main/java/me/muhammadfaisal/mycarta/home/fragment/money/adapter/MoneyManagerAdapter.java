@@ -4,10 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
-import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +15,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -27,9 +23,15 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 
+import lecho.lib.hellocharts.gesture.ContainerScrollType;
+import lecho.lib.hellocharts.listener.LineChartOnValueSelectListener;
 import lecho.lib.hellocharts.listener.PieChartOnValueSelectListener;
+import lecho.lib.hellocharts.model.Axis;
+import lecho.lib.hellocharts.model.AxisValue;
 import lecho.lib.hellocharts.model.Line;
+import lecho.lib.hellocharts.model.LineChartData;
 import lecho.lib.hellocharts.model.PieChartData;
 import lecho.lib.hellocharts.model.PointValue;
 import lecho.lib.hellocharts.model.SliceValue;
@@ -93,55 +95,12 @@ public class MoneyManagerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
             dataViewHolder.textDate.setText(moneyManager.getDate());
 
-            switch (moneyManager.getCategory()) {
-                case "Food & Drink":
-                    dataViewHolder.imageCategory.setImageDrawable(resources.getDrawable(R.drawable.ic_food_drink));
-                    break;
-                case "Bills":
-                    dataViewHolder.imageCategory.setImageDrawable(resources.getDrawable(R.drawable.ic_bill));
-                    break;
-                case "Shopping":
-                    dataViewHolder.imageCategory.setImageDrawable(resources.getDrawable(R.drawable.ic_shopping));
-                    break;
-                case "Transportation":
-                    dataViewHolder.imageCategory.setImageDrawable(resources.getDrawable(R.drawable.ic_transportation));
-                    break;
-                case "Electronics":
-                    dataViewHolder.imageCategory.setImageDrawable(resources.getDrawable(R.drawable.ic_electronics));
-                    break;
-                case "Health":
-                    dataViewHolder.imageCategory.setImageDrawable(resources.getDrawable(R.drawable.ic_health));
-                    break;
-                case "Education":
-                    dataViewHolder.imageCategory.setImageDrawable(resources.getDrawable(R.drawable.ic_education));
-                    break;
-                case "Office":
-                    dataViewHolder.imageCategory.setImageDrawable(resources.getDrawable(R.drawable.ic_office));
-                    break;
-                case "Salary":
-                    dataViewHolder.imageCategory.setImageDrawable(resources.getDrawable(R.drawable.ic_salary));
-                    break;
-                case "Rewards":
-                    dataViewHolder.imageCategory.setImageDrawable(resources.getDrawable(R.drawable.ic_rewards));
-                    break;
-                case "Cashback":
-                    dataViewHolder.imageCategory.setImageDrawable(resources.getDrawable(R.drawable.ic_cashback));
-                    break;
-                case "Investment":
-                    dataViewHolder.imageCategory.setImageDrawable(resources.getDrawable(R.drawable.ic_invest));
-                    break;
-                case "Refunds":
-                    dataViewHolder.imageCategory.setImageDrawable(resources.getDrawable(R.drawable.ic_refund));
-                    break;
-                case "Lottery":
-                    dataViewHolder.imageCategory.setImageDrawable(resources.getDrawable(R.drawable.ic_lottery));
-                    break;
-                default:
-                    dataViewHolder.imageCategory.setImageDrawable(resources.getDrawable(R.drawable.ic_more));
-                    break;
-            }
+            //Kurang ic refunds - ic cashback - ic_electronics
+            setImageCategory(moneyManager, dataViewHolder);
 
-            setDataToCharts();
+            setDataToPieChart();
+
+            setDataToLineChart();
 
             dataViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -183,7 +142,122 @@ public class MoneyManagerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         getTotalExpense();
     }
 
-    private void setDataToCharts() {
+    private void setImageCategory(MoneyManager moneyManager, DataViewHolder dataViewHolder) {
+        Resources resources = context.getResources();
+
+        switch (moneyManager.getCategory()) {
+            case "Food & Drink":
+                dataViewHolder.imageCategory.setImageDrawable(resources.getDrawable(R.drawable.ic_food_drink));
+                break;
+            case "Bills":
+                dataViewHolder.imageCategory.setImageDrawable(resources.getDrawable(R.drawable.ic_bill));
+                break;
+            case "Shopping":
+                dataViewHolder.imageCategory.setImageDrawable(resources.getDrawable(R.drawable.ic_shopping));
+                break;
+            case "Transportation":
+                dataViewHolder.imageCategory.setImageDrawable(resources.getDrawable(R.drawable.ic_transportation));
+                break;
+            case "Electronics":
+                dataViewHolder.imageCategory.setImageDrawable(resources.getDrawable(R.drawable.ic_electronics));
+                break;
+            case "Health":
+                dataViewHolder.imageCategory.setImageDrawable(resources.getDrawable(R.drawable.ic_health));
+                break;
+            case "Education":
+                dataViewHolder.imageCategory.setImageDrawable(resources.getDrawable(R.drawable.ic_education));
+                break;
+            case "Office":
+                dataViewHolder.imageCategory.setImageDrawable(resources.getDrawable(R.drawable.ic_office));
+                break;
+            case "Salary":
+                dataViewHolder.imageCategory.setImageDrawable(resources.getDrawable(R.drawable.ic_salary));
+                break;
+            case "Rewards":
+                dataViewHolder.imageCategory.setImageDrawable(resources.getDrawable(R.drawable.ic_rewards));
+                break;
+            case "Cashback":
+                dataViewHolder.imageCategory.setImageDrawable(resources.getDrawable(R.drawable.ic_cashback));
+                break;
+            case "Investment":
+                dataViewHolder.imageCategory.setImageDrawable(resources.getDrawable(R.drawable.ic_invest));
+                break;
+            case "Refunds":
+                dataViewHolder.imageCategory.setImageDrawable(resources.getDrawable(R.drawable.ic_refund));
+                break;
+            case "Lottery":
+                dataViewHolder.imageCategory.setImageDrawable(resources.getDrawable(R.drawable.ic_lottery));
+                break;
+            default:
+                dataViewHolder.imageCategory.setImageDrawable(resources.getDrawable(R.drawable.ic_more));
+                break;
+        }
+    }
+
+    private void setDataToLineChart() {
+        long yourBalance = 0;
+        PointValue pointValue;
+
+        List<PointValue> values = new ArrayList<>();
+
+
+        for (MoneyManager moneys : moneyManagers){
+            yourBalance += moneys.getIncome() - moneys.getExpense();
+
+            for (float i = 0; i <= 60.0 ; i+=15.0f){
+                pointValue = new PointValue(i, (float) yourBalance);
+                pointValue.setLabel("Your Balance");
+                values.add(pointValue);
+            }
+
+        }
+
+        Line line = new Line(values).setColor(Color.WHITE).setCubic(true);
+        List<Line> lines = new ArrayList<>();
+        lines.add(line);
+
+        LineChartData data = new LineChartData();
+        data.setLines(lines);
+
+
+        List<AxisValue> axisValuesForX = new ArrayList<>();
+        List<AxisValue> axisValuesForY = new ArrayList<>();
+        AxisValue tempAxisValue;
+        for (float i = 0; i <= 360.0f; i += 30.0f){
+            tempAxisValue = new AxisValue(i);
+            tempAxisValue.setLabel(i+"\u00b0");
+            axisValuesForX.add(tempAxisValue);
+        }
+
+        for (float i = 0.0f; i <= 1.00f; i += 0.25f){
+            tempAxisValue = new AxisValue(i);
+            tempAxisValue.setLabel(""+i);
+            axisValuesForY.add(tempAxisValue);
+        }
+
+        Axis xAxis = new Axis(axisValuesForX);
+        Axis yAxis = new Axis(axisValuesForY);
+        data.setAxisXBottom(xAxis);
+        data.setAxisYLeft(yAxis);
+
+        moneyManagerFragment.lineChartView.setLineChartData(data);
+        moneyManagerFragment.lineChartView.setZoomEnabled(true);
+        moneyManagerFragment.lineChartView.setContainerScrollEnabled(true, ContainerScrollType.HORIZONTAL);
+        moneyManagerFragment.lineChartView.setOnValueTouchListener(new LineChartOnValueSelectListener() {
+            @Override
+            public void onValueSelected(int lineIndex, int pointIndex, PointValue value) {
+                Toast.makeText(context, String.valueOf(value.getY()), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onValueDeselected() {
+
+            }
+        });
+
+    }
+
+    private void setDataToPieChart() {
 
         long totalExpense = 0;
 

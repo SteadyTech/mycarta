@@ -1,6 +1,6 @@
 package me.muhammadfaisal.mycarta.home.fragment.money.model;
 
-public class MoneyManager implements MoneyManagerViewType {
+public class MoneyManager{
     String name, category;
     String date, description, key;
     Long income, expense, totalMoney;
@@ -79,10 +79,5 @@ public class MoneyManager implements MoneyManagerViewType {
 
     public void setTotalMoney(Long totalMoney) {
         this.totalMoney = totalMoney;
-    }
-
-    @Override
-    public int getType() {
-        return TYPE_DATA;
     }
 }

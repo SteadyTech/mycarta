@@ -173,7 +173,6 @@ public class DetailMoneyManagerBottomSheet extends BottomSheetDialogFragment imp
 
     private void shareImage() throws IOException {
         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-
             Toast.makeText(getActivity(), " Allow the Storage Permission", Toast.LENGTH_LONG).show();
             ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 401);
         } else {
@@ -193,9 +192,9 @@ public class DetailMoneyManagerBottomSheet extends BottomSheetDialogFragment imp
             File imageDir = new File(root,location);
 
             if (!income.equals(0L)){
-                shareMessages = "Hey, i get my income from " + textTitle.getText().toString() + "\n\n" + "MyCarta Make your life smarter,easier, banner_happier!\n\n Get it on Google Play : \n https://play.google.com/store/apps/details?id="+getActivity().getPackageName();
+                shareMessages = "Hey, i get my income from " + textTitle.getText().toString() + "\n" + textDescription.getText().toString() + "\n\n" + "MyCarta Make your life easier and happier!\n\n Get it on Google Play : \n https://play.google.com/store/apps/details?id="+getActivity().getPackageName();
             }else {
-                shareMessages = "Hey, i was doing " + textTitle.getText().toString() + "\n\n" + "MyCarta Make your life smarter, easier, banner_happier!\n\\n Get it on Google Play : \n https://play.google.com/store/apps/details?id="+getActivity().getPackageName();
+                shareMessages = "Hey, i was doing " + textTitle.getText().toString() + "\n" + textDescription.getText().toString() + "\n\n" + "MyCarta Make your life easier and happier!\n\n Get it on Google Play : \n https://play.google.com/store/apps/details?id="+getActivity().getPackageName();
             }
 
             try {
