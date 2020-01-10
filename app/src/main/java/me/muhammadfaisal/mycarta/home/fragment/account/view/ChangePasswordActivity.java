@@ -37,8 +37,6 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_password);
 
-        getSupportActionBar().hide();
-
         oldPassword = findViewById(R.id.inputOldPassword);
         newPassword = findViewById(R.id.inputNewPassword);
         confirmNewPassword = findViewById(R.id.inputConfirmNewPassword);

@@ -3,6 +3,7 @@ package me.muhammadfaisal.mycarta.home.fragment.card.bottom_sheet.edit;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -14,7 +15,9 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -37,7 +40,7 @@ public class EditCardBottomSheetFragment extends BottomSheetDialogFragment {
 
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference getReference;
-    public MaterialEditText inputName, inputNumber, inputCVV, inputPin, inputDesc;
+    public MaterialEditText inputName, inputNumber, inputCVV, inputDesc;
     private Spinner inputType, inputMonthExp, inputYearExp;
     private Button save;
     private ImageView icClose;
@@ -47,8 +50,7 @@ public class EditCardBottomSheetFragment extends BottomSheetDialogFragment {
     public FirebaseAuth firebaseAuth;
     public String userID;
     public FirebaseUser user;
-    public String nameCard, descCard, cardType, stringNumberCard, stringPinCard, stringCvvCard, monthExpCard, yearExpCard;
-
+    public String nameCard, descCard, cardType, stringNumberCard, stringCvvCard, monthExpCard, yearExpCard;
 
     public EditCardBottomSheetFragment() {
         // Required empty public constructor
@@ -77,7 +79,6 @@ public class EditCardBottomSheetFragment extends BottomSheetDialogFragment {
         inputName = v.findViewById(R.id.inputCardHolderName);
         inputNumber = v.findViewById(R.id.inputCardNumber);
         inputCVV = v.findViewById(R.id.inputCvv);
-        inputPin = v.findViewById(R.id.inputPin);
         inputMonthExp = v.findViewById(R.id.spinnerMonthExp);
         inputYearExp = v.findViewById(R.id.spinnerYearExp);
         inputDesc = v.findViewById(R.id.inputDescription);
@@ -105,7 +106,6 @@ public class EditCardBottomSheetFragment extends BottomSheetDialogFragment {
 
                     Card card = new Card();
 
-                    stringPinCard = Objects.requireNonNull(inputPin.getText()).toString();
                     stringCvvCard = Objects.requireNonNull(inputCVV.getText()).toString();
                     monthExpCard = Objects.requireNonNull(inputMonthExp.getSelectedItem().toString());
                     cardType = inputType.getSelectedItem().toString();
@@ -125,12 +125,11 @@ public class EditCardBottomSheetFragment extends BottomSheetDialogFragment {
                     final String expiry = monthExpCard + "/" + finalYear;
 
                     card.setName(helper.encryptString(inputName.getText().toString()));
-                    card.setCvv(Integer.parseInt(stringCvvCard));
-                    card.setDescripton(descCard);
-                    card.setExp(expiry);
-                    card.setNumberCard(Long.parseLong(stringNumberCard));
-                    card.setPin(Integer.parseInt(stringPinCard));
-                    card.setType(cardType);
+                    card.setCvv(helper.encryptString(stringCvvCard));
+                    card.setDescripton(helper.encryptString(descCard));
+                    card.setExp(helper.encryptString(expiry));
+                    card.setNumberCard(helper.encryptString(stringNumberCard));
+                    card.setType(helper.encryptString(cardType));
 
                     final SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.SUCCESS_TYPE);
                     sweetAlertDialog.setTitle("Success");
@@ -155,23 +154,32 @@ public class EditCardBottomSheetFragment extends BottomSheetDialogFragment {
         sweetAlertDialog.setTitle("Success");
         sweetAlertDialog.setContentText("Your card has been edited!");
 
+        final SweetAlertDialog loading = new SweetAlertDialog(getActivity(), SweetAlertDialog.PROGRESS_TYPE);
+        loading.setTitle("Loading");
+        loading.show();
+
         userID = user.getUid();
         getReference.child("card").child(userID).child(getArguments().getString("keyPrimary")).setValue(card)
-                .addOnSuccessListener(new OnSuccessListener() {
+                .addOnCompleteListener(getActivity(), new OnCompleteListener<Void>() {
                     @Override
-                    public void onSuccess(Object o) {
-                        sweetAlertDialog.show();
-                        dismiss();
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()){
+                            loading.cancel();
+                            sweetAlertDialog.show();
+                            dismiss();
+                        }else{
+                            loading.cancel();
+                            Toast.makeText(getActivity(), "Something Went Wrong", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
     }
 
 
     private void setTextForEditText() {
-        inputName.setText(helper.decryptString(getArguments().getString("nameOnCard")));
-        inputCVV.setText(String.valueOf(getArguments().getInt("cvv")));
-        inputNumber.setText(String.valueOf(getArguments().getLong("numberOnCard")));
-        inputPin.setText(String.valueOf(getArguments().getInt("pin")));
+        inputName.setText(getArguments().getString("nameOnCard"));
+        inputCVV.setText(getArguments().getString("cvv"));
+        inputNumber.setText(getArguments().getString("numberOnCard"));
         inputDesc.setText(getArguments().getString("desc"));
 
         String type = getArguments().getString("typeOnCard");

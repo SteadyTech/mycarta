@@ -1,22 +1,20 @@
 package me.muhammadfaisal.mycarta.pin.model;
 
 public class Pin {
-    Long pin;
-    String key;
+    String key, pin;
 
     public Pin() {
     }
 
-    public Pin(Long pin) {
+    public Pin(String pin) {
         this.pin = pin;
     }
 
-    public Long getPin() {
+    public String getPin() {
         return pin;
     }
 
-    public void setPin(Long pin) {
+    public void setPin(String pin) {
         this.pin = pin;
     }
-
 }

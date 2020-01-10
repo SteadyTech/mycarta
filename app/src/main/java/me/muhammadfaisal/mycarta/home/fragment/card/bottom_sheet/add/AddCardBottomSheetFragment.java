@@ -3,6 +3,7 @@ package me.muhammadfaisal.mycarta.home.fragment.card.bottom_sheet.add;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -14,7 +15,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -36,7 +39,7 @@ public class AddCardBottomSheetFragment extends BottomSheetDialogFragment {
 
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference getReference;
-    private EditText inputName, inputNumber, inputCVV, inputPin, inputDesc;
+    private EditText inputName, inputNumber, inputCVV, inputDesc;
     Spinner inputType, inputMonthExp, inputYearExp;
     Button save;
     ImageView icClose;
@@ -44,7 +47,7 @@ public class AddCardBottomSheetFragment extends BottomSheetDialogFragment {
     public FirebaseAuth firebaseAuth;
     public String userID;
     public FirebaseUser user;
-    public String nameCard, descCard, cardType, stringNumberCard, stringPinCard, stringCvvCard, monthExpCard, yearExpCard;
+    public String nameCard, descriptionCard, cardType, stringNumberCard, stringCvvCard, monthExpCard, yearExpCard;
 
     public AddCardBottomSheetFragment() {
         // Required empty public constructor
@@ -62,7 +65,6 @@ public class AddCardBottomSheetFragment extends BottomSheetDialogFragment {
         inputName = v.findViewById(R.id.inputCardHolderName);
         inputNumber = v.findViewById(R.id.inputCardNumber);
         inputCVV = v.findViewById(R.id.inputCvv);
-        inputPin = v.findViewById(R.id.inputPin);
         inputMonthExp = v.findViewById(R.id.spinnerMonthExp);
         inputYearExp = v.findViewById(R.id.spinnerYearExp);
         inputDesc = v.findViewById(R.id.inputDescription);
@@ -94,55 +96,65 @@ public class AddCardBottomSheetFragment extends BottomSheetDialogFragment {
             public void onClick(View view) {
                 if (view == save) {
 
-                    stringPinCard = Objects.requireNonNull(inputPin.getText()).toString();
                     stringCvvCard = Objects.requireNonNull(inputCVV.getText()).toString();
                     monthExpCard = Objects.requireNonNull(inputMonthExp.getSelectedItem().toString());
                     cardType = inputType.getSelectedItem().toString();
                     yearExpCard = Objects.requireNonNull(inputYearExp.getSelectedItem().toString());
                     nameCard = Objects.requireNonNull(inputName.getText()).toString();
                     stringNumberCard = Objects.requireNonNull(inputNumber.getText()).toString();
-
-                    String encryptedName = helper.encryptString(nameCard);
+                    descriptionCard = Objects.requireNonNull(inputDesc.getText().toString());
 
                     String finalYear = yearExpCard.substring(Math.max(yearExpCard.length() - 2, 0));
+                    String expiry = monthExpCard + "/" + finalYear;
 
-                    final String expiry = monthExpCard + "/" + finalYear;
+                    final String encryptedName = helper.encryptString(nameCard);
+                    final String encryptedNumberCard = helper.encryptString(stringNumberCard);
+                    final String encryptedExpiry = helper.encryptString(expiry);
+                    final String encryptedCVV = helper.encryptString(stringCvvCard);
+                    final String encryptedCardType = helper.encryptString(cardType);
+                    final String encryptedDescription = helper.encryptString(descriptionCard);
 
-                    final SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.SUCCESS_TYPE);
-                    sweetAlertDialog.setTitle("Success");
-                    sweetAlertDialog.setContentText("Your card has been saved!");
+                    final SweetAlertDialog dialogProgress = new SweetAlertDialog(getActivity(), SweetAlertDialog.PROGRESS_TYPE);
+                    dialogProgress.setContentText("Loading");
+                    dialogProgress.setCancelable(false);
+                    dialogProgress.show();
 
                     if (inputNumber.getText().toString().isEmpty() || inputCVV.getText().toString().isEmpty() || inputName.getText().toString().isEmpty()) {
-                        SweetAlertDialog dialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE);
-                        dialog.setContentText("Please fill all field");
-                        dialog.setTitle("Error");
-                        dialog.show();
+                        dialogProgress.changeAlertType(SweetAlertDialog.ERROR_TYPE);
+                        dialogProgress.setContentText("Uh Oh, You haven't fill required fields");
                     } else {
-                        final Long numberCard = Long.parseLong(stringNumberCard);
-                        final int pinCard = Integer.parseInt(stringPinCard);
-                        final int cvvCard = Integer.parseInt(stringCvvCard);
-                        descCard = Objects.requireNonNull(inputDesc.getText()).toString();
-
-                        if(descCard.isEmpty()){
+                        if(descriptionCard.isEmpty()){
                             userID = user.getUid();
                             getReference.child("card").child(userID).push()
-                                    .setValue(new Card(encryptedName, "No Description", cardType, numberCard, pinCard, cvvCard, expiry))
-                                    .addOnSuccessListener(new OnSuccessListener() {
+                                    .setValue(new Card(encryptedName, helper.encryptString("No Description"), encryptedCardType, encryptedExpiry, encryptedNumberCard, encryptedCVV))
+                                    .addOnCompleteListener(getActivity(), new OnCompleteListener<Void>() {
                                         @Override
-                                        public void onSuccess(Object o) {
-                                            sweetAlertDialog.show();
-                                            dismiss();
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (!task.isSuccessful()){
+                                                dialogProgress.changeAlertType(SweetAlertDialog.ERROR_TYPE);
+                                                dialogProgress.setContentText("Uh Oh... Error " + task.getException());
+                                            }else{
+                                                dialogProgress.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
+                                                dialogProgress.setContentText("Your card has been saved!");
+                                                dismiss();
+                                            }
                                         }
                                     });
                         }else{
                             userID = user.getUid();
                             getReference.child("card").child(userID).push()
-                                    .setValue(new Card(encryptedName, descCard, cardType, numberCard, pinCard, cvvCard, expiry))
-                                    .addOnSuccessListener(new OnSuccessListener() {
+                                    .setValue(new Card(encryptedName, encryptedDescription, encryptedCardType, encryptedExpiry, encryptedNumberCard, encryptedCVV))
+                                    .addOnCompleteListener(getActivity(), new OnCompleteListener<Void>() {
                                         @Override
-                                        public void onSuccess(Object o) {
-                                            sweetAlertDialog.show();
-                                            dismiss();
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (!task.isSuccessful()){
+                                                dialogProgress.changeAlertType(SweetAlertDialog.ERROR_TYPE);
+                                                dialogProgress.setContentText("Uh Oh... Error " + task.getException());
+                                            }else{
+                                                dialogProgress.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
+                                                dialogProgress.setContentText("Your card has been saved!");
+                                                dismiss();
+                                            }
                                         }
                                     });
                         }

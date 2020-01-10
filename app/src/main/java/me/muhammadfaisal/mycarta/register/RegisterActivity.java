@@ -47,8 +47,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        getSupportActionBar().hide();
-
         initWidget();
 
         setupTransitionAnimation();
@@ -107,7 +105,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         } else {
             final SweetAlertDialog dialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
             dialog.getProgressHelper().setBarColor(Color.parseColor("#445EE9"));
-            dialog.setTitle("Loading");
+            dialog.setContentText("Loading");
             dialog.setCancelable(false);
             dialog.show();
 

@@ -11,6 +11,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -24,10 +25,13 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -112,6 +116,15 @@ public class AddIncomeOrExpenseBottomSheet extends BottomSheetDialogFragment {
         inputName = v.findViewById(R.id.inputName);
         inputMoney = v.findViewById(R.id.inputMoneys);
         inputDesription = v.findViewById(R.id.inputDescription);
+
+        ImageView icClose = v.findViewById(R.id.icClose);
+
+        icClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dismiss();
+            }
+        });
     }
 
     private void initFirebase() {
@@ -150,29 +163,25 @@ public class AddIncomeOrExpenseBottomSheet extends BottomSheetDialogFragment {
         Long totalIncome = Long.parseLong(stringTotalIncome);
 
         final SweetAlertDialog dialogLoading = new SweetAlertDialog(getActivity(), SweetAlertDialog.PROGRESS_TYPE);
-        dialogLoading.setTitle("Loading");
+        dialogLoading.setContentText("Loading");
         dialogLoading.show();
-
-
-        final SweetAlertDialog dialogSuccess = new SweetAlertDialog(getActivity(), SweetAlertDialog.SUCCESS_TYPE);
-        dialogSuccess.setTitle("Success");
-        dialogSuccess.setContentText("Your Income Has Been Saved!");
+        dialogLoading.setCancelable(false);
 
         if (nameIncome.isEmpty() || stringTotalIncome.isEmpty()){
-            dialogLoading.cancel();
-            SweetAlertDialog dialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE);
-            dialog.setTitle("Error");
-            dialog.setContentText("Please Fill All Required Field!");
-            dialog.show();
+            dialogLoading.changeAlertType(SweetAlertDialog.ERROR_TYPE);
+            dialogLoading.setContentText("Uh Oh.. You haven't fill required fields");
         }else{
             reference.child("money_manager").child(userID).push()
                     .setValue(new MoneyManager(nameIncome, categoryIncome, dateNow, totalIncome ,0L, descriptionIncome))
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
-                        public void onSuccess(Void aVoid) {
-                            dialogLoading.cancel();
-                            dialogSuccess.show();
-                            dismiss();
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()){
+                                dialogLoading.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
+                                dialogLoading.setContentText("Your income has been recorded!");
+                                dismiss();
+                                adapter.notifyDataSetChanged();
+                            }
                         }
                     });
 
@@ -200,7 +209,6 @@ public class AddIncomeOrExpenseBottomSheet extends BottomSheetDialogFragment {
         inputLayoutName.setHint("Expense Name*");
         inputLayoutMoney.setHint("Total Spending*");
 
-//        inputMoney.addTextChangedListener(new MoneyTextWatcher(inputMoney));
 
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -226,27 +234,27 @@ public class AddIncomeOrExpenseBottomSheet extends BottomSheetDialogFragment {
         final SweetAlertDialog dialogLoading = new SweetAlertDialog(getActivity(), SweetAlertDialog.PROGRESS_TYPE);
         dialogLoading.setTitle("Loading");
         dialogLoading.show();
-
-        final SweetAlertDialog dialogSuccess = new SweetAlertDialog(getActivity(), SweetAlertDialog.SUCCESS_TYPE);
-        dialogSuccess.setTitle("Success");
-        dialogSuccess.setContentText("Your Expense Has Been Saved!");
+        dialogLoading.setCancelable(false);
 
         if (nameExpense.isEmpty() || stringTotalExpense.isEmpty()){
-            dialogLoading.cancel();
-            SweetAlertDialog dialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE);
-            dialog.setTitle("Error");
-            dialog.setContentText("Please Fill All Required Field!");
-            dialog.show();
+            dialogLoading.changeAlertType(SweetAlertDialog.ERROR_TYPE);
+            dialogLoading.setContentText("Uh Oh.. You haven't fill required fields");
         }else{
             dialogLoading.cancel();
             reference.child("money_manager").child(userID).push()
                     .setValue(new MoneyManager(nameExpense, categoryExpense, dateNow, 0L, totalExpense ,descriptionExpense))
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
-                        public void onSuccess(Void aVoid) {
-                            dialogSuccess.show();
-                            dismiss();
-                            adapter.notifyDataSetChanged();
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()){
+                                dialogLoading.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
+                                dialogLoading.setContentText("Your expense has been recorded!");
+                                dismiss();
+                                adapter.notifyDataSetChanged();
+                            }else{
+                                dialogLoading.changeAlertType(SweetAlertDialog.ERROR_TYPE);
+                                dialogLoading.setContentText("Uh Oh... Error " + task.getException());
+                            }
                         }
                     });
 

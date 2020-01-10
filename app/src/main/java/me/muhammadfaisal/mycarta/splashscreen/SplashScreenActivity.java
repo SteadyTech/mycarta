@@ -29,8 +29,6 @@ public class SplashScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
-        getSupportActionBar().hide();
-
         Typeface poppins = ResourcesCompat.getFont(this, R.font.poppins_bold);
 
         Handler handler = new Handler();
@@ -42,6 +40,6 @@ public class SplashScreenActivity extends AppCompatActivity {
                 startActivity(new Intent(SplashScreenActivity.this, WelcomeActivity.class));
                 finish();
             }
-        }, 4000L);
+        }, 2500L);
     }
 }

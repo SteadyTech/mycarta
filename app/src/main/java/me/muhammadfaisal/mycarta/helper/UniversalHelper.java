@@ -1,5 +1,7 @@
 package me.muhammadfaisal.mycarta.helper;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Base64;

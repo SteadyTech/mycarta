@@ -25,6 +25,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
@@ -56,6 +59,7 @@ public class CardFragment extends Fragment implements View.OnClickListener, Swit
     public LinearLayout linearPleaseSelect;
     ArrayList<Card> cards;
 
+    LottieAnimationView lottieTapHere;
     ImageView imageType;
     public Button buttonDelete, buttonEdit, buttonPay;
 
@@ -79,7 +83,7 @@ public class CardFragment extends Fragment implements View.OnClickListener, Swit
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_card, container, false);
 
-        initWidget(v);
+        initWidgets(v);
 
         initCreditCards(v);
 
@@ -90,9 +94,8 @@ public class CardFragment extends Fragment implements View.OnClickListener, Swit
         return v;
     }
 
-    private void initWidget(View v) {
+    private void initWidgets(View v) {
         linearPleaseSelect = v.findViewById(R.id.linearSelectCard);
-
 
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
@@ -102,6 +105,8 @@ public class CardFragment extends Fragment implements View.OnClickListener, Swit
         buttonDelete = v.findViewById(R.id.buttonDelete);
         buttonEdit = v.findViewById(R.id.buttonEdit);
         buttonPay = v.findViewById(R.id.buttonPay);
+
+        lottieTapHere = v.findViewById(R.id.lottie);
     }
 
     @SuppressLint("SetTextI18n")
@@ -114,13 +119,20 @@ public class CardFragment extends Fragment implements View.OnClickListener, Swit
 
         Resources resources = getResources();
 
-        if (card.getType().equals("Visa")){
+        final String decryptedCardType = helper.decryptString(card.getType());
+        final String decryptedCardNumber = helper.decryptString(card.getNumberCard());
+        final String decryptedNameCard = helper.decryptString(card.getName());
+        final String decryptedExpiry = helper.decryptString(card.getExp());
+        final String decryptedCvv = helper.decryptString(card.getCvv());
+        final String decryptedDescription = helper.decryptString(card.getDescripton());
+
+        if (decryptedCardType.equals("Visa")){
             imageType.setImageDrawable(resources.getDrawable(R.drawable.visa));
-        }else if(card.getType().equals("American Express")){
+        }else if(decryptedCardType.equals("American Express")){
             imageType.setImageDrawable(resources.getDrawable(R.drawable.american_express));
-        }else if(card.getType().equals("Mastercard")){
+        }else if(decryptedCardType.equals("Mastercard")){
             imageType.setImageDrawable(resources.getDrawable(R.drawable.mastercard));
-        }else if (card.getType().equals("JCB")){
+        }else if (decryptedCardType.equals("JCB")){
             imageType.setImageDrawable(resources.getDrawable(R.drawable.jcb));
         }else{
             imageType.setImageDrawable(resources.getDrawable(R.drawable.ic_launcher));
@@ -132,21 +144,20 @@ public class CardFragment extends Fragment implements View.OnClickListener, Swit
         buttonPay.setVisibility(View.VISIBLE);
         linearPleaseSelect.setVisibility(View.GONE);
 
-        textCardNumber.setText("**** **** **** **** " + String.valueOf(card.getNumberCard()).substring(String.valueOf(card.getNumberCard()).length() - 4));
-        textCardName.setText(helper.decryptString(card.getName()));
-        textCardCVV.setText("**" + String.valueOf(card.getCvv()).substring(String.valueOf(card.getCvv()).length() - 1));
-        textExpiry.setText(card.getExp());
+        textCardNumber.setText("**** **** **** **** " + decryptedCardNumber.substring(decryptedCardNumber.length() - 4));
+        textCardName.setText(decryptedNameCard);
+        textCardCVV.setText("**" + decryptedCvv.substring(decryptedCvv.length() - 1));
+        textExpiry.setText(decryptedExpiry);
 
         cardHidden.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                bundle.putString("name", helper.decryptString(card.getName()));
-                bundle.putLong("number", card.getNumberCard());
-                bundle.putInt("cvv", card.getCvv());
-                bundle.putString("expiry", card.getExp());
-                bundle.putString("description", card.getDescripton());
-                bundle.putInt("pin", card.getPin());
-                bundle.putString("type", card.getType());
+                bundle.putString("name", decryptedNameCard);
+                bundle.putString("number", decryptedCardNumber);
+                bundle.putString("cvv", decryptedCvv);
+                bundle.putString("expiry", decryptedExpiry);
+                bundle.putString("description", decryptedDescription);
+                bundle.putString("type", decryptedCardType);
 
                 BottomSheetDialogFragment bottomSheetDialogFragment = new PinBottomSheetFragment();
                 bottomSheetDialogFragment.show(getActivity().getSupportFragmentManager(), "PinCard");
@@ -157,14 +168,13 @@ public class CardFragment extends Fragment implements View.OnClickListener, Swit
         buttonEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                bundle.putString("name", card.getName());
-                bundle.putLong("number", card.getNumberCard());
-                bundle.putInt("cvv", card.getCvv());
-                bundle.putString("expiry", card.getExp());
-                bundle.putString("description", card.getDescripton());
-                bundle.putInt("pin", card.getPin());
+                bundle.putString("name", decryptedNameCard);
+                bundle.putString("number", decryptedCardNumber);
+                bundle.putString("cvv", decryptedCvv);
+                bundle.putString("expiry", decryptedExpiry);
+                bundle.putString("description", decryptedDescription);
+                bundle.putString("type", decryptedCardType);
                 bundle.putString("keyPrimary", card.getKey());
-                bundle.putString("type", card.getType());
 
                 BottomSheetDialogFragment bottomSheetDialogFragment = new PinBottomSheetFragment();
                 bottomSheetDialogFragment.show(getActivity().getSupportFragmentManager(), "PinEditCard");
@@ -175,9 +185,9 @@ public class CardFragment extends Fragment implements View.OnClickListener, Swit
         buttonPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                bundle.putString("name", card.getName());
-                bundle.putLong("number", card.getNumberCard());
-                bundle.putInt("cvv", card.getCvv());
+                bundle.putString("name", decryptedNameCard);
+                bundle.putString("number", decryptedCardNumber);
+                bundle.putString("cvv", decryptedCvv);
                 bundle.putString("keyPrimary", card.getKey());
 
                 BottomSheetDialogFragment bottomSheetDialogFragment = new PinBottomSheetFragment();
@@ -221,17 +231,11 @@ public class CardFragment extends Fragment implements View.OnClickListener, Swit
         buttonDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 final SweetAlertDialog dialogLoading = new SweetAlertDialog(getActivity(), SweetAlertDialog.PROGRESS_TYPE);
                 dialogLoading.setContentText("Loading");
                 dialogLoading.setCancelable(false);
                 dialogLoading.show();
-
-                final SweetAlertDialog dialogSuccess = new SweetAlertDialog(getActivity(), SweetAlertDialog.SUCCESS_TYPE);
-                dialogSuccess.setContentText("Deleted");
-                dialogSuccess.show();
-
-                final SweetAlertDialog dialogError = new SweetAlertDialog(getActivity(), SweetAlertDialog.SUCCESS_TYPE);
-
 
                 String userID = auth.getUid();
                 if (reference != null){
@@ -239,15 +243,14 @@ public class CardFragment extends Fragment implements View.OnClickListener, Swit
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()){
-                                dialogSuccess.show();
-                                dialogLoading.cancel();
+                                dialogLoading.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
+                                dialogLoading.setContentText("Deleted");
 
                                 noCardSelected();
 
                             }else{
-                                dialogError.setContentText("Error " + task.getException());
-                                dialogError.show();
-                                dialogLoading.cancel();
+                                dialogLoading.changeAlertType(SweetAlertDialog.ERROR_TYPE);
+                                dialogLoading.setContentText("Error : " + task.getException());
                             }
                         }
                     });
@@ -266,6 +269,8 @@ public class CardFragment extends Fragment implements View.OnClickListener, Swit
             @Override
             public void onClick(View view) {
                 Toast.makeText(getActivity(), "Please Select Card Before!", Toast.LENGTH_SHORT).show();
+                lottieTapHere.setVisibility(View.VISIBLE);
+                YoYo.with(Techniques.RubberBand).duration(700).repeat(1).playOn(cardSwitcher);
             }
         });
     }

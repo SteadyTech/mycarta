@@ -15,6 +15,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.LineGraphSeries;
+
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -61,10 +65,10 @@ public class MoneyManagerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        switch (viewType){
-            case THIS_DATE :
+        switch (viewType) {
+            case THIS_DATE:
                 return new DateViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_money_manager_date, parent, false));
-            case THIS_DATA :
+            case THIS_DATA:
                 return new DataViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_money_manager, parent, false));
         }
         return null;
@@ -77,17 +81,17 @@ public class MoneyManagerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         Resources resources = context.getResources();
 
-        if(hashMap.get("header") == null){
+        if (hashMap.get("header") == null) {
             final MoneyManager moneyManager = (MoneyManager) hashMap.get("detail");
 
             DataViewHolder dataViewHolder = (DataViewHolder) holder;
             dataViewHolder.textName.setText(moneyManager.getName());
 
 
-            if (moneyManager.getExpense() != 0){
+            if (moneyManager.getExpense() != 0) {
                 dataViewHolder.textMoney.setText(NumberFormat.getCurrencyInstance(new Locale("id", "id")).format(moneyManager.getExpense()));
                 dataViewHolder.textMoney.setTextColor(resources.getColor(R.color.colorExpense));
-            }else{
+            } else {
 
                 dataViewHolder.textMoney.setText(NumberFormat.getCurrencyInstance(new Locale("id", "id")).format(moneyManager.getIncome()));
                 dataViewHolder.textMoney.setTextColor(resources.getColor(R.color.colorIncome));
@@ -100,8 +104,6 @@ public class MoneyManagerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
             setDataToPieChart();
 
-            setDataToLineChart();
-
             dataViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -112,12 +114,12 @@ public class MoneyManagerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     b.putLong("income", moneyManager.getIncome());
                     b.putString("category", moneyManager.getCategory());
                     b.putString("date", moneyManager.getDate());
-                    b.putString("description",moneyManager.getDescription());
+                    b.putString("description", moneyManager.getDescription());
                     bottomSheet.show(moneyManagerFragment.getFragmentManager(), "FromAdapter");
                     bottomSheet.setArguments(b);
                 }
             });
-        }else{
+        } else {
 
             final Date c = Calendar.getInstance().getTime();
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -126,9 +128,9 @@ public class MoneyManagerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
             String dataDate = (String) hashMap.get("header");
 
-            if(dataDate.equals(dateNow)){
+            if (dataDate.equals(dateNow)) {
                 dateViewHolder.textDate.setText("Today");
-            }else{
+            } else {
                 dateViewHolder.textDate.setText((String) hashMap.get("header"));
             }
 
@@ -194,79 +196,17 @@ public class MoneyManagerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
     }
 
-    private void setDataToLineChart() {
-        long yourBalance = 0;
-        PointValue pointValue;
-
-        List<PointValue> values = new ArrayList<>();
-
-
-        for (MoneyManager moneys : moneyManagers){
-            yourBalance += moneys.getIncome() - moneys.getExpense();
-
-            for (float i = 0; i <= 60.0 ; i+=15.0f){
-                pointValue = new PointValue(i, (float) yourBalance);
-                pointValue.setLabel("Your Balance");
-                values.add(pointValue);
-            }
-
-        }
-
-        Line line = new Line(values).setColor(Color.WHITE).setCubic(true);
-        List<Line> lines = new ArrayList<>();
-        lines.add(line);
-
-        LineChartData data = new LineChartData();
-        data.setLines(lines);
-
-
-        List<AxisValue> axisValuesForX = new ArrayList<>();
-        List<AxisValue> axisValuesForY = new ArrayList<>();
-        AxisValue tempAxisValue;
-        for (float i = 0; i <= 360.0f; i += 30.0f){
-            tempAxisValue = new AxisValue(i);
-            tempAxisValue.setLabel(i+"\u00b0");
-            axisValuesForX.add(tempAxisValue);
-        }
-
-        for (float i = 0.0f; i <= 1.00f; i += 0.25f){
-            tempAxisValue = new AxisValue(i);
-            tempAxisValue.setLabel(""+i);
-            axisValuesForY.add(tempAxisValue);
-        }
-
-        Axis xAxis = new Axis(axisValuesForX);
-        Axis yAxis = new Axis(axisValuesForY);
-        data.setAxisXBottom(xAxis);
-        data.setAxisYLeft(yAxis);
-
-        moneyManagerFragment.lineChartView.setLineChartData(data);
-        moneyManagerFragment.lineChartView.setZoomEnabled(true);
-        moneyManagerFragment.lineChartView.setContainerScrollEnabled(true, ContainerScrollType.HORIZONTAL);
-        moneyManagerFragment.lineChartView.setOnValueTouchListener(new LineChartOnValueSelectListener() {
-            @Override
-            public void onValueSelected(int lineIndex, int pointIndex, PointValue value) {
-                Toast.makeText(context, String.valueOf(value.getY()), Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onValueDeselected() {
-
-            }
-        });
-
-    }
 
     private void setDataToPieChart() {
 
         long totalExpense = 0;
 
-        for (MoneyManager moneyManager : moneyManagers){
+        for (MoneyManager moneyManager : moneyManagers) {
             totalExpense += moneyManager.getExpense();
         }
         long totalIncome = 0;
 
-        for (MoneyManager moneyManager : moneyManagers){
+        for (MoneyManager moneyManager : moneyManagers) {
             totalIncome += moneyManager.getIncome();
         }
 
@@ -285,7 +225,7 @@ public class MoneyManagerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         moneyManagerFragment.pieChart.setOnValueTouchListener(new PieChartOnValueSelectListener() {
             @Override
             public void onValueSelected(int arcIndex, SliceValue value) {
-                String valueOfChart = NumberFormat.getCurrencyInstance(new Locale("id","id")).format(value.getValue());
+                String valueOfChart = NumberFormat.getCurrencyInstance(new Locale("id", "id")).format(value.getValue());
 
                 Toast.makeText(context, valueOfChart, Toast.LENGTH_SHORT).show();
             }
@@ -300,26 +240,26 @@ public class MoneyManagerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private void getTotalExpense() {
         long totalExpense = 0;
 
-        for (MoneyManager moneyManager : moneyManagers){
+        for (MoneyManager moneyManager : moneyManagers) {
             totalExpense += moneyManager.getExpense();
         }
-        moneyManagerFragment.textTotalExpense.setText(NumberFormat.getCurrencyInstance(new Locale("id","id")).format(totalExpense));
+        moneyManagerFragment.textTotalExpense.setText(NumberFormat.getCurrencyInstance(new Locale("id", "id")).format(totalExpense));
     }
 
     private void getTotalIncome() {
         long totalIncome = 0;
 
-        for (MoneyManager moneyManager : moneyManagers){
+        for (MoneyManager moneyManager : moneyManagers) {
             totalIncome += moneyManager.getIncome();
         }
 
-        moneyManagerFragment.textTotalIncome.setText(NumberFormat.getCurrencyInstance(new Locale("id","id")).format(totalIncome));
+        moneyManagerFragment.textTotalIncome.setText(NumberFormat.getCurrencyInstance(new Locale("id", "id")).format(totalIncome));
     }
 
     private void getCurrentBalance() {
         long yourBalance = 0;
 
-        for (MoneyManager moneys : moneyManagers){
+        for (MoneyManager moneys : moneyManagers) {
             yourBalance += moneys.getIncome() - moneys.getExpense();
         }
 
@@ -333,7 +273,7 @@ public class MoneyManagerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public int getItemViewType(int position) {
-        return  moneyManagerFragment.map.get(position).get("header") == null ? THIS_DATA : THIS_DATE;
+        return moneyManagerFragment.map.get(position).get("header") == null ? THIS_DATA : THIS_DATE;
     }
 
     private class DateViewHolder extends RecyclerView.ViewHolder {
@@ -347,9 +287,9 @@ public class MoneyManagerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
     }
 
-    private class DataViewHolder extends RecyclerView.ViewHolder{
+    private class DataViewHolder extends RecyclerView.ViewHolder {
 
-        TextView textName , textMoney, textDate;
+        TextView textName, textMoney, textDate;
         ImageView imageCategory;
 
         public DataViewHolder(@NonNull View itemView) {

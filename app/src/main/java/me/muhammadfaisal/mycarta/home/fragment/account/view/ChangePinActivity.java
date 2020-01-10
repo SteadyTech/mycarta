@@ -10,7 +10,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -21,6 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 import me.muhammadfaisal.mycarta.R;
+import me.muhammadfaisal.mycarta.helper.UniversalHelper;
 import me.muhammadfaisal.mycarta.pin.model.Pin;
 
 public class ChangePinActivity extends AppCompatActivity implements View.OnClickListener {
@@ -29,12 +32,12 @@ public class ChangePinActivity extends AppCompatActivity implements View.OnClick
     EditText inputNewPin;
     FirebaseAuth auth;
     DatabaseReference reference;
+    UniversalHelper helper;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_pin);
-        getSupportActionBar().hide();
 
         initWidget();
 
@@ -46,6 +49,8 @@ public class ChangePinActivity extends AppCompatActivity implements View.OnClick
 
         auth = FirebaseAuth.getInstance();
         reference = FirebaseDatabase.getInstance().getReference().child("pin_user").child(auth.getCurrentUser().getUid());
+
+        helper = new UniversalHelper();
 
         buttonSave.setOnClickListener(this);
     }
@@ -63,9 +68,18 @@ public class ChangePinActivity extends AppCompatActivity implements View.OnClick
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Pin pinUser = dataSnapshot.getValue(Pin.class);
 
-                pinUser.setPin(Long.parseLong(inputNewPin.getText().toString()));
+                pinUser.setPin(helper.encryptString(inputNewPin.getText().toString()));
 
-                reference.setValue(pinUser);
+                reference.setValue(pinUser).addOnCompleteListener(ChangePinActivity.this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()){
+                            Toast.makeText(ChangePinActivity.this, "Pin has been changed!", Toast.LENGTH_SHORT).show();
+                        }else{
+                            Toast.makeText(ChangePinActivity.this, "Uh Oh... Error : " + task.getException(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
             }
 
             @Override

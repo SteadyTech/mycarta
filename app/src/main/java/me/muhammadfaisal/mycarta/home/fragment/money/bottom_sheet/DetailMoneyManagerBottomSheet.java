@@ -108,6 +108,14 @@ public class DetailMoneyManagerBottomSheet extends BottomSheetDialogFragment imp
         textDescription.setText(description);
         textDate.setText(date);
 
+        ImageView icClose = v.findViewById(R.id.icClose);
+
+        icClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dismiss();
+            }
+        });
     }
 
     private void filterIncomeOrExpense(Resources resources, CardView cardTotal, CardView cardDescription, TextView textTotal, Long expense, Long income) {

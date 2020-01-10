@@ -58,12 +58,15 @@ public class SwitchCardAdapter extends RecyclerView.Adapter<SwitchCardAdapter.Vi
         final Random random = new Random();
         final int color = Color.rgb(random.nextInt(256),random.nextInt(256),random.nextInt(256));
 
-        holder.textNumber.setText("**** **** **** " + String.valueOf(card.getNumberCard()).substring(String.valueOf(card.getNumberCard()).length() - 4));
-        holder.textName.setText(helper.decryptString(card.getName()));
-        holder.textCvv.setText(String.valueOf(card.getCvv()));
-        holder.textExpiry.setText(card.getExp());
+        String decryptedCardNumber = helper.decryptString(card.getNumberCard());
+        String decryptedCvv = helper.decryptString(card.getCvv());
 
-        String type = card.getType();
+        holder.textNumber.setText("**** **** **** " + decryptedCardNumber.substring(decryptedCardNumber.length() - 4));
+        holder.textName.setText(helper.decryptString(card.getName()));
+        holder.textCvv.setText("**" + decryptedCvv.substring(decryptedCvv.length() - 1));
+        holder.textExpiry.setText(helper.decryptString(card.getExp()));
+
+        String type = helper.decryptString(card.getType());
 
         Resources resources = Objects.requireNonNull(bottomSheetFragment.getActivity()).getResources();
 

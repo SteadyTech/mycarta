@@ -8,6 +8,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -32,6 +34,7 @@ import java.util.ArrayList;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import me.muhammadfaisal.mycarta.R;
+import me.muhammadfaisal.mycarta.helper.UniversalHelper;
 import me.muhammadfaisal.mycarta.home.HomeActivity;
 import me.muhammadfaisal.mycarta.home.fragment.account.view.ChangePinActivity;
 import me.muhammadfaisal.mycarta.home.fragment.card.bottom_sheet.edit.EditCardBottomSheetFragment;
@@ -59,9 +62,14 @@ public class PinBottomSheetFragment extends BottomSheetDialogFragment {
 
     ImageView icClose;
 
+    UniversalHelper helper;
+
+    String encryptedPin, decryptedPin;
+
     public PinBottomSheetFragment() {
         // Required empty public constructor
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -89,6 +97,10 @@ public class PinBottomSheetFragment extends BottomSheetDialogFragment {
             }
         });
 
+        helper = new UniversalHelper();
+
+        pin = new ArrayList<>();
+
 
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
@@ -102,7 +114,7 @@ public class PinBottomSheetFragment extends BottomSheetDialogFragment {
             pinForEditCard();
         } else if (this.getTag().equals("ChangePIN")) {
             pinForChangePin();
-        } else if(this.getTag().equals("PinPay")){
+        } else if (this.getTag().equals("PinPay")) {
             pinForPay();
         } else {
             pinForAccessHiddenInformation();
@@ -113,7 +125,7 @@ public class PinBottomSheetFragment extends BottomSheetDialogFragment {
         hideWidget();
 
         title.setText("Insert PIN");
-        button.setText("Edit Card");
+        button.setText("Access Hidden Information");
 
         final SweetAlertDialog dialogProgress = new SweetAlertDialog(getActivity(), SweetAlertDialog.PROGRESS_TYPE);
         dialogProgress.setContentText("Loading");
@@ -129,9 +141,10 @@ public class PinBottomSheetFragment extends BottomSheetDialogFragment {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         Pin pinUser = dataSnapshot.getValue(Pin.class);
-                        String pinString = pinUser.getPin().toString();
 
-                        if (pinString.equals(inputtedPin)){
+                        decryptedPin = helper.decryptString(pinUser.getPin());
+
+                        if (decryptedPin.equals(inputtedPin)) {
                             dismiss();
                             dialogProgress.cancel();
                             Bundle b = new Bundle();
@@ -142,7 +155,7 @@ public class PinBottomSheetFragment extends BottomSheetDialogFragment {
                             hiddenBottomSheetFragment.show(getFragmentManager(), "HiddenInformation");
                             hiddenBottomSheetFragment.setArguments(b);
 
-                        }else{
+                        } else {
                             dismiss();
                             dialogProgress.cancel();
                             Toast.makeText(getActivity(), "PIN isn't Correct", Toast.LENGTH_SHORT).show();
@@ -162,7 +175,7 @@ public class PinBottomSheetFragment extends BottomSheetDialogFragment {
         hideWidget();
 
         title.setText("Insert PIN");
-        button.setText("Change PIN");
+        button.setText("Access CartaPay");
 
         final SweetAlertDialog dialogProgress = new SweetAlertDialog(getActivity(), SweetAlertDialog.PROGRESS_TYPE);
         dialogProgress.setContentText("Loading");
@@ -178,14 +191,19 @@ public class PinBottomSheetFragment extends BottomSheetDialogFragment {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         Pin pinUser = dataSnapshot.getValue(Pin.class);
-                        String pinString = pinUser.getPin().toString();
+                        decryptedPin = helper.decryptString(pinUser.getPin());
 
-                        if (pinString.equals(inputtedPin)){
+                        if (decryptedPin.equals(inputtedPin)) {
                             dismiss();
                             dialogProgress.cancel();
 
-                            startActivity(new Intent(getActivity(), CardPayActivity.class), ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
-                        }else{
+                            Intent i = new Intent(getActivity(), CardPayActivity.class);
+
+                            String number = getArguments().getString("number");
+                            i.putExtra("numberOnCard", number);
+
+                            startActivity(i);
+                        } else {
                             dismiss();
                             dialogProgress.cancel();
                             Toast.makeText(getActivity(), "PIN isn't Correct", Toast.LENGTH_SHORT).show();
@@ -221,14 +239,14 @@ public class PinBottomSheetFragment extends BottomSheetDialogFragment {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         Pin pinUser = dataSnapshot.getValue(Pin.class);
-                        String pinString = pinUser.getPin().toString();
+                        decryptedPin = helper.decryptString(pinUser.getPin());
 
-                        if (pinString.equals(inputtedPin)){
+                        if (decryptedPin.equals(inputtedPin)) {
                             dismiss();
                             dialogProgress.cancel();
 
                             startActivity(new Intent(getActivity(), ChangePinActivity.class), ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
-                        }else{
+                        } else {
                             dismiss();
                             dialogProgress.cancel();
                             Toast.makeText(getActivity(), "PIN isn't Correct", Toast.LENGTH_SHORT).show();
@@ -258,15 +276,16 @@ public class PinBottomSheetFragment extends BottomSheetDialogFragment {
             @Override
             public void onClick(View view) {
                 dialogProgress.show();
+
                 final String inputtedPin = inputPIN.getText().toString();
 
                 reference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         Pin pinUser = dataSnapshot.getValue(Pin.class);
-                        String pinString = pinUser.getPin().toString();
+                        decryptedPin = helper.decryptString(pinUser.getPin());
 
-                        if (pinString.equals(inputtedPin)){
+                        if (decryptedPin.equals(inputtedPin)) {
                             dismiss();
                             dialogProgress.cancel();
                             Bundle b = new Bundle();
@@ -277,7 +296,7 @@ public class PinBottomSheetFragment extends BottomSheetDialogFragment {
                             editCardBottomSheetFragment.show(getFragmentManager(), "EditCard");
                             editCardBottomSheetFragment.setArguments(b);
 
-                        }else{
+                        } else {
                             dismiss();
                             dialogProgress.cancel();
                             Toast.makeText(getActivity(), "PIN isn't Correct", Toast.LENGTH_SHORT).show();
@@ -297,11 +316,15 @@ public class PinBottomSheetFragment extends BottomSheetDialogFragment {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.getValue() == null){
+
+                final long size = dataSnapshot.getChildrenCount();
+
+                if (size == 0) {
                     functionNewPIN();
-                }else{
+                } else {
                     functionLogin();
                 }
+
             }
 
             @Override
@@ -317,28 +340,22 @@ public class PinBottomSheetFragment extends BottomSheetDialogFragment {
         title.setText("Insert PIN");
         button.setText("Login");
 
-        final SweetAlertDialog dialogProgress = new SweetAlertDialog(getActivity(), SweetAlertDialog.PROGRESS_TYPE);
-        dialogProgress.setContentText("Loading");
-        dialogProgress.setCancelable(false);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialogProgress.show();
                 final String inputtedPin = inputPIN.getText().toString();
 
                 reference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         Pin pin = dataSnapshot.getValue(Pin.class);
-                        String pinString = pin.getPin().toString();
-                        if (pinString.equals(inputtedPin)){
+                        decryptedPin = helper.decryptString(pin.getPin());
+                        if (decryptedPin.equals(inputtedPin)) {
                             dismiss();
-                            dialogProgress.cancel();
                             startActivity(new Intent(getActivity(), HomeActivity.class), ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
-                        }else{
+                        } else {
                             dismiss();
-                            dialogProgress.cancel();
                             Toast.makeText(getActivity(), "Pin isn't correct", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -358,26 +375,34 @@ public class PinBottomSheetFragment extends BottomSheetDialogFragment {
 
         title.setText("Setup PIN");
         button.setText("OK");
-
-        final SweetAlertDialog dialogProgress = new SweetAlertDialog(getActivity(), SweetAlertDialog.PROGRESS_TYPE);
-        dialogProgress.setContentText("Loading");
-
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                final SweetAlertDialog dialogProgress = new SweetAlertDialog(getActivity(), SweetAlertDialog.PROGRESS_TYPE);
+                dialogProgress.setContentText("Loading");
                 dialogProgress.show();
 
                 if (inputPIN.getText().length() < 4 || inputPIN.getText().toString().isEmpty()) {
                     inputPIN.setError("Minimum 4 Number");
                     dialogProgress.cancel();
                 } else {
-                    final Long pinEditText = Long.parseLong(inputPIN.getText().toString());
 
-                    Pin pin = new Pin(pinEditText);
+                    encryptedPin = helper.encryptString(inputPIN.getText().toString());
 
-                    dialogProgress.cancel();
-                    reference.setValue(pin);
+                    final Pin pin = new Pin(encryptedPin);
+
+                    reference.setValue(pin).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            dialogProgress.cancel();
+
+                            dismiss();
+
+                            Toast.makeText(getActivity(), "Pin Has Been Saved!", Toast.LENGTH_SHORT).show();
+
+                            startActivity(new Intent(getActivity(), HomeActivity.class));
+                        }
+                    });
                 }
             }
         });
@@ -389,26 +414,22 @@ public class PinBottomSheetFragment extends BottomSheetDialogFragment {
         String description = getArguments().getString("description");
         String expiry = getArguments().getString("expiry");
         String type = getArguments().getString("type");
-        int pin = getArguments().getInt("pin");
-        long number = getArguments().getLong("number");
-        int cvv = getArguments().getInt("cvv");
+        String number = getArguments().getString("number");
+        String cvv = getArguments().getString("cvv");
         String key = getArguments().getString("keyPrimary");
 
         b.putString("nameOnCard", name);
         b.putString("typeOnCard", type);
         b.putString("desc", description);
         b.putString("expiry", expiry);
-        b.putInt("pin", pin);
-        b.putInt("cvv", cvv);
-        b.putLong("numberOnCard", number);
+        b.putString("cvv", cvv);
+        b.putString("numberOnCard", number);
         b.putString("keyPrimary", key);
     }
 
     private void hideWidget() {
         progressBar.setVisibility(View.GONE);
         layout.setVisibility(View.VISIBLE);
-        pin = new ArrayList<>();
-
     }
 
 }

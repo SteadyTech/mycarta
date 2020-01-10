@@ -36,8 +36,6 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        getSupportActionBar().hide();
-
         bottomLinear = findViewById(R.id.bottomLinear);
         viewPager = findViewById(R.id.viewPager);
 

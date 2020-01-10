@@ -15,6 +15,19 @@
 
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    
+    <string-array name="quotes">
+        <item>For I don’t care too much for money, for money can\’t buy me love.</item>
+        <item>Love conquers all things except poverty and toothache.</item>
+        <item>Money and women are the most sought after and the least known about of any two things we have.</item>
+        <item>Money is not the most important thing in the world. Love is. Fortunately, I love money.</item>
+        <item>While money doesn’t buy love, it puts you in a great bargaining position.</item>
+        <item>On what he’s spent the most money on: In the ’70s it was skateboards, in the ’80s it was drugs, in the ’90s it was art, and now it\’s my family</item>
+        <item>Take a better stand. Put money in my mom\'s hand. Get my daughter this college plan, so she don’t need no man.</item>
+        <item>If you\'re saving, you\'re succeeding.</item>
+        <item>It’s not how much money you make, but how much money you keep, how hard it works for you, and how many generations you keep it for.</item>
+        <item>If you wish to get rich, save what you get. A fool can earn money, but it takes a wise man to save and dispose of it to his own advantage.</item>
+    </string-array>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -46,7 +59,7 @@
     <string name="please_select_card">Please Select Card in \'Card Switcher\' below!</string>
 
     <string name="how_to_use_carta_board">
-        <b>This is BETA Version !\n\nPlease wait until Released Version</b>
+        <b>CartaBoard is Under Development!</b>
     </string>
     <string name="how_to_use_carta_pay">
         <b>

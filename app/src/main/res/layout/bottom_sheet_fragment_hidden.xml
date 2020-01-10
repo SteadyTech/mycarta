@@ -209,28 +209,6 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:foreground="?attr/selectableItemBackground"
-                android:layout_margin="4dp"
-                app:passwordToggleEnabled="true"
-                android:hint="Pin">
-
-
-                <com.rengwuxian.materialedittext.MaterialEditText
-                    android:id="@+id/inputPin"
-                    android:layout_width="match_parent"
-                    android:editable="false"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="6dp"
-                    android:maxLength="18"
-                    android:padding="4dp"
-                    app:met_floatingLabel="highlight"
-                    app:met_primaryColor="#4CAF50" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
                 android:foreground="?attr/selectableItemBackground"
                 android:layout_margin="4dp"
                 android:hint="Description"

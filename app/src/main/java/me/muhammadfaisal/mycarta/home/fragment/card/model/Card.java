@@ -1,30 +1,20 @@
 package me.muhammadfaisal.mycarta.home.fragment.card.model;
 
 public class Card {
-    String name, descripton, type, key, exp;
-    int pin, cvv;
-    long numberCard;
+    String name, descripton, type, key, exp, numberCard, cvv;
 
-    public Card(String name, String descripton, String type, Long numberCard, int pin, int cvv, String exp) {
+    public Card(String name, String descripton, String type, String exp, String numberCard, String cvv) {
         this.name = name;
         this.descripton = descripton;
         this.type = type;
-        this.pin = pin;
-        this.cvv = cvv;
-        this.numberCard = numberCard;
         this.exp = exp;
+        this.numberCard = numberCard;
+        this.cvv = cvv;
     }
 
     public Card() {
     }
 
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
-    }
 
     public String getName() {
         return name;
@@ -50,28 +40,12 @@ public class Card {
         this.type = type;
     }
 
-    public Long getNumberCard() {
-        return numberCard;
+    public String getKey() {
+        return key;
     }
 
-    public void setNumberCard(Long numberCard) {
-        this.numberCard = numberCard;
-    }
-
-    public int getPin() {
-        return pin;
-    }
-
-    public void setPin(int pin) {
-        this.pin = pin;
-    }
-
-    public int getCvv() {
-        return cvv;
-    }
-
-    public void setCvv(int cvv) {
-        this.cvv = cvv;
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public String getExp() {
@@ -80,5 +54,21 @@ public class Card {
 
     public void setExp(String exp) {
         this.exp = exp;
+    }
+
+    public String getNumberCard() {
+        return numberCard;
+    }
+
+    public void setNumberCard(String numberCard) {
+        this.numberCard = numberCard;
+    }
+
+    public String getCvv() {
+        return cvv;
+    }
+
+    public void setCvv(String cvv) {
+        this.cvv = cvv;
     }
 }

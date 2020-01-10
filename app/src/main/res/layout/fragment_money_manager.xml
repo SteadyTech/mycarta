@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".home.fragment.money.MoneyManagerFragment"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="#403F66"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    tools:context=".home.fragment.money.MoneyManagerFragment">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:padding="16dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="16dp">
 
             <TextView
                 android:id="@+id/account"
@@ -23,103 +23,103 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:fontFamily="@font/work_sans_semibold"
-                android:text="Money Manager"
                 android:autoSizeMaxTextSize="32sp"
                 android:autoSizeMinTextSize="14sp"
                 android:autoSizeTextType="uniform"
+                android:fontFamily="@font/work_sans_semibold"
+                android:text="Money Manager"
                 android:textColor="@color/white"
                 android:textSize="32sp" />
 
             <LinearLayout
-                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_bold"
                     android:text="Current Balance"
-                    android:textSize="14sp"
                     android:textColor="@color/endColorVisa"
-                    android:fontFamily="@font/roboto_bold"/>
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/textCurrentBalance"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="18sp"
-                    android:textColor="@color/white"
-                    android:fontFamily="@font/poppins_bold"
                     android:autoSizeMaxTextSize="18sp"
                     android:autoSizeMinTextSize="14sp"
                     android:autoSizeTextType="uniform"
-                    android:maxLines="1"/>
+                    android:fontFamily="@font/poppins_bold"
+                    android:maxLines="1"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
 
             </LinearLayout>
 
             <LinearLayout
-                android:layout_marginTop="40dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_margin="8dp"
-                    android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
                     android:orientation="vertical">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_bold"
                         android:text="Total Income"
-                        android:textSize="14sp"
                         android:textColor="@color/endColorVisa"
-                        android:fontFamily="@font/roboto_bold"/>
+                        android:textSize="14sp" />
 
                     <TextView
                         android:id="@+id/textTotalIncome"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="18sp"
-                        android:textColor="@color/white"
-                        android:fontFamily="@font/poppins_bold"
                         android:autoSizeMaxTextSize="24sp"
                         android:autoSizeMinTextSize="14sp"
                         android:autoSizeTextType="uniform"
-                        android:maxLines="1"/>
+                        android:fontFamily="@font/poppins_bold"
+                        android:maxLines="1"
+                        android:textColor="@color/white"
+                        android:textSize="18sp" />
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_margin="8dp"
-                    android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
                     android:orientation="vertical">
 
                     <TextView
-                        android:text="Total Spending"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="14sp"
+                        android:fontFamily="@font/roboto_bold"
+                        android:text="Total Spending"
                         android:textColor="@color/endColorVisa"
-                        android:fontFamily="@font/roboto_bold"/>
+                        android:textSize="14sp" />
 
                     <TextView
-                        android:id="@+id/textTotalSpending"
+                        android:id="@+id/textTotalTransaction"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="18sp"
-                        android:textColor="@color/white"
-                        android:fontFamily="@font/poppins_bold"
                         android:autoSizeMaxTextSize="24sp"
                         android:autoSizeMinTextSize="14sp"
                         android:autoSizeTextType="uniform"
-                        android:maxLines="1"/>
+                        android:fontFamily="@font/poppins_bold"
+                        android:maxLines="1"
+                        android:textColor="@color/white"
+                        android:textSize="18sp" />
 
                 </LinearLayout>
 
@@ -127,71 +127,55 @@
 
             <LinearLayout
                 android:id="@+id/linearButton"
-                android:layout_alignParentBottom="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
                 android:orientation="horizontal">
 
                 <Button
                     android:id="@+id/buttonIncome"
-                    android:textColor="@color/white"
-                    android:layout_margin="8dp"
-                    android:background="@drawable/button_income"
-                    android:textAllCaps="false"
-                    android:fontFamily="@font/work_sans_semibold"
-                    android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Add Income"/>
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_income"
+                    android:fontFamily="@font/work_sans_semibold"
+                    android:text="Add Income"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white" />
 
                 <Button
                     android:id="@+id/buttonExpense"
-                    android:textColor="@color/white"
-                    android:layout_margin="8dp"
-                    android:background="@drawable/button_expense"
-                    android:textAllCaps="false"
-                    android:layout_weight="1"
                     android:layout_width="match_parent"
-                    android:fontFamily="@font/work_sans_semibold"
                     android:layout_height="wrap_content"
-                    android:text="Add Expense"/>
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_expense"
+                    android:fontFamily="@font/work_sans_semibold"
+                    android:text="Add Expense"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white" />
 
             </LinearLayout>
 
             <TextView
-                android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/poppins_bold"
                 android:text="Graphic"
-                android:textSize="18sp"
                 android:textColor="@color/white"
-                android:fontFamily="@font/poppins_bold"/>
+                android:textSize="18sp" />
 
             <lecho.lib.hellocharts.view.PieChartView
                 android:id="@+id/chartPie"
                 android:layout_width="match_parent"
-                android:layout_height="240dp"/>
-
-
-            <TextView
-                android:layout_marginTop="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Graphic"
-                android:textSize="18sp"
-                android:textColor="@color/white"
-                android:fontFamily="@font/poppins_bold"/>
-
-            <lecho.lib.hellocharts.view.LineChartView
-                android:layout_marginBottom="40dp"
-                android:id="@+id/chartLine"
-                android:layout_width="match_parent"
-                android:layout_height="240dp"/>
+                android:layout_height="240dp" />
 
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
 
-    <include layout="@layout/bottom_sheet_fragment_list_money_manager"/>
+    <include layout="@layout/bottom_sheet_fragment_list_money_manager" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

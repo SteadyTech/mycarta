@@ -37,7 +37,6 @@ public class CardPayActivity extends AppCompatActivity implements View.OnClickLi
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card_pay);
-        getSupportActionBar().hide();
 
         initWidget();
 
@@ -74,23 +73,25 @@ public class CardPayActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void numberCardQR() {
-        Long numberCard = getIntent().getLongExtra("numberOnCard",0);
+        String numberCard = getIntent().getExtras().getString("numberOnCard");
 
+        System.out.println("Number Card is " + numberCard);
 
         MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
         try {
-            BitMatrix bitMatrix = multiFormatWriter.encode(String.valueOf(numberCard), BarcodeFormat.QR_CODE, 800,800);
+            BitMatrix bitMatrix = multiFormatWriter.encode(numberCard, BarcodeFormat.QR_CODE, 800,800);
             BarcodeEncoder encoder = new BarcodeEncoder();
             Bitmap bitmap = encoder.createBitmap(bitMatrix);
             numberQR.setImageBitmap(bitmap);
         }catch (Exception e){
-            Toast.makeText(this, "Something Went Wrong", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Uh Oh...QR Code getting trouble :(", Toast.LENGTH_SHORT).show();
         }
     }
 
     private void numberCardBarcode() {
-        Long numberCard = getIntent().getLongExtra("numberOnCard",0);
+        String numberCard = getIntent().getExtras().getString("numberOnCard");
 
+        System.out.println("Number Card is Barcode " + numberCard);
 
         MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
         try {
@@ -99,7 +100,7 @@ public class CardPayActivity extends AppCompatActivity implements View.OnClickLi
             Bitmap bitmap = encoder.createBitmap(bitMatrix);
             numberBarcode.setImageBitmap(bitmap);
         }catch (Exception e){
-            Toast.makeText(this, "Something Went Wrong", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Uh Oh...Barcode getting trouble ", Toast.LENGTH_SHORT).show();
         }
     }
 

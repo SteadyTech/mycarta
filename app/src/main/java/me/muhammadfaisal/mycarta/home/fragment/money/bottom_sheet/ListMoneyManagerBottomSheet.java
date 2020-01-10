@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -74,7 +75,7 @@ public class ListMoneyManagerBottomSheet extends Fragment {
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(adapter);
 
-
+        ImageView icClose = v.findViewById(R.id.icClose);
     }
 
     private void initFirebase() {

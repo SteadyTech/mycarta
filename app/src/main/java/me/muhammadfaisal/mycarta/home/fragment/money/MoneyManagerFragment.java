@@ -6,8 +6,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,15 +13,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -32,17 +24,14 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.jjoe64.graphview.GraphView;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
-import lecho.lib.hellocharts.view.LineChartView;
 import lecho.lib.hellocharts.view.PieChartView;
 import me.muhammadfaisal.mycarta.R;
 import me.muhammadfaisal.mycarta.home.fragment.money.adapter.MoneyManagerAdapter;
@@ -63,8 +52,6 @@ public class MoneyManagerFragment extends Fragment implements View.OnClickListen
     public TextView textMoney, textTotalIncome, textTotalExpense;
 
     public PieChartView pieChart;
-
-    public LineChartView lineChartView;
 
     Button buttonIncome, buttonExpense;
 
@@ -163,10 +150,9 @@ public class MoneyManagerFragment extends Fragment implements View.OnClickListen
         buttonExpense = v.findViewById(R.id.buttonExpense);
         textMoney = v.findViewById(R.id.textCurrentBalance);
         textTotalIncome = v.findViewById(R.id.textTotalIncome);
-        textTotalExpense = v.findViewById(R.id.textTotalSpending);
+        textTotalExpense = v.findViewById(R.id.textTotalTransaction);
         card = v.findViewById(R.id.cardView);
         pieChart = v.findViewById(R.id.chartPie);
-        lineChartView = v.findViewById(R.id.chartLine);
 
         buttonIncome.setOnClickListener(this);
         buttonExpense.setOnClickListener(this);

@@ -32,6 +32,7 @@ import com.rengwuxian.materialedittext.MaterialEditText;
 import java.util.ArrayList;
 
 import me.muhammadfaisal.mycarta.R;
+import me.muhammadfaisal.mycarta.helper.UniversalHelper;
 import me.muhammadfaisal.mycarta.home.fragment.card.bottom_sheet.switcher.adapter.SwitchCardAdapter;
 import me.muhammadfaisal.mycarta.home.fragment.card.model.Card;
 
@@ -40,10 +41,12 @@ import me.muhammadfaisal.mycarta.home.fragment.card.model.Card;
  */
 public class HiddenBottomSheetFragment extends BottomSheetDialogFragment{
 
-    private TextView textCardNumber, textCardName, textCardCVV,textExpiry, typeCard,hintName , hintNumber, hintCvv, hintExpiry;
-    private EditText inputPin, inputDescription;
+    private TextView textCardNumber, textCardName, textCardCVV,textExpiry, typeCard;
+    private EditText inputDescription;
     private ImageView imageType;
     private Button buttonCopy;
+
+    UniversalHelper helper;
 
     public HiddenBottomSheetFragment() {
         // Required empty public constructor
@@ -71,15 +74,9 @@ public class HiddenBottomSheetFragment extends BottomSheetDialogFragment{
         textCardCVV = v.findViewById(R.id.textCardCvv);
         textExpiry = v.findViewById(R.id.textExpiry);
 
-        inputPin = v.findViewById(R.id.inputPin);
         inputDescription = v.findViewById(R.id.inputDescription);
 
         typeCard  = v.findViewById(R.id.typeCard);
-
-        hintCvv = v.findViewById(R.id.hintCvv);
-        hintExpiry = v.findViewById(R.id.hintExpiry);
-        hintNumber = v.findViewById(R.id.hintCardNumber);
-        hintName = v.findViewById(R.id.hintCardName);
 
         buttonCopy = v.findViewById(R.id.buttonCopy);
 
@@ -93,16 +90,15 @@ public class HiddenBottomSheetFragment extends BottomSheetDialogFragment{
 
     private void gettingData(ImageView imageType) {
         StringBuilder s;
-        s = new StringBuilder(String.valueOf(getArguments().getLong("numberOnCard")));
+        s = new StringBuilder(getArguments().getString("numberOnCard"));
 
         for (int i = 4; i < s.length(); i += 5){
             s.insert(i, " ");
         }
         textCardName.setText(getArguments().getString("nameOnCard"));
         textCardNumber.setText(String.valueOf(s));
-        textCardCVV.setText(String.valueOf(getArguments().getInt("cvv")));
+        textCardCVV.setText(getArguments().getString("cvv"));
         textExpiry.setText(getArguments().getString("expiry"));
-        inputPin.setText(String.valueOf(getArguments().getInt("pin")));
         inputDescription.setText(String.valueOf(getArguments().getString("desc")));
 
         String type = getArguments().getString("typeOnCard");
@@ -163,18 +159,6 @@ public class HiddenBottomSheetFragment extends BottomSheetDialogFragment{
             }
         });
 
-        inputPin.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                ClipboardManager clipboardManager = (ClipboardManager) getActivity().getSystemService(getActivity().CLIPBOARD_SERVICE);
-                ClipData clip = ClipData.newPlainText("Copy",inputPin.getText().toString());
-                clipboardManager.setPrimaryClip(clip);
-                Toast.makeText(getActivity(), "Copied To Clipboard!", Toast.LENGTH_SHORT).show();
-
-                return true;
-            }
-        });
-
         inputDescription.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
@@ -191,7 +175,7 @@ public class HiddenBottomSheetFragment extends BottomSheetDialogFragment{
             @Override
             public void onClick(View view) {
                 ClipboardManager clipboardManager = (ClipboardManager) getActivity().getSystemService(getActivity().CLIPBOARD_SERVICE);
-                ClipData clip = ClipData.newPlainText("Copy", "Cardholder Name\n" + textCardName.getText().toString() + "\n\nNumber Card\n" + textCardNumber.getText().toString() + "\n\nCVV\n" + textCardCVV.getText().toString() + "\n\nExpiry\n" + textExpiry.getText().toString() + "\n\nPIN\n" + inputPin.getText().toString() + "\n\nDescription\n" + inputDescription.getText().toString() +"\n\nDownload MyCarta! Make your life easier and happier!");
+                ClipData clip = ClipData.newPlainText("Copy", "Cardholder Name\n" + textCardName.getText().toString() + "\n\nNumber Card\n" + textCardNumber.getText().toString() + "\n\nCVV\n" + textCardCVV.getText().toString() + "\n\nExpiry\n" + textExpiry.getText().toString()  + "\n\nDescription\n" + inputDescription.getText().toString() +"\n\nDownload MyCarta! Make your life easier and happier!");
                 clipboardManager.setPrimaryClip(clip);
                 Toast.makeText(getActivity(), "Copied To Clipboard!", Toast.LENGTH_SHORT).show();
             }

@@ -67,9 +67,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
         setContentView(R.layout.activity_login);
 
-
-        getSupportActionBar().hide();
-
         initWidget();
 
         GoogleSignInOptions sign = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)

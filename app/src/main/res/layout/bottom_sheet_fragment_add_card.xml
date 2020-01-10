@@ -193,30 +193,6 @@
                 </LinearLayout>
             </LinearLayout>
 
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:hintAnimationEnabled="true"
-                android:hint="Pin"
-                android:layout_margin="4dp"
-                android:background="@drawable/bg_spinner_blue"
-                app:passwordToggleEnabled="true">
-
-
-                <com.rengwuxian.materialedittext.MaterialEditText
-                    android:inputType="numberPassword"
-                    android:id="@+id/inputPin"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="6dp"
-                    android:maxLength="6"
-                    android:padding="2dp"
-                    app:met_floatingLabel="highlight"
-                    app:met_primaryColor="#4CAF50" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
              <com.google.android.material.textfield.TextInputLayout
                  android:layout_width="match_parent"
                  android:background="@drawable/bg_spinner_blue"
