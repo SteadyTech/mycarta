@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:id="@+id/linearParent"
     android:background="@drawable/animation_blue"
-    tools:context=".register.welcome.WelcomeNewUserActivity"
+    tools:context=".v1.register.welcome.WelcomeNewUserActivity"
     android:orientation="vertical">
 
 

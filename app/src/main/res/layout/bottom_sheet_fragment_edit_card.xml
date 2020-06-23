@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context=".home.fragment.card.bottom_sheet.edit.EditCardBottomSheetFragment">
+    tools:context=".v1.home.fragment.card.bottom_sheet.edit.EditCardBottomSheetFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <androidx.appcompat.widget.Toolbar
@@ -57,15 +57,13 @@
                 android:background="@drawable/bg_spinner_blue">
 
 
-                <com.rengwuxian.materialedittext.MaterialEditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/inputCardHolderName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="6dp"
                     android:maxLength="18"
-                    android:padding="4dp"
-                    app:met_floatingLabel="highlight"
-                    app:met_primaryColor="#4CAF50" />
+                    android:padding="4dp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -83,16 +81,14 @@
                     android:layout_height="wrap_content">
 
 
-                    <com.rengwuxian.materialedittext.MaterialEditText
+                    <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/inputCardNumber"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="6dp"
                         android:inputType="number"
                         android:maxLength="16"
-                        android:padding="2dp"
-                        app:met_floatingLabel="highlight"
-                        app:met_primaryColor="#4CAF50" />
+                        android:padding="2dp"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -103,16 +99,14 @@
                     android:background="@drawable/bg_spinner_blue"
                     android:layout_height="wrap_content">
 
-                    <com.rengwuxian.materialedittext.MaterialEditText
+                    <com.google.android.material.textfield.TextInputEditText
                         android:inputType="number"
                         android:id="@+id/inputCvv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="6dp"
                         android:maxLength="3"
-                        android:padding="2dp"
-                        app:met_floatingLabel="highlight"
-                        app:met_primaryColor="#4CAF50" />
+                        android:padding="2dp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -201,15 +195,13 @@
                 android:hint="Description"
                 android:layout_height="wrap_content">
 
-                <com.rengwuxian.materialedittext.MaterialEditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/inputDescription"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="6dp"
                     android:maxLength="24"
-                    android:padding="2dp"
-                    app:met_floatingLabel="highlight"
-                    app:met_primaryColor="#4CAF50" />
+                    android:padding="2dp" />
             </com.google.android.material.textfield.TextInputLayout>
 
 

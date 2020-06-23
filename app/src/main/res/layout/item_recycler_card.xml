@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="340dp">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:transitionName="CardView"
+        android:layout_margin="12dp"
+        android:layout_width="220dp"
+        android:layout_height="match_parent"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="4dp">
+
+        <RelativeLayout
+            android:id="@+id/backgroundCard"
+            android:padding="16dp"
+            android:background="@drawable/animation_blue"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <me.muhammadfaisal.mycarta.v1.helper.VerticalTextView
+                android:id="@+id/textBalance"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rp 120.000"
+                android:textSize="18sp"
+                android:fontFamily="@font/roboto_bold"
+                android:textColor="@color/white"/>
+
+            <LinearLayout
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <me.muhammadfaisal.mycarta.v1.helper.VerticalTextView
+                    android:id="@+id/textOwner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="MyCarta Person"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/roboto_bold"
+                    android:textColor="@color/white"/>
+
+                <me.muhammadfaisal.mycarta.v1.helper.VerticalTextView
+                    android:layout_gravity="start"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/owner"
+                    android:fontFamily="@font/roboto_bold"
+                    android:textColor="@color/grayPrimary"
+                    android:textSize="12sp"/>
+
+            </LinearLayout>
+
+            <me.muhammadfaisal.mycarta.v1.helper.VerticalTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"
+                android:id="@+id/textCardNumber"
+                android:text="9345"
+                android:fontFamily="@font/roboto_bold"
+                android:textColor="@color/white"/>
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

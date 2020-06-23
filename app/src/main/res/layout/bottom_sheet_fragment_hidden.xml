@@ -1,206 +1,159 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context=".home.fragment.card.bottom_sheet.hidden.HiddenBottomSheetFragment">
+    tools:context=".v1.home.fragment.card.bottom_sheet.hidden.HiddenBottomSheetFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize">
 
         <RelativeLayout
-            android:layout_marginEnd="20dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:foreground="?attr/selectableItemBackground"
-                android:id="@+id/icClose"
-                android:layout_alignParentStart="true"
-                android:layout_centerInParent="true"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_close"/>
+            android:layout_height="match_parent"
+            android:layout_marginEnd="20dp">
 
             <TextView
-                android:id="@+id/typeCard"
+                android:id="@+id/textCardType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Hidden Information"
-                android:textSize="16sp"
-                android:fontFamily="@font/poppins_bold"
+                android:layout_alignParentStart="true"
                 android:layout_centerInParent="true"
-                android:textColor="@color/buttonPrimary"/>
+                android:fontFamily="@font/poppins_bold"
+                android:text="@string/card_info"
+                android:textColor="@color/buttonPrimary"
+                android:textSize="16sp" />
 
         </RelativeLayout>
 
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.cardview.widget.CardView
-         android:layout_margin="16dp"
-            android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginBottom="16dp"
+        app:cardCornerRadius="12dp">
+
+        <RelativeLayout
+            android:id="@+id/backgroundCard"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            app:cardCornerRadius="12dp">
+            android:layout_height="match_parent"
+            android:background="@drawable/animation_blue"
+            android:padding="12dp">
 
             <RelativeLayout
-                android:id="@+id/backgroundCard"
-                android:background="#fff"
-                android:padding="12dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <ImageView
-                    android:id="@+id/imageType"
-                    android:layout_marginEnd="10dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_width="42dp"
-                    android:layout_height="32dp"
-                    android:src="@drawable/ic_card"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:orientation="vertical">
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <LinearLayout
-                        android:layout_alignParentStart="true"
-                        android:layout_centerInParent="true"
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:fontFamily="@font/lato_light"
+                        android:text="@string/number_card"
+                        android:textAllCaps="true"
+                        android:textColor="@color/white"
+                        android:textSize="10sp" />
 
-                        <TextView
-                            android:id="@+id/hintCardNumber"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/lato_light"
-                            android:text="Card Number"
-                            android:textAllCaps="true"
-                            android:textColor="@color/textColorPrimary"
-                            android:textSize="10sp" />
-
-                        <TextView
-                            android:foreground="?attr/selectableItemBackground"
-                            android:id="@+id/textCardNumber"
-                            android:textSize="18sp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="4520 9573 3843 8347"
-                            android:fontFamily="@font/poppins_bold"
-                            android:textColor="@color/black"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_centerInParent="true"
-                        android:layout_alignParentEnd="true"
+                    <TextView
+                        android:id="@+id/textCardName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:fontFamily="@font/poppins_bold"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:text="Kartu Member Bahagia Selamanya"
+                        android:textColor="@color/white"
+                        android:textSize="16sp" />
+                </LinearLayout>
 
-                        <TextView
-                            android:id="@+id/hintCvv"
-                            android:fontFamily="@font/lato_light"
-                            android:textAllCaps="true"
-                            android:textSize="10sp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="cvv"
-                            android:textColor="@color/textColorPrimary"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerInParent="true"
+                    android:orientation="vertical">
 
-                        <TextView
-                            android:foreground="?attr/selectableItemBackground"
-                            android:id="@+id/textCardCvv"
-                            android:textAllCaps="true"
-                            android:textSize="18sp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="112"
-                            android:fontFamily="@font/poppins_bold"
-                            android:textColor="@color/black"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_alignParentBottom="true"
+                    <TextView
+                        android:id="@+id/hintCardNumber"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:fontFamily="@font/lato_light"
+                        android:text="@string/number_card"
+                        android:textAllCaps="true"
+                        android:textColor="@color/white"
+                        android:textSize="10sp" />
 
-                        <TextView
-                            android:id="@+id/hintCardName"
-                            android:fontFamily="@font/lato_light"
-                            android:textAllCaps="true"
-                            android:textSize="10sp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Cardholder Name"
-                            android:textColor="@color/textColorPrimary"/>
-
-                        <TextView
-                            android:foreground="?attr/selectableItemBackground"
-                            android:id="@+id/textCardName"
-                            android:textAllCaps="true"
-                            android:textSize="18sp"
-                            android:maxLines="25"
-                            android:ellipsize="end"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="My Carta"
-                            android:fontFamily="@font/poppins_bold"
-                            android:textColor="@color/black"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentEnd="true"
+                    <TextView
+                        android:id="@+id/textCardNumber"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:fontFamily="@font/poppins_bold"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:text="4520 9573 3843 8347"
+                        android:textColor="@color/white"
+                        android:textSize="16sp" />
+                </LinearLayout>
 
-                        <TextView
-                            android:id="@+id/hintExpiry"
-                            android:fontFamily="@font/lato_light"
-                            android:textAllCaps="true"
-                            android:textSize="10sp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Expiry"
-                            android:textColor="@color/textColorPrimary"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:orientation="vertical">
 
-                        <TextView
-                            android:foreground="?attr/selectableItemBackground"
-                            android:id="@+id/textExpiry"
-                            android:textAllCaps="true"
-                            android:textSize="18sp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="12/21"
-                            android:fontFamily="@font/poppins_bold"
-                            android:textColor="@color/black"/>
+                    <TextView
+                        android:id="@+id/hintCardName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/lato_light"
+                        android:text="@string/owner"
+                        android:textAllCaps="true"
+                        android:textColor="@color/white"
+                        android:textSize="10sp" />
 
-                    </LinearLayout>
+                    <TextView
+                        android:id="@+id/textCardOwner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/poppins_bold"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:maxLines="25"
+                        android:text="My Carta"
+                        android:textAllCaps="true"
+                        android:textColor="@color/white"
+                        android:textSize="16sp" />
 
-                </RelativeLayout>
+                </LinearLayout>
 
             </RelativeLayout>
 
+        </RelativeLayout>
+
     </androidx.cardview.widget.CardView>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="12sp"
-        android:gravity="center"
         android:fontFamily="@font/roboto"
-        android:textStyle="italic"
-        android:text="You can copy the content just by long tap"/>
+        android:gravity="center"
+        android:text="You can copy the content just by long tap"
+        android:textSize="12sp"
+        android:textStyle="italic" />
+
     <androidx.core.widget.NestedScrollView
-        android:padding="16dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:padding="16dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -209,35 +162,65 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:foreground="?attr/selectableItemBackground"
+                android:layout_height="wrap_content"
                 android:layout_margin="4dp"
-                android:hint="Description"
-                android:layout_height="wrap_content">
+                app:boxBackgroundMode="outline"
+                app:boxBackgroundColor="@color/white"
+                app:boxStrokeWidth="1dp"
+                app:boxStrokeColor="@color/colorBluePrimary"
+                app:boxCornerRadiusBottomEnd="8dp"
+                app:boxCornerRadiusBottomStart="8dp"
+                app:boxCornerRadiusTopEnd="8dp"
+                app:boxCornerRadiusTopStart="8dp"
+                app:hintTextColor="@color/colorBluePrimary">
 
-                <com.rengwuxian.materialedittext.MaterialEditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/inputDescription"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:hint="@string/description"
                     android:editable="false"
-                    android:layout_margin="6dp"
+                    android:lines="3"
+                    android:gravity="start|top"
                     android:maxLength="24"
-                    android:padding="2dp"
-                    app:met_floatingLabel="highlight"
-                    app:met_primaryColor="#4CAF50" />
+                    android:padding="16dp" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <Button
-                android:id="@+id/buttonCopy"
-                android:layout_margin="4dp"
-                android:textColor="@color/black"
-                android:gravity="start|center"
-                android:padding="8dp"
+            <com.google.android.material.button.MaterialButton
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAllCaps="false"
-                android:drawableEnd="@drawable/ic_copy"
-                android:background="@drawable/button_copy_content"
-                android:text="Copy All Information"/>
+                android:layout_margin="4dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/black"
+                android:id="@+id/buttonCopy"
+                android:backgroundTint="@color/white"
+                android:text="@string/copy_all_information"
+                android:textColor="@color/black"
+                android:drawableEnd="@drawable/ic_copy"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/black"
+                android:id="@+id/buttonQrCode"
+                android:backgroundTint="@color/white"
+                android:text="@string/qr_code"
+                android:textColor="@color/black"
+                android:drawableEnd="@drawable/ic_qr"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/black"
+                android:id="@+id/buttonBarcode"
+                android:backgroundTint="@color/white"
+                android:text="@string/barcode"
+                android:textColor="@color/black"
+                android:drawableEnd="@drawable/ic_barcode"/>
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

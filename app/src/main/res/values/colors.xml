@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#445EE9</color>
+    <color name="colorBluePrimary">#445EE9</color>
     <color name="colorPrimaryDark">#F8F8FA</color>
     <color name="colorAccent">#B8C0D2</color>
     <color name="white">#FFF</color>
@@ -16,7 +16,7 @@
     <color name="buttonDelete">#F06292</color>
     <color name="backgroundGrayPrimary">#F2F2F2</color>
     <color name="red">#EF5350</color>
-    <color name="colorIncome">#AED581</color>
+    <color name="colorIncome">#81C784</color>
     <color name="colorExpense">#E57373</color>
     <color name="white_opacity_50">#80FFFFFF</color>
     <color name="buttonPay">#4CAF50</color>

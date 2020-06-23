@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".home.fragment.card.bottom_sheet.add.AddCardBottomSheetFragment">
+    tools:context=".v2.bottomsheet.AddCardBottomSheetFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:text="Add New Card"
                 android:textSize="16sp"
-                android:fontFamily="@font/poppins_bold"
+                android:fontFamily="@font/maven_pro_medium"
                 android:layout_centerInParent="true"
                 android:textColor="@color/buttonPrimary"/>
 
@@ -39,188 +39,153 @@
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.core.widget.NestedScrollView
-        android:padding="16dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:padding="16dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <LinearLayout
+                android:background="@drawable/bg_spinner_blue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <Spinner
+                    android:spinnerMode="dialog"
+                    android:id="@+id/spinnerCardType"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_margin="6dp"
+                    android:layout_weight="1"
+                    android:padding="4dp" />
+            </LinearLayout>
+
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
-                android:hint="@string/name_on_card"
-                android:background="@drawable/bg_spinner_blue">
+                app:boxBackgroundMode="outline"
+                app:boxBackgroundColor="@color/white"
+                app:boxStrokeWidth="1dp"
+                app:boxStrokeColor="@color/colorBluePrimary"
+                app:boxCornerRadiusBottomEnd="8dp"
+                app:boxCornerRadiusBottomStart="8dp"
+                app:boxCornerRadiusTopEnd="8dp"
+                app:boxCornerRadiusTopStart="8dp"
+                app:hintTextColor="@color/colorBluePrimary"
+                app:helperText="@string/insert_your_name">
 
-
-                <com.rengwuxian.materialedittext.MaterialEditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/inputCardHolderName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="6dp"
+                    android:fontFamily="@font/maven_pro"
+                    android:hint="@string/owner"
                     android:maxLength="18"
-                    android:padding="4dp"
-                    app:met_floatingLabel="highlight"
-                    app:met_primaryColor="#4CAF50" />
+                    android:padding="16dp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <LinearLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_margin="4dp"
+                app:boxBackgroundMode="outline"
+                app:boxBackgroundColor="@color/white"
+                app:boxStrokeWidth="1dp"
+                app:boxStrokeColor="@color/colorBluePrimary"
+                app:boxCornerRadiusBottomEnd="8dp"
+                app:boxCornerRadiusBottomStart="8dp"
+                app:boxCornerRadiusTopEnd="8dp"
+                app:boxCornerRadiusTopStart="8dp"
+                app:hintTextColor="@color/colorBluePrimary">
 
-                <com.google.android.material.textfield.TextInputLayout
+                <EditText
+                    android:hint="@string/name_card"
+                    android:id="@+id/inputCardName"
                     android:layout_width="match_parent"
-                    android:layout_margin="4dp"
-                    android:layout_weight="0.4"
-                    android:hint="@string/number_card"
-                    android:background="@drawable/bg_spinner_blue"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:maxLength="16"
+                    android:padding="16dp" />
 
+            </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.rengwuxian.materialedittext.MaterialEditText
-                        android:id="@+id/inputCardNumber"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="6dp"
-                        android:inputType="number"
-                        android:maxLength="16"
-                        android:padding="2dp"
-                        app:met_floatingLabel="highlight"
-                        app:met_primaryColor="#4CAF50" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:hint="@string/cvv"
-                    android:layout_weight="1.5"
-                    android:layout_margin="4dp"
-                    android:background="@drawable/bg_spinner_blue"
-                    android:layout_height="wrap_content">
-
-                    <com.rengwuxian.materialedittext.MaterialEditText
-                        android:inputType="number"
-                        android:id="@+id/inputCvv"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="6dp"
-                        android:maxLength="3"
-                        android:padding="2dp"
-                        app:met_floatingLabel="highlight"
-                        app:met_primaryColor="#4CAF50" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_marginTop="10dp"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                app:boxBackgroundMode="outline"
+                app:boxBackgroundColor="@color/white"
+                app:boxStrokeWidth="1dp"
+                app:boxStrokeColor="@color/colorBluePrimary"
+                app:boxCornerRadiusBottomEnd="8dp"
+                app:boxCornerRadiusBottomStart="8dp"
+                app:boxCornerRadiusTopEnd="8dp"
+                app:boxCornerRadiusTopStart="8dp"
+                app:hintTextColor="@color/colorBluePrimary">
 
-                <LinearLayout
+
+                <EditText
+                    android:hint="@string/number_card"
+                    android:id="@+id/inputCardNumber"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:maxLength="16"
+                    android:padding="16dp" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="12sp"
-                        android:fontFamily="@font/poppins_bold"
-                        android:text="Card Type" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-                    <Spinner
-                        android:layout_weight="1"
-                        android:background="@drawable/bg_spinner_blue"
-                        android:id="@+id/spinnerCardType"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_margin="6dp"
-                        android:padding="4dp"/>
-                </LinearLayout>
-                <LinearLayout
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                app:boxBackgroundMode="outline"
+                app:boxBackgroundColor="@color/white"
+                app:boxStrokeWidth="1dp"
+                app:boxStrokeColor="@color/colorBluePrimary"
+                app:boxCornerRadiusBottomEnd="8dp"
+                app:boxCornerRadiusBottomStart="8dp"
+                app:boxCornerRadiusTopEnd="8dp"
+                app:boxCornerRadiusTopStart="8dp"
+                app:hintTextColor="@color/colorBluePrimary">
+
+                <EditText
+                    android:hint="@string/description"
+                    style="@style/EditTextHint"
+                    android:id="@+id/inputDescription"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content"
+                    android:lines="3"
+                    android:gravity="start"
+                    android:maxLength="24"
+                    android:padding="16dp"/>
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="12sp"
-                        android:fontFamily="@font/poppins_bold"
-                        android:text="Month Expire" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-                    <Spinner
-                        android:background="@drawable/bg_spinner_blue"
-                        android:layout_weight="1"
-                        android:id="@+id/spinnerMonthExp"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_margin="6dp"
-                        android:padding="4dp"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="12sp"
-                        android:fontFamily="@font/poppins_bold"
-                        android:text="Year Expire" />
-
-                    <Spinner
-                        android:background="@drawable/bg_spinner_blue"
-                        android:layout_weight="1"
-                        android:id="@+id/spinnerYearExp"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_margin="6dp"
-                        android:padding="4dp"/>
-
-                </LinearLayout>
-            </LinearLayout>
-
-             <com.google.android.material.textfield.TextInputLayout
-                 android:layout_width="match_parent"
-                 android:background="@drawable/bg_spinner_blue"
-                 android:layout_margin="4dp"
-                 android:hint="Description"
-                 android:layout_height="wrap_content">
-
-                 <com.rengwuxian.materialedittext.MaterialEditText
-                     android:id="@+id/inputDescription"
-                     android:layout_width="match_parent"
-                     android:layout_height="wrap_content"
-                     android:layout_margin="6dp"
-                     android:maxLength="24"
-                     android:padding="2dp"
-                     app:met_floatingLabel="highlight"
-                     app:met_primaryColor="#4CAF50" />
-             </com.google.android.material.textfield.TextInputLayout>
-
+            <CheckBox
+                android:id="@+id/ckbPrioritize"
+                android:layout_margin="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/prioritize_card"
+                android:fontFamily="@font/maven_pro"
+                android:paddingStart="8dp"/>
 
 
             <Button
                 android:id="@+id/buttonSave"
-                android:layout_margin="4dp"
-                android:textColor="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="4dp"
                 android:background="@drawable/button_primary"
-                android:text="Save"/>
+                android:text="Save"
+                android:textColor="@color/white" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

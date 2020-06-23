@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    tools:context=".welcome.WelcomeActivity">
+    tools:context=".v1.welcome.WelcomeActivity">
 
     <LinearLayout
         android:id="@+id/linearMain"

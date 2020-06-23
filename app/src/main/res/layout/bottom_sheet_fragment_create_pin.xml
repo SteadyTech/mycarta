@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:id="@+id/bottomSheetPin"
     android:layout_height="wrap_content"
-    tools:context=".pin.PinBottomSheetFragment">
+    tools:context=".v1.pin.PinBottomSheetFragment">
 
     <ProgressBar
         android:padding="8dp"
@@ -69,7 +69,7 @@
                 app:lottie_autoPlay="true"
                 app:lottie_fileName="verification.json"/>
 
-            <me.muhammadfaisal.mycarta.helper.PinEditText
+            <me.muhammadfaisal.mycarta.v1.helper.PinEditText
                 android:id="@+id/inputNewPin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

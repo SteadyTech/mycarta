@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context=".register.RegisterActivity">
+    tools:context=".v1.register.RegisterActivity">
 
     <ImageView
         android:foreground="?attr/selectableItemBackground"
@@ -26,30 +26,23 @@
         android:textSize="24sp" />
 
 
-    <com.rengwuxian.materialedittext.MaterialEditText
+    <com.google.android.material.textfield.TextInputEditText
         android:inputType="textEmailAddress"
-        app:met_floatingLabel="highlight"
-        app:met_primaryColor="#4CAF50"
         android:layout_margin="6dp"
         android:id="@+id/inputName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Name" />
 
-    <com.rengwuxian.materialedittext.MaterialEditText
+    <com.google.android.material.textfield.TextInputEditText
         android:inputType="textEmailAddress"
-        app:met_floatingLabel="highlight"
-        app:met_primaryColor="#4CAF50"
         android:layout_margin="6dp"
         android:id="@+id/inputEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/email" />
 
-    <com.rengwuxian.materialedittext.MaterialEditText
-        app:met_floatingLabel="highlight"
-        app:met_primaryColor="#4CAF50"
-        android:layout_margin="6dp"
+    <com.google.android.material.textfield.TextInputEditText
         android:inputType="textPassword"
         android:id="@+id/inputPassword"
         android:layout_width="match_parent"

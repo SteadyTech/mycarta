@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".home.fragment.article.view.DetailArticleActivity">
+    tools:context=".v1.home.fragment.article.view.DetailArticleActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBar"

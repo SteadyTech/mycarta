@@ -7,7 +7,7 @@
     android:background="@drawable/top_rounded"
     android:id="@+id/dataMoneyManagerBottomSheet"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
-    tools:context=".home.fragment.money.bottom_sheet.ListMoneyManagerBottomSheet">
+    tools:context=".v1.home.fragment.money.bottom_sheet.ListMoneyManagerBottomSheet">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"

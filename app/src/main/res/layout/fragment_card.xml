@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/backgroundGrayPrimary"
     android:orientation="vertical"
-    tools:context=".home.fragment.card.CardFragment">
+    tools:context=".v1.home.fragment.card.CardFragment">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"

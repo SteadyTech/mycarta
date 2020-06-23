@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".v2.MyCartaApplication"
         android:allowBackup="true"
         android:icon="@mipmap/main_icon"
         android:label="@string/app_name"
@@ -15,34 +16,37 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:icon">
-        <activity android:name=".home.fragment.article.view.DetailArticleActivity"/>
-        <activity android:name=".register.welcome.WelcomeNewUserActivity" />
-        <activity android:name=".home.fragment.card.view.CardPayActivity" />
-        <activity android:name=".home.fragment.account.view.ChangePinActivity" />
-        <activity android:name=".splashscreen.SplashScreenActivity">
+        <activity android:name=".v2.activity.CardListActivity"></activity>
+        <activity android:name=".v2.activity.DetailCardActivity" />
+        <activity android:name=".v2.activity.HomeActivity" />
+        <activity android:name=".v1.home.fragment.article.view.DetailArticleActivity" />
+        <activity android:name=".v1.register.welcome.WelcomeNewUserActivity" />
+        <activity android:name=".v1.home.fragment.card.view.CardPayActivity" />
+        <activity android:name=".v1.home.fragment.account.view.ChangePinActivity" />
+        <activity android:name=".v1.splashscreen.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".home.fragment.account.view.ChangePasswordActivity" />
+        <activity android:name=".v1.home.fragment.account.view.ChangePasswordActivity" />
         <activity
-            android:name=".home.HomeActivity"
+            android:name=".v1.home.HomeActivity"
             android:label="@string/title_activity_home" />
-        <activity android:name=".forgot_password.ForgotPasswordActivity" />
-        <activity android:name=".register.RegisterActivity" />
-        <activity android:name=".welcome.WelcomeActivity" />
+        <activity android:name=".v1.forgot_password.ForgotPasswordActivity" />
+        <activity android:name=".v1.register.RegisterActivity" />
+        <activity android:name=".v1.welcome.WelcomeActivity" />
         <activity
-            android:name=".login.LoginActivity"
-            android:parentActivityName=".welcome.WelcomeActivity" />
+            android:name=".v1.login.LoginActivity"
+            android:parentActivityName=".v1.welcome.WelcomeActivity" />
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
         <service
-            android:name=".keyboard.CartaBoardService"
+            android:name=".v1.keyboard.CartaBoardService"
             android:label="Carta Board"
             android:permission="android.permission.BIND_INPUT_METHOD">
             <intent-filter>

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:padding="16dp"
     android:orientation="vertical"
-    tools:context=".home.fragment.account.view.ChangePinActivity">
+    tools:context=".v1.home.fragment.account.view.ChangePinActivity">
 
     <ImageView
         android:padding="2dp"
@@ -34,7 +34,7 @@
         android:text="@string/secure_pin"
         android:textSize="14sp" />
 
-    <me.muhammadfaisal.mycarta.helper.PinEditText
+    <me.muhammadfaisal.mycarta.v1.helper.PinEditText
         android:id="@+id/inputLatestPin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

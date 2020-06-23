@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context=".home.fragment.money.bottom_sheet.DetailMoneyManagerBottomSheet">
+    tools:context=".v1.home.fragment.money.bottom_sheet.DetailMoneyManagerBottomSheet">
 
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
@@ -50,7 +50,7 @@
 
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/cardTotalExpenseOrIncome"
+                android:id="@+id/cardHeader"
                 android:layout_marginBottom="14dp"
                 app:cardBackgroundColor="@color/colorExpense"
                 android:layout_width="match_parent"
@@ -108,7 +108,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/cardDescription"
+                android:id="@+id/cardFooter"
                 android:layout_marginBottom="14dp"
                 app:cardBackgroundColor="@color/colorExpense"
                 android:layout_width="match_parent"

@@ -39,7 +39,7 @@
                     android:id="@+id/textName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/roboto"
+                    android:fontFamily="@font/maven_pro"
                     android:text="Income or Expense Name"
                     android:textColor="@color/black"
                     android:textSize="14sp" />

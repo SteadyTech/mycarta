@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/top_rounded"
     android:orientation="vertical"
-    tools:context=".home.fragment.account.bottom_sheet.AboutAppBottomSheetFragment">
+    tools:context=".v1.home.fragment.account.bottom_sheet.AboutAppBottomSheetFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"

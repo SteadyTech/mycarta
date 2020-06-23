@@ -15,7 +15,7 @@
 
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
-    
+
     <string-array name="quotes">
         <item>For I don’t care too much for money, for money can\’t buy me love.</item>
         <item>Love conquers all things except poverty and toothache.</item>
@@ -35,7 +35,7 @@
     <string name="name_on_card">Cardholder Name</string>
     <string name="number_card">Card Number</string>
     <string name="cvv">CVV</string>
-    <string name="typeCard">Card Type (<i>Visa, Master Card</i>)</string>
+    <string name="typeCard">Type Card</string>
     <string name="pin">Pin</string>
     <string name="security_data">Security Data</string>
     <string name="secure_account">Make your account secure by changing password every month</string>
@@ -78,5 +78,41 @@
     </string>
     <string name="about_app">About App</string>
     <string name="about_mycarta">MyCarta is application to make your life <b>smarter, easier, happier !</b> Why? Because MyCarta can keep your card data without risk.\n\nData in database will be encrypted and no ones can know your data!.\n\nAnd MyCarta can record your spending or income and with the article how to saving money and budget planning that can make your life <b>smarter, easier, happier!.</b></string>
+    <string name="your_cards">Your Cards</string>
+    <string name="add_new_card">Add New Card</string>
+    <string name="owner">Owner</string>
+    <string name="income">Income</string>
+    <string name="expense">Expense</string>
+    <string name="test_currency">Rp120.000</string>
+    <string name="test_currency_0">Rp0,00</string>
+    <string name="see_transaction">See Transaction</string>
+    <string name="back">Back</string>
+    <string name="menu">Menu</string>
+    <string name="list_transaction">List Transaction</string>
+    <string name="edit">Edit</string>
+    <string name="add_transaction">Add Transaction</string>
+    <string name="delete">Delete</string>
+    <string name="edit_card">Edit Card</string>
+    <string name="delete_card">Delete Card</string>
+    <string name="card_info">Card Info</string>
+    <string name="description">Description</string>
+    <string name="name_card">Card Name <i>(ex : E-Money Card)</i></string>
+    <string name="prioritize_card">Prioritize Card</string>
+    <string name="create_transaction">Create Transaction</string>
+    <string name="Save">save</string>
+    <string name="name">Name</string>
+    <string name="amount">Amount</string>
+    <string name="insert_your_name">Insert your name</string>
+    <string name="all_cards">All Cards</string>
+    <string name="article">Articles</string>
+    <string name="logout">Logout</string>
+    <string name="copy_all_information">Copy All Information</string>
+    <string name="qr_code">QR Code</string>
+    <string name="barcode">Barcode</string>
+    <string name="finances_well_controlled">Your finances are well controlled!</string>
+    <string name="finances_expense_too_high">What\'s wrong with you? Your expenses are too high</string>
+    <string name="finance_balance">Your financial balance between expense and income</string>
+    <string name="card_list">Card List</string>
+    <string name="test_card_number">\u2022 4094</string>
 
 </resources>

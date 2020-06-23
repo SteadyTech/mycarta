@@ -2,6 +2,8 @@
 <resources>
     <array name="preloaded_fonts" translatable="false">
         <item>@font/lato_light</item>
+        <item>@font/maven_pro</item>
+        <item>@font/maven_pro_medium</item>
         <item>@font/poppins_bold</item>
         <item>@font/roboto</item>
         <item>@font/roboto_bold</item>
