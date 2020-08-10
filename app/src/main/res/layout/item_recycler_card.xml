@@ -8,7 +8,8 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:transitionName="CardView"
-        android:layout_margin="12dp"
+        android:layout_marginHorizontal="12dp"
+        android:layout_marginVertical="8dp"
         android:layout_width="220dp"
         android:layout_height="match_parent"
         app:cardCornerRadius="12dp"
@@ -21,13 +22,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <me.muhammadfaisal.mycarta.v1.helper.VerticalTextView
+            <me.muhammadfaisal.mycarta.v2.helper.VerticalTextView
                 android:id="@+id/textBalance"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentTop="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Rp 120.000"
+                android:text="@string/test_currency_0"
                 android:textSize="18sp"
                 android:fontFamily="@font/roboto_bold"
                 android:textColor="@color/white"/>
@@ -39,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <me.muhammadfaisal.mycarta.v1.helper.VerticalTextView
+                <me.muhammadfaisal.mycarta.v2.helper.VerticalTextView
                     android:id="@+id/textOwner"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -48,18 +49,19 @@
                     android:fontFamily="@font/roboto_bold"
                     android:textColor="@color/white"/>
 
-                <me.muhammadfaisal.mycarta.v1.helper.VerticalTextView
+                <me.muhammadfaisal.mycarta.v2.helper.VerticalTextView
                     android:layout_gravity="start"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/owner"
+                    android:id="@+id/textTitleOwner"
                     android:fontFamily="@font/roboto_bold"
                     android:textColor="@color/grayPrimary"
                     android:textSize="12sp"/>
 
             </LinearLayout>
 
-            <me.muhammadfaisal.mycarta.v1.helper.VerticalTextView
+            <me.muhammadfaisal.mycarta.v2.helper.VerticalTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"

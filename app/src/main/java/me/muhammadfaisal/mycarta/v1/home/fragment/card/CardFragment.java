@@ -36,12 +36,12 @@ import java.util.ArrayList;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import me.muhammadfaisal.mycarta.R;
-import me.muhammadfaisal.mycarta.v1.helper.CartaHelper;
+import me.muhammadfaisal.mycarta.v2.helper.CartaHelper;
 import me.muhammadfaisal.mycarta.v2.bottomsheet.AddCardBottomSheetFragment;
 import me.muhammadfaisal.mycarta.v1.home.fragment.card.bottom_sheet.switcher.SwitchCardBottomSheetFragment;
 import me.muhammadfaisal.mycarta.v1.home.fragment.card.bottom_sheet.switcher.adapter.SwitchCardAdapter;
 import me.muhammadfaisal.mycarta.v1.home.fragment.card.model.Card;
-import me.muhammadfaisal.mycarta.v1.pin.PinBottomSheetFragment;
+import me.muhammadfaisal.mycarta.v2.bottomsheet.PinBottomSheetFragment;
 
 /**
  * A simple {@link Fragment} subclass.

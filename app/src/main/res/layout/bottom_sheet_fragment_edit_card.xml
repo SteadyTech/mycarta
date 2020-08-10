@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".v1.home.fragment.card.bottom_sheet.edit.EditCardBottomSheetFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize">
@@ -18,20 +17,23 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:foreground="?attr/selectableItemBackground"
                 android:id="@+id/icClose"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:layout_alignParentStart="true"
                 android:layout_centerInParent="true"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_close"/>
+                android:foreground="?attr/selectableItemBackground"
+                android:padding="12dp"
+                android:src="@drawable/ic_close" />
+
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Edit Card"
+                android:text="@string/edit_card"
                 android:textSize="16sp"
-                android:fontFamily="@font/poppins_bold"
+                android:fontFamily="@font/maven_pro_medium"
+                android:layout_toEndOf="@id/icClose"
                 android:layout_centerInParent="true"
                 android:textColor="@color/buttonPrimary"/>
 
@@ -40,180 +42,153 @@
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.core.widget.NestedScrollView
-        android:padding="16dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:padding="16dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <LinearLayout
+                android:background="@drawable/bg_spinner_blue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:orientation="vertical">
+
+                <Spinner
+                    android:spinnerMode="dialog"
+                    android:id="@+id/spinnerCardType"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_margin="6dp"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
-                android:hint="@string/name_on_card"
-                android:background="@drawable/bg_spinner_blue">
-
+                app:boxBackgroundMode="outline"
+                app:boxBackgroundColor="@color/white"
+                app:boxStrokeWidth="1dp"
+                app:boxStrokeColor="@color/colorBluePrimary"
+                app:boxCornerRadiusBottomEnd="8dp"
+                app:boxCornerRadiusBottomStart="8dp"
+                app:boxCornerRadiusTopEnd="8dp"
+                app:boxCornerRadiusTopStart="8dp"
+                app:hintTextColor="@color/colorBluePrimary"
+                app:helperText="@string/insert_your_name">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/inputCardHolderName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="6dp"
+                    android:fontFamily="@font/maven_pro"
+                    android:hint="@string/owner"
                     android:maxLength="18"
-                    android:padding="4dp" />
+                    android:padding="16dp" />
 
             </com.google.android.material.textfield.TextInputLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_margin="4dp"
-                    android:layout_weight="0.4"
-                    android:hint="@string/number_card"
-                    android:background="@drawable/bg_spinner_blue"
-                    android:layout_height="wrap_content">
-
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/inputCardNumber"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="6dp"
-                        android:inputType="number"
-                        android:maxLength="16"
-                        android:padding="2dp"/>
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:hint="@string/cvv"
-                    android:layout_weight="1.5"
-                    android:layout_margin="4dp"
-                    android:background="@drawable/bg_spinner_blue"
-                    android:layout_height="wrap_content">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:inputType="number"
-                        android:id="@+id/inputCvv"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="6dp"
-                        android:maxLength="3"
-                        android:padding="2dp" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_marginTop="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="12sp"
-                        android:fontFamily="@font/poppins_bold"
-                        android:text="Card Type" />
-
-                    <Spinner
-                        android:layout_weight="1"
-                        android:background="@drawable/bg_spinner_blue"
-                        android:id="@+id/spinnerCardType"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_margin="6dp"
-                        android:padding="4dp"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="12sp"
-                        android:fontFamily="@font/poppins_bold"
-                        android:text="Month Expire" />
-
-                    <Spinner
-                        android:background="@drawable/bg_spinner_blue"
-                        android:layout_weight="1"
-                        android:id="@+id/spinnerMonthExp"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_margin="6dp"
-                        android:padding="4dp"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="12sp"
-                        android:fontFamily="@font/poppins_bold"
-                        android:text="Year Expire" />
-
-                    <Spinner
-                        android:background="@drawable/bg_spinner_blue"
-                        android:layout_weight="1"
-                        android:id="@+id/spinnerYearExp"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_margin="6dp"
-                        android:padding="4dp"/>
-
-                </LinearLayout>
-            </LinearLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:background="@drawable/bg_spinner_blue"
+                android:layout_height="wrap_content"
                 android:layout_margin="4dp"
-                android:hint="Description"
-                android:layout_height="wrap_content">
+                app:boxBackgroundMode="outline"
+                app:boxBackgroundColor="@color/white"
+                app:boxStrokeWidth="1dp"
+                app:boxStrokeColor="@color/colorBluePrimary"
+                app:boxCornerRadiusBottomEnd="8dp"
+                app:boxCornerRadiusBottomStart="8dp"
+                app:boxCornerRadiusTopEnd="8dp"
+                app:boxCornerRadiusTopStart="8dp"
+                app:hintTextColor="@color/colorBluePrimary">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <EditText
+                    android:hint="@string/card_name_hint"
+                    android:id="@+id/inputCardName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:maxLength="16"
+                    android:padding="16dp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                app:boxBackgroundMode="outline"
+                app:boxBackgroundColor="@color/white"
+                app:boxStrokeWidth="1dp"
+                app:boxStrokeColor="@color/colorBluePrimary"
+                app:boxCornerRadiusBottomEnd="8dp"
+                app:boxCornerRadiusBottomStart="8dp"
+                app:boxCornerRadiusTopEnd="8dp"
+                app:boxCornerRadiusTopStart="8dp"
+                app:hintTextColor="@color/colorBluePrimary">
+
+
+                <EditText
+                    android:hint="@string/number_card"
+                    android:id="@+id/inputCardNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:maxLength="16"
+                    android:padding="16dp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                app:boxBackgroundMode="outline"
+                app:boxBackgroundColor="@color/white"
+                app:boxStrokeWidth="1dp"
+                app:boxStrokeColor="@color/colorBluePrimary"
+                app:boxCornerRadiusBottomEnd="8dp"
+                app:boxCornerRadiusBottomStart="8dp"
+                app:boxCornerRadiusTopEnd="8dp"
+                app:boxCornerRadiusTopStart="8dp"
+                app:hintTextColor="@color/colorBluePrimary">
+
+                <EditText
+                    android:hint="@string/description"
+                    style="@style/EditTextHint"
                     android:id="@+id/inputDescription"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="6dp"
+                    android:lines="3"
+                    android:gravity="start"
                     android:maxLength="24"
-                    android:padding="2dp" />
+                    android:padding="16dp"/>
+
             </com.google.android.material.textfield.TextInputLayout>
 
+            <CheckBox
+                android:id="@+id/ckbPrioritize"
+                android:layout_margin="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/prioritize_card"
+                android:fontFamily="@font/maven_pro"
+                android:paddingStart="8dp"/>
 
 
             <Button
                 android:id="@+id/buttonSave"
-                android:layout_margin="4dp"
-                android:textColor="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="4dp"
                 android:background="@drawable/button_primary"
-                android:text="Save"/>
+                android:text="Save"
+                android:textColor="@color/white" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

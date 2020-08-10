@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,13 +31,15 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
 
+import io.realm.Realm;
 import me.muhammadfaisal.mycarta.R;
-import me.muhammadfaisal.mycarta.v1.helper.CartaHelper;
+import me.muhammadfaisal.mycarta.v2.helper.CartaHelper;
 import me.muhammadfaisal.mycarta.v2.activity.DetailCardActivity;
 import me.muhammadfaisal.mycarta.v2.adapter.SpinnerAdapter;
 import me.muhammadfaisal.mycarta.v2.helper.Constant;
-import me.muhammadfaisal.mycarta.v2.model.CardModel;
-import me.muhammadfaisal.mycarta.v2.model.TransactionModel;
+import me.muhammadfaisal.mycarta.v2.model.firebase.CardModel;
+import me.muhammadfaisal.mycarta.v2.model.firebase.TransactionModel;
+import me.muhammadfaisal.mycarta.v2.model.realm.BalanceDatabase;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -56,6 +59,8 @@ public class CreateTransactionBottomSheetFragment extends BottomSheetDialogFragm
     private CardModel cardModel;
     private DatabaseReference databaseReference;
     private FirebaseAuth firebaseAuth;
+    private Realm realm;
+
     private String checked;
 
 
@@ -75,7 +80,6 @@ public class CreateTransactionBottomSheetFragment extends BottomSheetDialogFragm
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         this.init(view);
-
         this.data();
     }
 
@@ -103,6 +107,7 @@ public class CreateTransactionBottomSheetFragment extends BottomSheetDialogFragm
 
         this.databaseReference = FirebaseDatabase.getInstance().getReference();
         this.firebaseAuth = FirebaseAuth.getInstance();
+        this.realm = Realm.getDefaultInstance();
 
         this.cardModel = (CardModel) Objects.requireNonNull(this.getArguments()).getSerializable("card");
 
@@ -147,6 +152,25 @@ public class CreateTransactionBottomSheetFragment extends BottomSheetDialogFragm
         final Date c = Calendar.getInstance().getTime();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         final String dateNow = sdf.format(c);
+
+        this.realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm transaction) {
+                BalanceDatabase balanceDatabase = transaction.where(BalanceDatabase.class).equalTo("cardID", CreateTransactionBottomSheetFragment.this.cardModel.getCardNumber()).findFirst();
+
+                if (balanceDatabase == null) {
+                    Log.d("MainApplication", "BalanceDatabase is NULL");
+                    balanceDatabase = new BalanceDatabase();
+                    balanceDatabase.setCardID(CreateTransactionBottomSheetFragment.this.cardModel.getCardNumber());
+                    balanceDatabase.setBalance(String.valueOf(CreateTransactionBottomSheetFragment.this.inputAmount.getText()));
+                } else {
+                    Log.d("MainApplication", balanceDatabase.getCardID());
+                    balanceDatabase.setBalance(String.valueOf(CreateTransactionBottomSheetFragment.this.inputAmount.getText()));
+                }
+
+                transaction.copyToRealmOrUpdate(balanceDatabase);
+            }
+        });
 
         this.databaseReference.child(Constant.TRANSACTION_PATH)
                 .child(this.firebaseAuth.getUid())

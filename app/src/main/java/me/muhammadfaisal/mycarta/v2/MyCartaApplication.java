@@ -1,8 +1,6 @@
 package me.muhammadfaisal.mycarta.v2;
 
-import android.annotation.SuppressLint;
 import android.app.Application;
-import android.content.SharedPreferences;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -15,15 +13,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicReferenceArray;
+import org.jetbrains.annotations.NotNull;
 
-import me.muhammadfaisal.mycarta.R;
-import me.muhammadfaisal.mycarta.v1.helper.CartaHelper;
-import me.muhammadfaisal.mycarta.v2.activity.DetailCardActivity;
+import java.util.ArrayList;
+
+import io.realm.Realm;
+import me.muhammadfaisal.mycarta.v2.helper.CartaHelper;
 import me.muhammadfaisal.mycarta.v2.helper.Constant;
-import me.muhammadfaisal.mycarta.v2.model.TransactionModel;
+import me.muhammadfaisal.mycarta.v2.model.firebase.TransactionModel;
+import me.muhammadfaisal.mycarta.v2.model.realm.BalanceDatabase;
 
 public class MyCartaApplication extends Application {
 
@@ -38,6 +36,10 @@ public class MyCartaApplication extends Application {
         super.onCreate();
         Log.d("MainApplication", "onCreate();");
 
+        Realm.init(this.getApplicationContext());
+
+        final Realm realm = Realm.getDefaultInstance();
+
         FirebaseAuth auth = FirebaseAuth.getInstance();
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 
@@ -46,39 +48,52 @@ public class MyCartaApplication extends Application {
             query.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         TransactionModel transactionModel = snapshot.getValue(TransactionModel.class);
 
                         transactionModels.add(transactionModel);
                     }
-                    long income = 0L;
-                    long expense = 0L;
-                    long balance = 0L;
-                    for (TransactionModel transactionModel : transactionModels){
 
-                        if (transactionModel.getType().equals(CartaHelper.encryptString(Constant.CODE.INCOME))){
-                            income += Long.valueOf(CartaHelper.decryptString(transactionModel.getAmount()));
-                        }else if (transactionModel.getType().equals(CartaHelper.encryptString(Constant.CODE.EXPENSE))){
-                            expense += Long.valueOf(CartaHelper.decryptString(transactionModel.getAmount()));
+                    for (int i = 0; i < transactionModels.size(); i++){
+                        TransactionModel transactionModel = transactionModels.get(i);
+
+                        BalanceDatabase balanceDatabase = realm.where(BalanceDatabase.class).equalTo("cardID", transactionModel.getCardNumber()).findFirst();
+
+                        realm.beginTransaction();
+                        if (balanceDatabase != null) {
+                            if (balanceDatabase.getCardID().equals(transactionModel.getCardNumber())){
+                                long income = 0L;
+                                long expense = 0L;
+
+                                for (final TransactionModel transactionModel1 : transactionModels) {
+                                    if (transactionModel1.getCardNumber().equals(balanceDatabase.getCardID())){
+                                        if (transactionModel1.getType().equals(CartaHelper.encryptString(Constant.CODE.INCOME))) {
+                                            income += Long.valueOf(CartaHelper.decryptString(transactionModel1.getAmount()));
+                                        } else if (transactionModel1.getType().equals(CartaHelper.encryptString(Constant.CODE.EXPENSE))) {
+                                            expense += Long.valueOf(CartaHelper.decryptString(transactionModel1.getAmount()));
+                                        }
+                                        final long balance = income - expense;
+
+                                        Log.d("MainApplication", balanceDatabase.getCardID());
+                                        balanceDatabase = new BalanceDatabase();
+                                        balanceDatabase.setCardID(transactionModel.getCardNumber());
+                                        balanceDatabase.setBalance(String.valueOf(balance));
+                                    }
+                                }
+                            }
+                        }else{
+
                         }
-
-                        balance = income - expense;
-
-                        Log.d("Key-Preference", transactionModel.getCardNumber());
-                        SharedPreferences sharedPreferences = getSharedPreferences(Constant.PREFERENCE.TRANSACTION, MODE_PRIVATE);
-                        @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putLong(transactionModel.getCardNumber(), balance);
-                        editor.apply();
-
-                        Log.d("Sum Income", String.valueOf(income));
-                        Log.d("Sum Expense", String.valueOf(expense));
-                        Log.d("Sum Expense", String.valueOf(balance));
+                        if (balanceDatabase != null) {
+                            realm.copyToRealmOrUpdate(balanceDatabase);
+                        }
+                        realm.commitTransaction();
                     }
                 }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                    realm.close();
                 }
             });
         }

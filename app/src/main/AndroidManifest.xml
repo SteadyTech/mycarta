@@ -16,14 +16,17 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:icon">
-        <activity android:name=".v2.activity.CardListActivity"></activity>
+        <activity android:name=".v2.activity.EditProfileActivity"></activity>
+        <activity android:name=".v2.activity.ProfileActivity" />
+        <activity android:name=".v2.activity.ArticleListActivity" />
+        <activity android:name=".v2.activity.CardListActivity" />
         <activity android:name=".v2.activity.DetailCardActivity" />
         <activity android:name=".v2.activity.HomeActivity" />
         <activity android:name=".v1.home.fragment.article.view.DetailArticleActivity" />
-        <activity android:name=".v1.register.welcome.WelcomeNewUserActivity" />
+        <activity android:name=".v2.activity.WelcomeNewUserActivity" />
         <activity android:name=".v1.home.fragment.card.view.CardPayActivity" />
         <activity android:name=".v1.home.fragment.account.view.ChangePinActivity" />
-        <activity android:name=".v1.splashscreen.SplashScreenActivity">
+        <activity android:name=".v2.activity.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -35,11 +38,11 @@
             android:name=".v1.home.HomeActivity"
             android:label="@string/title_activity_home" />
         <activity android:name=".v1.forgot_password.ForgotPasswordActivity" />
-        <activity android:name=".v1.register.RegisterActivity" />
-        <activity android:name=".v1.welcome.WelcomeActivity" />
+        <activity android:name=".v2.activity.RegisterActivity" />
+        <activity android:name=".v2.activity.WelcomeActivity" />
         <activity
-            android:name=".v1.login.LoginActivity"
-            android:parentActivityName=".v1.welcome.WelcomeActivity" />
+            android:name=".v2.activity.LoginActivity"
+            android:parentActivityName=".v2.activity.WelcomeActivity" />
 
         <meta-data
             android:name="preloaded_fonts"

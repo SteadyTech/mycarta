@@ -6,20 +6,60 @@
     android:layout_height="match_parent"
     tools:context=".v2.activity.HomeActivity">
 
-    <TextView
-        android:id="@+id/textAppName"
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="32dp"
-        android:fontFamily="@font/poppins_bold"
-        android:text="@string/app_name"
-        android:textColor="@color/colorBluePrimary"
-        android:textSize="18sp"
+        android:src="@drawable/ic_additional_background"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <RelativeLayout
+        android:layout_marginTop="8dp"
+        android:layout_marginHorizontal="16dp"
+        android:id="@+id/appBar"
+        android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_height="?attr/actionBarSize">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/maven_pro_bold"
+            android:text="@string/app_name"
+            android:textColor="@color/colorBluePrimary"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_margin="8dp"
+            android:layout_centerInParent="true"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/imageProfile"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@mipmap/ic_launcher"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/maven_pro_medium"
+        android:text="@string/current_balance"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 
     <TextView
         android:id="@+id/textView"
@@ -31,18 +71,19 @@
         android:drawableStart="@drawable/ic_purse_24dp"
         android:drawablePadding="16dp"
         android:drawableTint="@color/startColorVisa"
-        android:fontFamily="@font/roboto"
+        android:fontFamily="@font/maven_pro"
         android:gravity="center"
-        android:text="Rp49.500"
+        android:text="@string/test_currency"
         android:textColor="@color/startColorVisa"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/linearCard"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textAppName"
+        app:layout_constraintTop_toBottomOf="@+id/appBar"
         app:layout_constraintVertical_bias="0.75" />
 
     <LinearLayout
+        android:layout_marginTop="16dp"
         android:id="@+id/linearCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -55,20 +96,21 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:layout_marginBottom="4dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/lato_light"
+            android:fontFamily="@font/maven_pro_medium"
             android:text="@string/prioritize_card"
-            android:textColor="@color/colorBluePrimary"
+            android:textColor="@color/black"
             android:textSize="16sp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerCard"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="16dp" />
+            android:layout_height="match_parent"/>
 
         <TextView
+            android:layout_marginTop="8dp"
             android:id="@+id/textAddCard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

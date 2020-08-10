@@ -14,19 +14,26 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 
 import me.muhammadfaisal.mycarta.R;
-import me.muhammadfaisal.mycarta.v1.helper.CartaHelper;
-import me.muhammadfaisal.mycarta.v1.home.fragment.money.bottom_sheet.DetailMoneyManagerBottomSheet;
+import me.muhammadfaisal.mycarta.v2.helper.CartaHelper;
+import me.muhammadfaisal.mycarta.v1.home.fragment.money.bottom_sheet.DetailTransactionBottomSheet;
 import me.muhammadfaisal.mycarta.v2.bottomsheet.TransactionBottomSheetFragment;
 import me.muhammadfaisal.mycarta.v2.helper.Constant;
-import me.muhammadfaisal.mycarta.v2.model.TransactionModel;
+import me.muhammadfaisal.mycarta.v2.model.firebase.TransactionModel;
 
-public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.ViewHolder> {
+public class TransactionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private ArrayList<TransactionModel> transactionModels;
     private TransactionBottomSheetFragment transactionBottomSheetFragment;
+
+    private static final int THIS_DATE = 0;
+    private static final int THIS_DATA = 1;
 
     public TransactionAdapter(ArrayList<TransactionModel> transactionModels, TransactionBottomSheetFragment transactionBottomSheetFragment) {
         this.transactionModels = transactionModels;
@@ -35,38 +42,71 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_money_manager, parent, false));
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        switch (viewType) {
+            case THIS_DATE:
+                return new TransactionAdapter.DateViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_money_manager_date, parent, false));
+            case THIS_DATA:
+                return new TransactionAdapter.ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_money_manager, parent, false));
+        }
+        return null;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        final TransactionModel transactionModel = transactionModels.get(position);
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
-        holder.textName.setText(CartaHelper.decryptString(transactionModel.getName()));
+        final HashMap<String, Object> hashMap = transactionBottomSheetFragment.map.get(position);
 
-        if (transactionModel.getType().equals(CartaHelper.encryptString(Constant.CODE.INCOME))){
-            holder.textAmount.setTextColor(transactionBottomSheetFragment.getActivity().getResources().getColor(R.color.colorIncome));
-        }else{
-            holder.textAmount.setTextColor(transactionBottomSheetFragment.getActivity().getResources().getColor(R.color.colorExpense));
-        }
+        if (hashMap.get("header") == null) {
+            final TransactionModel transactionModel = (TransactionModel) hashMap.get("detail");
 
-        holder.textAmount.setText(NumberFormat.getCurrencyInstance(CartaHelper.idr()).format(Long.valueOf(CartaHelper.decryptString(transactionModel.getAmount()))));
+            ViewHolder viewHolder = (ViewHolder) holder;
+            viewHolder.textName.setText(CartaHelper.decryptString(transactionModel.getName()));
 
-        this.setImageCategory(transactionModel, holder);
-
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("transaction", transactionModel);
-                DetailMoneyManagerBottomSheet detailMoneyManagerBottomSheet = new DetailMoneyManagerBottomSheet();
-                detailMoneyManagerBottomSheet.setArguments(bundle);
-                detailMoneyManagerBottomSheet.show(transactionBottomSheetFragment.getActivity().getSupportFragmentManager(), Constant.TAG.TRANSACTION_ADAPTER);
+            if (transactionBottomSheetFragment.getActivity() != null) {
+                if (transactionModel.getType().equals(CartaHelper.encryptString(Constant.CODE.INCOME))) {
+                    viewHolder.imageCategory.setColorFilter(transactionBottomSheetFragment.getActivity().getResources().getColor(R.color.colorIncomeSoftBlue));
+                    viewHolder.imageBackground.setColorFilter(transactionBottomSheetFragment.getActivity().getResources().getColor(R.color.colorIncomeSoftBlue_opacity_50));
+                } else {
+                    viewHolder.imageCategory.setColorFilter(transactionBottomSheetFragment.getActivity().getResources().getColor(R.color.colorExpenseSoftRed));
+                    viewHolder.imageCategory.setColorFilter(transactionBottomSheetFragment.getActivity().getResources().getColor(R.color.colorExpenseSoftRed_opacity_50));
+                }
 
             }
-        });
+
+            viewHolder.textDate.setText(CartaHelper.decryptString(transactionModel.getDate()));
+            viewHolder.textType.setText(CartaHelper.decryptString(transactionModel.getType()));
+            viewHolder.textAmount.setText(NumberFormat.getCurrencyInstance(CartaHelper.idr()).format(Long.valueOf(CartaHelper.decryptString(transactionModel.getAmount()))));
+
+            this.setImageCategory(transactionModel, viewHolder);
+
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("transaction", transactionModel);
+                    DetailTransactionBottomSheet detailTransactionBottomSheet = new DetailTransactionBottomSheet();
+                    detailTransactionBottomSheet.setArguments(bundle);
+                    detailTransactionBottomSheet.show(transactionBottomSheetFragment.getActivity().getSupportFragmentManager(), Constant.TAG.TRANSACTION_ADAPTER);
+
+                }
+            });
+        } else {
+            final Date c = Calendar.getInstance().getTime();
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            final String dateNow = sdf.format(c);
+            TransactionAdapter.DateViewHolder dateViewHolder = (TransactionAdapter.DateViewHolder) holder;
+
+            String dataDate = (String) hashMap.get("header");
+
+            if (dataDate.equals(dateNow)) {
+                dateViewHolder.textDate.setText("Today");
+            } else {
+                dateViewHolder.textDate.setText((String) hashMap.get("header"));
+            }
+
+        }
     }
 
     private void setImageCategory(TransactionModel transactionModel, ViewHolder holder) {
@@ -124,20 +164,42 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
 
     @Override
     public int getItemCount() {
-        return transactionModels.size();
+        return transactionBottomSheetFragment.map.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    @Override
+    public int getItemViewType(int position) {
+        return transactionBottomSheetFragment.map.get(position).get("header") == null ? THIS_DATA : THIS_DATE;
+    }
+
+    private class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView textName;
         private TextView textAmount;
+        private TextView textType;
+        private TextView textDate;
         private ImageView imageCategory;
+        private ImageView imageBackground;
 
-        public ViewHolder(@NonNull View itemView) {
+        private ViewHolder(@NonNull View itemView) {
             super(itemView);
-            this.textAmount = itemView.findViewById(R.id.textIncomeOrExpense);
+            this.textAmount = itemView.findViewById(R.id.textAmount);
             this.textName = itemView.findViewById(R.id.textName);
+            this.textType = itemView.findViewById(R.id.textType);
+            this.textDate = itemView.findViewById(R.id.textDate);
             this.imageCategory = itemView.findViewById(R.id.imageCategory);
+            this.imageBackground = itemView.findViewById(R.id.imageBackground);
+        }
+    }
+
+    private class DateViewHolder extends RecyclerView.ViewHolder {
+
+        TextView textDate;
+
+        private DateViewHolder(@NonNull View itemView) {
+            super(itemView);
+
+            textDate = itemView.findViewById(R.id.textDate);
         }
     }
 }

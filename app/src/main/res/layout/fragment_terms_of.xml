@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".v1.TermsOfService">
+    tools:context=".v2.bottomsheet.TermsOfService">
 
     <!-- TODO: Update blank fragment layout -->
     <androidx.appcompat.widget.Toolbar
@@ -16,21 +16,24 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+
             <ImageView
-                android:foreground="?attr/selectableItemBackground"
                 android:id="@+id/icClose"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:layout_alignParentStart="true"
                 android:layout_centerInParent="true"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_close_red"/>
+                android:foreground="?attr/selectableItemBackground"
+                android:padding="12dp"
+                android:src="@drawable/ic_close" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/fui_terms_of_service"
+                android:layout_toEndOf="@id/icClose"
                 android:textSize="16sp"
-                android:fontFamily="@font/poppins_bold"
+                android:fontFamily="@font/maven_pro_bold"
                 android:layout_centerInParent="true"
                 android:textColor="@color/buttonPrimary"/>
 
@@ -48,7 +51,7 @@
             android:layout_height="wrap_content"
             android:text="@string/terms_of_service"
             android:textSize="14sp"
-            android:fontFamily="@font/lato_light"
+            android:fontFamily="@font/maven_pro"
             android:textColor="@color/textColorPrimary"/>
     </androidx.core.widget.NestedScrollView>
 

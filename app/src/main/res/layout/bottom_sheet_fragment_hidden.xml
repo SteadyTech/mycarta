@@ -22,9 +22,9 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_centerInParent="true"
-                android:fontFamily="@font/poppins_bold"
+                android:fontFamily="@font/maven_pro_medium"
                 android:text="@string/card_info"
-                android:textColor="@color/buttonPrimary"
+                android:textColor="@color/black"
                 android:textSize="16sp" />
 
         </RelativeLayout>
@@ -59,8 +59,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/lato_light"
-                        android:text="@string/number_card"
+                        android:fontFamily="@font/maven_pro"
+                        android:text="@string/card_name"
                         android:textAllCaps="true"
                         android:textColor="@color/white"
                         android:textSize="10sp" />
@@ -69,9 +69,8 @@
                         android:id="@+id/textCardName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppins_bold"
+                        android:fontFamily="@font/maven_pro_medium"
                         android:foreground="?attr/selectableItemBackground"
-                        android:text="Kartu Member Bahagia Selamanya"
                         android:textColor="@color/white"
                         android:textSize="16sp" />
                 </LinearLayout>
@@ -87,7 +86,7 @@
                         android:id="@+id/hintCardNumber"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/lato_light"
+                        android:fontFamily="@font/maven_pro"
                         android:text="@string/number_card"
                         android:textAllCaps="true"
                         android:textColor="@color/white"
@@ -97,9 +96,8 @@
                         android:id="@+id/textCardNumber"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppins_bold"
+                        android:fontFamily="@font/maven_pro_medium"
                         android:foreground="?attr/selectableItemBackground"
-                        android:text="4520 9573 3843 8347"
                         android:textColor="@color/white"
                         android:textSize="16sp" />
                 </LinearLayout>
@@ -114,7 +112,7 @@
                         android:id="@+id/hintCardName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/lato_light"
+                        android:fontFamily="@font/maven_pro"
                         android:text="@string/owner"
                         android:textAllCaps="true"
                         android:textColor="@color/white"
@@ -125,10 +123,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
-                        android:fontFamily="@font/poppins_bold"
+                        android:fontFamily="@font/maven_pro_medium"
                         android:foreground="?attr/selectableItemBackground"
                         android:maxLines="25"
-                        android:text="My Carta"
                         android:textAllCaps="true"
                         android:textColor="@color/white"
                         android:textSize="16sp" />

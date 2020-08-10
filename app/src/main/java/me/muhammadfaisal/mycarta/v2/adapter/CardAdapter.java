@@ -20,21 +20,26 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+import io.realm.Realm;
 import me.muhammadfaisal.mycarta.R;
-import me.muhammadfaisal.mycarta.v1.helper.CartaHelper;
-import me.muhammadfaisal.mycarta.v1.home.fragment.card.model.Card;
+import me.muhammadfaisal.mycarta.v2.helper.CartaHelper;
 import me.muhammadfaisal.mycarta.v2.activity.DetailCardActivity;
 import me.muhammadfaisal.mycarta.v2.helper.Constant;
-import me.muhammadfaisal.mycarta.v2.model.CardModel;
+import me.muhammadfaisal.mycarta.v2.model.firebase.CardModel;
+import me.muhammadfaisal.mycarta.v2.model.realm.BalanceDatabase;
 
 public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
 
     private ArrayList<CardModel> cardModels;
     private Activity activity;
+    private Realm realm;
+    private BalanceDatabase databases;
+
 
     public CardAdapter(ArrayList<CardModel> cardModels, Activity activity) {
         this.cardModels = cardModels;
         this.activity = activity;
+        this.realm = Realm.getDefaultInstance();
     }
 
     @NonNull
@@ -48,12 +53,12 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         final CardModel cardModel = this.cardModels.get(position);
 
-        Log.d("Get Key-Preference", cardModel.getCardNumber());
+        this.databases = realm.where(BalanceDatabase.class).equalTo("cardID", cardModel.getCardNumber()).findFirst();
 
-        SharedPreferences sharedPreferences = activity.getSharedPreferences(Constant.PREFERENCE.TRANSACTION, Context.MODE_PRIVATE);
-        long balance = sharedPreferences.getLong(cardModel.getCardNumber(), 0);
-
-        holder.textCardBalance.setText(CartaHelper.currencyFormat(balance));
+        if (databases != null) {
+            Log.d("Balance Database", databases.getBalance() + " " + databases.getCardID());
+            holder.textCardBalance.setText(CartaHelper.currencyFormat(Long.parseLong(databases.getBalance())));
+        }
 
         holder.textCardNumber.setText(CartaHelper.dot().concat(CartaHelper.lastCardNumber(cardModel.getCardNumber())));
         holder.textCardName.setText(CartaHelper.decryptString(cardModel.getCardName()));

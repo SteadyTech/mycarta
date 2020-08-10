@@ -19,10 +19,10 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import java.util.Objects;
 
 import me.muhammadfaisal.mycarta.R;
-import me.muhammadfaisal.mycarta.v1.helper.CartaHelper;
+import me.muhammadfaisal.mycarta.v2.helper.CartaHelper;
 import me.muhammadfaisal.mycarta.v2.bottomsheet.CodeBottomSheetFragment;
 import me.muhammadfaisal.mycarta.v2.helper.Constant;
-import me.muhammadfaisal.mycarta.v2.model.CardModel;
+import me.muhammadfaisal.mycarta.v2.model.firebase.CardModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -66,11 +66,17 @@ public class HiddenBottomSheetFragment extends BottomSheetDialogFragment impleme
     }
 
     private void data() {
-        this.textCardNumber.setText(CartaHelper.decryptString(this.cardModel.getCardNumber()));
+        this.textCardNumber.setText(CartaHelper.cardNumberFormat(CartaHelper.decryptString(this.cardModel.getCardNumber())));
+        this.textCardName.setText(CartaHelper.decryptString(this.cardModel.getCardName()));
+        this.textCardOwner.setText(CartaHelper.decryptString(this.cardModel.getCardOwner()));
+        this.inputDescription.setText(CartaHelper.decryptString(this.cardModel.getCardDescription()));
     }
 
-    private void extract() {
-        this.cardModel = (CardModel) getArguments().getSerializable("card");
+    private void extract()
+    {
+        if (this.getArguments() != null){
+            this.cardModel = (CardModel) getArguments().getSerializable("card");
+        }
     }
 
     private void init(View v) {

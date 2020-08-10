@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".v2.bottomsheet.ConfirmationBottomSheetFragment">
+
+    <LinearLayout
+        android:id="@+id/linearContent"
+        android:layout_marginTop="16dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="156dp"
+            android:src="@drawable/pic_other"/>
+
+        <TextView
+            android:layout_marginTop="16dp"
+            android:id="@+id/textTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/update_profile"
+            android:fontFamily="@font/maven_pro_bold"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:gravity="center"/>
+        <TextView
+            android:id="@+id/textMessage"
+            android:layout_margin="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/are_you_sure_want_to_update"
+            android:fontFamily="@font/maven_pro_medium"
+            android:textColor="@color/text_color"
+            android:textSize="14sp"
+            android:gravity="center"/>
+
+        <LinearLayout
+            android:padding="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:padding="16dp"
+                android:layout_weight="1"
+                android:id="@+id/textCancel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/dialog_cancel"
+                android:textAllCaps="false"
+                android:textColor="@color/red"
+                android:layout_marginHorizontal="16dp"
+                app:backgroundTint="@color/white"
+                app:cornerRadius="8dp"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:elevation="4dp"
+                app:elevation="4dp"
+                android:layout_weight="1"
+                android:id="@+id/buttonOk"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/yes_update"
+                android:textAllCaps="false"
+                android:layout_marginHorizontal="16dp"
+                app:backgroundTint="@color/colorBluePrimary"
+                app:cornerRadius="8dp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        android:id="@+id/lottie2"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginVertical="16dp"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_fileName="loading.json" />
+
+</RelativeLayout>

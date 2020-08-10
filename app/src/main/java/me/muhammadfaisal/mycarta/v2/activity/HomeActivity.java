@@ -5,12 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
-import android.content.SharedPreferences;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -23,16 +23,18 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 import me.muhammadfaisal.mycarta.R;
-import me.muhammadfaisal.mycarta.v1.helper.CartaHelper;
+import me.muhammadfaisal.mycarta.v1.register.model.UserModel;
+import me.muhammadfaisal.mycarta.v2.helper.CartaHelper;
 import me.muhammadfaisal.mycarta.v2.bottomsheet.AddCardBottomSheetFragment;
 import me.muhammadfaisal.mycarta.v2.adapter.HomeAdapter;
 import me.muhammadfaisal.mycarta.v2.bottomsheet.MenuBottomSheetFragment;
 import me.muhammadfaisal.mycarta.v2.helper.Constant;
-import me.muhammadfaisal.mycarta.v2.model.CardModel;
+import me.muhammadfaisal.mycarta.v2.model.firebase.CardModel;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
 
     private RecyclerView recyclerView;
+    private ImageView imageProfile;
 
     private ArrayList<CardModel> cards;
 
@@ -48,6 +50,8 @@ public class HomeActivity extends AppCompatActivity {
 
     private void init() {
         this.recyclerView = findViewById(R.id.recyclerCard);
+        this.imageProfile = findViewById(R.id.imageProfile);
+
         this.recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
 
         FirebaseAuth auth = FirebaseAuth.getInstance();
@@ -76,6 +80,31 @@ public class HomeActivity extends AppCompatActivity {
 
             }
         });
+
+        reference.child(Constant.USER_PATH).child(auth.getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                UserModel userModel = dataSnapshot.getValue(UserModel.class);
+
+                if (userModel != null) {
+                    Glide.with(HomeActivity.this)
+                            .load(userModel.getImage())
+                            .into(HomeActivity.this.imageProfile);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        this.imageProfile.setOnClickListener(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     public void addCard(View v){
@@ -86,5 +115,25 @@ public class HomeActivity extends AppCompatActivity {
     public void menu(View view){
         MenuBottomSheetFragment menuBottomSheetFragment = new MenuBottomSheetFragment();
         menuBottomSheetFragment.show(getSupportFragmentManager(), Constant.TAG.HOME_ACTIVITY_TAG);
+    }
+
+    public void reload() {
+        Intent intent = getIntent();
+        overridePendingTransition(0, 0);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        finish();
+        overridePendingTransition(0, 0);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.equals(this.imageProfile)){
+            this.profile();
+        }
+    }
+
+    private void profile() {
+        CartaHelper.move(this, ProfileActivity.class, false);
     }
 }

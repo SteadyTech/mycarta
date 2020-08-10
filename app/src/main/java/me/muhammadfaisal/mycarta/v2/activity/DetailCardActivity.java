@@ -4,10 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,12 +26,12 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 import me.muhammadfaisal.mycarta.R;
-import me.muhammadfaisal.mycarta.v1.helper.CartaHelper;
+import me.muhammadfaisal.mycarta.v2.helper.CartaHelper;
 import me.muhammadfaisal.mycarta.v2.bottomsheet.MenuBottomSheetFragment;
 import me.muhammadfaisal.mycarta.v2.bottomsheet.TransactionBottomSheetFragment;
 import me.muhammadfaisal.mycarta.v2.helper.Constant;
-import me.muhammadfaisal.mycarta.v2.model.CardModel;
-import me.muhammadfaisal.mycarta.v2.model.TransactionModel;
+import me.muhammadfaisal.mycarta.v2.model.firebase.CardModel;
+import me.muhammadfaisal.mycarta.v2.model.firebase.TransactionModel;
 
 public class DetailCardActivity extends AppCompatActivity {
 
@@ -157,12 +154,12 @@ public class DetailCardActivity extends AppCompatActivity {
             BarDataSet incomeSet = new BarDataSet(this.incomes, Constant.CODE.INCOME);
             BarDataSet expenseSet = new BarDataSet(this.expenses, Constant.CODE.EXPENSE);
 
-            this.barChart.animateXY(2000, 2000);
 
             BarData barData = new BarData(incomeSet, expenseSet);
             incomeSet.setColors(this.getResources().getColor(R.color.colorIncome));
             expenseSet.setColors(this.getResources().getColor(R.color.colorExpense));
 
+            this.barChart.animateXY(2000, 2000);
             this.barChart.setData(barData);
             this.barChart.setDrawValueAboveBar(true);
         }

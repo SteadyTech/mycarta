@@ -4,56 +4,81 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
     android:orientation="vertical"
+    android:padding="16dp"
     tools:context=".v1.home.fragment.account.view.ChangePinActivity">
 
     <ImageView
-        android:padding="2dp"
-        android:foreground="?attr/selectableItemBackground"
         android:id="@+id/imageBack"
         android:layout_width="24dp"
         android:layout_height="24dp"
+        android:foreground="?attr/selectableItemBackground"
+        android:padding="2dp"
         android:src="@drawable/ic_back_gray" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:fontFamily="@font/work_sans_semibold"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/maven_pro_bold"
+        android:text="@string/change_pin"
         android:textColor="@color/textColorPrimary"
-        android:text="Change PIN"
         android:textSize="24sp" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:fontFamily="@font/work_sans_semibold"
-        android:textColor="@color/textColorPrimary"
+        android:layout_marginVertical="16dp"
+        android:fontFamily="@font/maven_pro"
         android:text="@string/secure_pin"
+        android:textColor="@color/textColorPrimary"
         android:textSize="14sp" />
 
-    <me.muhammadfaisal.mycarta.v1.helper.PinEditText
+
+    <com.poovam.pinedittextfield.SquarePinField
         android:id="@+id/inputLatestPin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:cursorVisible="false"
-        android:digits="1234567890"
+        android:layout_marginTop="16dp"
         android:inputType="numberPassword"
-        android:maxLength="4"
-        android:textIsSelectable="false"
-        android:textSize="20sp" />
+        android:textSelectHandle="@drawable/text_handle"
+        android:textSize="16sp"
+        app:highlightColor="@android:color/transparent"
+        app:cornerRadius="10dp"
+        app:fieldBgColor="@color/backgroundGrayPrimary"
+        app:highlightType="currentField"
+        app:lineThickness="0dp"
+        app:noOfFields="6" />
 
-    <Button
-        android:elevation="4dp"
-        android:id="@+id/buttonChangePIN"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/button_primary"
-        android:fontFamily="@font/work_sans_semibold"
-        android:text="Change PIN"
-        android:textColor="@color/white" />
+        android:layout_height="wrap_content">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:visibility="gone"
+            android:layout_centerInParent="true"
+            android:id="@+id/lottie"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginVertical="16dp"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_fileName="loading.json" />
+
+        <Button
+            android:visibility="visible"
+            android:id="@+id/buttonChangePIN"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="16dp"
+            android:background="@drawable/button_primary"
+            android:elevation="4dp"
+            android:fontFamily="@font/maven_pro_medium"
+            android:text="@string/change_pin"
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
+    </RelativeLayout>
+
+
 
 </LinearLayout>

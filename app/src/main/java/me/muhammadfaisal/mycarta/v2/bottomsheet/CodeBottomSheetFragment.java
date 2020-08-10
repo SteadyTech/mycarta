@@ -26,9 +26,9 @@ import com.journeyapps.barcodescanner.BarcodeEncoder;
 import java.util.Objects;
 
 import me.muhammadfaisal.mycarta.R;
-import me.muhammadfaisal.mycarta.v1.helper.CartaHelper;
+import me.muhammadfaisal.mycarta.v2.helper.CartaHelper;
 import me.muhammadfaisal.mycarta.v2.helper.Constant;
-import me.muhammadfaisal.mycarta.v2.model.CardModel;
+import me.muhammadfaisal.mycarta.v2.model.firebase.CardModel;
 
 /**
  * A simple {@link Fragment} subclass.

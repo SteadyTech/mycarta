@@ -18,7 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import me.muhammadfaisal.mycarta.R;
-import me.muhammadfaisal.mycarta.v1.login.LoginActivity;
+import me.muhammadfaisal.mycarta.v2.activity.LoginActivity;
 
 
 public class ForgotPasswordActivity extends AppCompatActivity implements View.OnClickListener {

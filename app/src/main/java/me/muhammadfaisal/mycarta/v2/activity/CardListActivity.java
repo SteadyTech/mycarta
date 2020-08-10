@@ -2,7 +2,6 @@ package me.muhammadfaisal.mycarta.v2.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
@@ -18,10 +17,9 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 import me.muhammadfaisal.mycarta.R;
-import me.muhammadfaisal.mycarta.v1.home.fragment.card.model.Card;
 import me.muhammadfaisal.mycarta.v2.adapter.CardAdapter;
 import me.muhammadfaisal.mycarta.v2.helper.Constant;
-import me.muhammadfaisal.mycarta.v2.model.CardModel;
+import me.muhammadfaisal.mycarta.v2.model.firebase.CardModel;
 
 public class CardListActivity extends AppCompatActivity {
 

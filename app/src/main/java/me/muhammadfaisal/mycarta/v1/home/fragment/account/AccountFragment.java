@@ -32,9 +32,9 @@ import me.muhammadfaisal.mycarta.R;
 import me.muhammadfaisal.mycarta.v1.home.fragment.account.bottom_sheet.AboutAppBottomSheetFragment;
 import me.muhammadfaisal.mycarta.v1.home.fragment.account.bottom_sheet.ChangeCartaBoardBottomSheetFragment;
 import me.muhammadfaisal.mycarta.v1.home.fragment.account.view.ChangePasswordActivity;
-import me.muhammadfaisal.mycarta.v1.login.LoginActivity;
-import me.muhammadfaisal.mycarta.v1.pin.PinBottomSheetFragment;
-import me.muhammadfaisal.mycarta.v1.register.model.User;
+import me.muhammadfaisal.mycarta.v2.activity.LoginActivity;
+import me.muhammadfaisal.mycarta.v2.bottomsheet.PinBottomSheetFragment;
+import me.muhammadfaisal.mycarta.v1.register.model.UserModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -86,7 +86,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                User users = dataSnapshot.getValue(User.class);
+                UserModel users = dataSnapshot.getValue(UserModel.class);
 
                 if (dataSnapshot.getValue() != null) {
                     textName.setText(users.getName());

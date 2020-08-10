@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorBluePrimary">#445EE9</color>
+    <color name="colorBluePrimary_opacity_50">#80445EE9</color>
     <color name="colorPrimaryDark">#F8F8FA</color>
     <color name="colorAccent">#B8C0D2</color>
     <color name="white">#FFF</color>
@@ -12,6 +13,7 @@
     <color name="buttonPrimary">#445EE9</color>
     <color name="textColorPrimary">#383B41</color>
     <color name="black_opacity_50">#80000000</color>
+    <color name="black_opacity_35">#59000000</color>
     <color name="buttonEdit">#4DD0E1</color>
     <color name="buttonDelete">#F06292</color>
     <color name="backgroundGrayPrimary">#F2F2F2</color>
@@ -23,4 +25,8 @@
     <color name="skyBlue">#5399D3</color>
     <color name="darkGray">#707883</color>
     <color name="darkGreen">#045E66</color>
+    <color name="colorIncomeSoftBlue_opacity_50">#8356C7D6</color>
+    <color name="colorIncomeSoftBlue">#367C85</color>
+    <color name="colorExpenseSoftRed_opacity_50">#40CB87DC</color>
+    <color name="colorExpenseSoftRed">#A86FB6</color>
 </resources>

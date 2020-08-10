@@ -25,7 +25,7 @@ import java.util.Calendar;
 import java.util.Random;
 
 import me.muhammadfaisal.mycarta.R;
-import me.muhammadfaisal.mycarta.v1.register.model.User;
+import me.muhammadfaisal.mycarta.v1.register.model.UserModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -150,7 +150,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         reference.child("users").child(user.getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                User users = dataSnapshot.getValue(User.class);
+                UserModel users = dataSnapshot.getValue(UserModel.class);
 
                 textName.setText(users.getName());
             }

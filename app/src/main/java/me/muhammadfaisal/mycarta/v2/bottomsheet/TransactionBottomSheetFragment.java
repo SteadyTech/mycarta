@@ -25,21 +25,22 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Objects;
 
 import me.muhammadfaisal.mycarta.R;
-import me.muhammadfaisal.mycarta.v1.helper.CartaHelper;
 import me.muhammadfaisal.mycarta.v2.adapter.TransactionAdapter;
+import me.muhammadfaisal.mycarta.v2.helper.CartaHelper;
 import me.muhammadfaisal.mycarta.v2.helper.Constant;
-import me.muhammadfaisal.mycarta.v2.model.CardModel;
-import me.muhammadfaisal.mycarta.v2.model.TransactionModel;
+import me.muhammadfaisal.mycarta.v2.model.firebase.CardModel;
+import me.muhammadfaisal.mycarta.v2.model.firebase.TransactionModel;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class TransactionBottomSheetFragment extends BottomSheetDialogFragment {
 
-    private RecyclerView reyclerTransaction;
+    private RecyclerView recyclerTransaction;
     private ProgressBar progressBar;
     private LinearLayout linearDataNotFound;
 
@@ -47,8 +48,9 @@ public class TransactionBottomSheetFragment extends BottomSheetDialogFragment {
     private Query query;
     private FirebaseAuth firebaseAuth;
     private CardModel cardModel;
-    private ArrayList<TransactionModel> transactionModels;
+    private ArrayList<TransactionModel> transactionModels = new ArrayList<>();
 
+    public ArrayList<HashMap<String, Object>> map;
 
     public TransactionBottomSheetFragment() {
         // Required empty public constructor
@@ -70,11 +72,11 @@ public class TransactionBottomSheetFragment extends BottomSheetDialogFragment {
     }
 
     private void init(View view) {
-        this.reyclerTransaction = view.findViewById(R.id.recyclerTransaction);
+        this.recyclerTransaction = view.findViewById(R.id.recyclerTransaction);
         this.progressBar = view.findViewById(R.id.progressBar);
         this.linearDataNotFound = view.findViewById(R.id.linearNotFound);
 
-        this.reyclerTransaction.setLayoutManager(new LinearLayoutManager(this.getActivity(), RecyclerView.VERTICAL, false));
+        this.recyclerTransaction.setLayoutManager(new LinearLayoutManager(this.getActivity(), RecyclerView.VERTICAL, false));
 
         this.databaseReference = FirebaseDatabase.getInstance().getReference();
         this.firebaseAuth = FirebaseAuth.getInstance();
@@ -83,25 +85,47 @@ public class TransactionBottomSheetFragment extends BottomSheetDialogFragment {
     }
 
     private void data() {
-        this.transactionModels = new ArrayList<>();
         this.query = this.databaseReference.child(Constant.TRANSACTION_PATH).child(firebaseAuth.getUid()).orderByChild("cardNumber").equalTo(cardModel.getCardNumber());
         this.query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                TransactionBottomSheetFragment.this.transactionModels.clear();
+                String stringDate = null;
+                TransactionBottomSheetFragment.this.map = new ArrayList<>();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+                    HashMap<String, Object> hashMap = new HashMap<>();
+
                     TransactionModel transactionModel = snapshot.getValue(TransactionModel.class);
+                    if (transactionModel != null) {
+                        if (stringDate == null) {
+                            stringDate = CartaHelper.decryptString(transactionModel.getDate());
+                            hashMap.put("header", stringDate);
+                            TransactionBottomSheetFragment.this.map.add(hashMap);
+                        } else {
+                            if (!Objects.equals(stringDate, CartaHelper.decryptString(transactionModel.getDate()))) {
+                                stringDate = CartaHelper.decryptString(transactionModel.getDate());
+                                hashMap.put("header", stringDate);
+                                TransactionBottomSheetFragment.this.map.add(hashMap);
+                            }
+                        }
+                    }
+
                     TransactionBottomSheetFragment.this.transactionModels.add(transactionModel);
                     TransactionBottomSheetFragment.this.progressBar.setVisibility(View.GONE);
+                    hashMap = new HashMap<>();
+                    hashMap.put("detail", transactionModel);
+                    TransactionBottomSheetFragment.this.map.add(hashMap);
                 }
 
                 if (dataSnapshot.getChildrenCount() == 0) {
                     TransactionBottomSheetFragment.this.linearDataNotFound.setVisibility(View.VISIBLE);
                     TransactionBottomSheetFragment.this.progressBar.setVisibility(View.GONE);
-                }else {
+                } else {
                     TransactionBottomSheetFragment.this.linearDataNotFound.setVisibility(View.GONE);
                     TransactionBottomSheetFragment.this.progressBar.setVisibility(View.GONE);
                 }
-                TransactionBottomSheetFragment.this.reyclerTransaction.setAdapter(new TransactionAdapter(TransactionBottomSheetFragment.this.transactionModels, TransactionBottomSheetFragment.this));
+                TransactionBottomSheetFragment.this.recyclerTransaction.setAdapter(new TransactionAdapter(TransactionBottomSheetFragment.this.transactionModels, TransactionBottomSheetFragment.this));
 
             }
 

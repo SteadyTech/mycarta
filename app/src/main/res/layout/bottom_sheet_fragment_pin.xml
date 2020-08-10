@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottomSheetPin"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".v2.bottomsheet.PinBottomSheetFragment">
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_centerInParent="true"
+        android:visibility="visible"
+        android:id="@+id/lottie2"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginVertical="16dp"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_fileName="loading.json" />
+
+    <LinearLayout
+        android:id="@+id/linearContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="20dp">
+
+                <ImageView
+                    android:id="@+id/icClose"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerInParent="true"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:src="@drawable/ic_close" />
+
+                <TextView
+                    android:id="@+id/textTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:fontFamily="@font/poppins_bold"
+                    android:text="Setup PIN"
+                    android:textColor="@color/buttonPrimary"
+                    android:textSize="16sp" />
+
+            </RelativeLayout>
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/toolbar"
+            android:orientation="vertical">
+
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/lottie"
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                android:layout_margin="16dp"
+                app:lottie_autoPlay="true"
+                app:lottie_fileName="verification.json" />
+
+            <com.poovam.pinedittextfield.SquarePinField
+                android:id="@+id/inputNewPin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:inputType="numberPassword"
+                android:textSelectHandle="@drawable/text_handle"
+                android:textSize="16sp"
+                app:cornerRadius="10dp"
+                app:fieldBgColor="@color/backgroundGrayPrimary"
+                app:highlightColor="@android:color/transparent"
+                app:highlightType="currentField"
+                app:lineThickness="0dp"
+                app:noOfFields="6" />
+
+            <Button
+                android:id="@+id/buttonPin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/button_primary"
+                android:elevation="4dp"
+                android:fontFamily="@font/work_sans_semibold"
+                android:text="Add Pin"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/textLogout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="16dp"
+                android:fontFamily="@font/maven_pro_medium"
+                android:text="@string/logout"
+                android:textColor="@color/darkGray"
+                android:textSize="16sp" />
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

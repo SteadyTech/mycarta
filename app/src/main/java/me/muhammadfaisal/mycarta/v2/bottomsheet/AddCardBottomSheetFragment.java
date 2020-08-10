@@ -28,10 +28,11 @@ import java.util.Objects;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import me.muhammadfaisal.mycarta.R;
-import me.muhammadfaisal.mycarta.v1.helper.CartaHelper;
+import me.muhammadfaisal.mycarta.v2.helper.CartaHelper;
+import me.muhammadfaisal.mycarta.v2.activity.HomeActivity;
 import me.muhammadfaisal.mycarta.v2.adapter.SpinnerAdapter;
 import me.muhammadfaisal.mycarta.v2.helper.Constant;
-import me.muhammadfaisal.mycarta.v2.model.CardModel;
+import me.muhammadfaisal.mycarta.v2.model.firebase.CardModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -63,7 +64,7 @@ public class AddCardBottomSheetFragment extends BottomSheetDialogFragment implem
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        this.inputOwner = view.findViewById(R.id.inputCardName);
+        this.inputOwner = view.findViewById(R.id.inputCardHolderName);
         this.inputNumber = view.findViewById(R.id.inputCardNumber);
         this.inputDesc = view.findViewById(R.id.inputDescription);
         this.inputType = view.findViewById(R.id.spinnerCardType);
@@ -93,7 +94,7 @@ public class AddCardBottomSheetFragment extends BottomSheetDialogFragment implem
 
     private void initSpinnerCardType() {
         String[] CARD_TYPE = {"--Select Type Card--", "Member Card", "Debit Card", "Other"};
-        SpinnerAdapter adapter = new SpinnerAdapter(getActivity(), android.R.layout.simple_spinner_item, CARD_TYPE);
+        SpinnerAdapter adapter = new SpinnerAdapter(Objects.requireNonNull(this.getActivity()), android.R.layout.simple_spinner_item, CARD_TYPE);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         inputType.setAdapter(adapter);
 
@@ -119,12 +120,12 @@ public class AddCardBottomSheetFragment extends BottomSheetDialogFragment implem
         final String encryptedPrioritize;
 
         if (this.ckbPrioritize.isChecked()) {
-             encryptedPrioritize = CartaHelper.encryptString(Constant.CODE.YES);
-        }else{
+            encryptedPrioritize = CartaHelper.encryptString(Constant.CODE.YES);
+        } else {
             encryptedPrioritize = CartaHelper.encryptString(Constant.CODE.NO);
         }
 
-        final SweetAlertDialog dialogProgress = new SweetAlertDialog(getActivity(), SweetAlertDialog.PROGRESS_TYPE);
+        final SweetAlertDialog dialogProgress = new SweetAlertDialog(Objects.requireNonNull(this.getActivity()), SweetAlertDialog.PROGRESS_TYPE);
         dialogProgress.setContentText("Loading");
         dialogProgress.setCancelable(false);
         dialogProgress.show();
@@ -133,42 +134,41 @@ public class AddCardBottomSheetFragment extends BottomSheetDialogFragment implem
             dialogProgress.changeAlertType(SweetAlertDialog.ERROR_TYPE);
             dialogProgress.setContentText("Please Fill all Field!");
         } else {
-            String userID;
+            String userID = user.getUid();
+            CardModel cardModel;
             if (descriptionCard.isEmpty()) {
-                userID = user.getUid();
-                this.getReference.child(Constant.CARD_PATH).child(userID).push()
-                        .setValue(new CardModel(encryptedNumberCard, encryptedOwner, encryptedCardType, CartaHelper.encryptString("No Description"), encryptedName, encryptedPrioritize))
-                        .addOnCompleteListener(getActivity(), new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (!task.isSuccessful()) {
-                                    dialogProgress.changeAlertType(SweetAlertDialog.ERROR_TYPE);
-                                    dialogProgress.setContentText("Uh Oh... Error " + task.getException());
-                                } else {
-                                    dialogProgress.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
-                                    dialogProgress.setContentText("Your card has been saved!");
-                                    dismiss();
-                                }
-                            }
-                        });
+                cardModel = new CardModel(encryptedNumberCard, encryptedOwner, encryptedCardType, CartaHelper.encryptString("No Description"), encryptedName, encryptedPrioritize);
             } else {
-                userID = user.getUid();
-                this.getReference.child(Constant.CARD_PATH).child(userID).push()
-                        .setValue(new CardModel(encryptedNumberCard, encryptedOwner, encryptedCardType, encryptedDescription, encryptedName, encryptedPrioritize))
-                        .addOnCompleteListener(getActivity(), new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (!task.isSuccessful()) {
-                                    dialogProgress.changeAlertType(SweetAlertDialog.ERROR_TYPE);
-                                    dialogProgress.setContentText("Uh Oh... Error " + task.getException());
-                                } else {
-                                    dialogProgress.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
-                                    dialogProgress.setContentText("Your card has been saved!");
-                                    dismiss();
-                                }
-                            }
-                        });
+                cardModel = new CardModel(encryptedNumberCard, encryptedOwner, encryptedCardType, encryptedDescription, encryptedName, encryptedPrioritize);
             }
+
+            this.getReference.child(Constant.CARD_PATH).child(userID).push()
+                    .setValue(cardModel)
+                    .addOnCompleteListener(getActivity(), new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (!task.isSuccessful()) {
+                                dialogProgress.changeAlertType(SweetAlertDialog.ERROR_TYPE);
+                                dialogProgress.setContentText("Ooops... Error " + task.getException());
+                            } else {
+                                dialogProgress.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
+                                dialogProgress.setContentText("Your card has been saved!");
+                                dialogProgress.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                    @Override
+                                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                       AddCardBottomSheetFragment.this.dismiss();
+                                       sweetAlertDialog.dismissWithAnimation();
+
+                                       HomeActivity homeActivity = (HomeActivity) getActivity();
+                                        if (homeActivity != null) {
+                                            homeActivity.reload();
+                                        }
+                                    }
+                                });
+                            }
+                        }
+                    });
+
         }
     }
 }

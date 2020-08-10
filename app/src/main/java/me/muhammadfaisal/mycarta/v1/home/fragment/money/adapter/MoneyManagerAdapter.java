@@ -28,7 +28,7 @@ import lecho.lib.hellocharts.model.PieChartData;
 import lecho.lib.hellocharts.model.SliceValue;
 import me.muhammadfaisal.mycarta.R;
 import me.muhammadfaisal.mycarta.v1.home.fragment.money.MoneyManagerFragment;
-import me.muhammadfaisal.mycarta.v1.home.fragment.money.bottom_sheet.DetailMoneyManagerBottomSheet;
+import me.muhammadfaisal.mycarta.v1.home.fragment.money.bottom_sheet.DetailTransactionBottomSheet;
 import me.muhammadfaisal.mycarta.v1.home.fragment.money.model.MoneyManager;
 
 public class MoneyManagerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -51,7 +51,6 @@ public class MoneyManagerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
         switch (viewType) {
             case THIS_DATE:
                 return new DateViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_money_manager_date, parent, false));
@@ -94,7 +93,7 @@ public class MoneyManagerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             dataViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    DetailMoneyManagerBottomSheet bottomSheet = new DetailMoneyManagerBottomSheet();
+                    DetailTransactionBottomSheet bottomSheet = new DetailTransactionBottomSheet();
                     Bundle b = new Bundle();
                     b.putString("name", moneyManager.getName());
                     b.putLong("expense", moneyManager.getExpense());
@@ -283,9 +282,9 @@ public class MoneyManagerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             super(itemView);
 
             textName = itemView.findViewById(R.id.textName);
-            textMoney = itemView.findViewById(R.id.textIncomeOrExpense);
+            textMoney = itemView.findViewById(R.id.textAmount);
             imageCategory = itemView.findViewById(R.id.imageCategory);
-            textDate = itemView.findViewById(R.id.textDateTime);
+            textDate = itemView.findViewById(R.id.textDate);
         }
     }
 }

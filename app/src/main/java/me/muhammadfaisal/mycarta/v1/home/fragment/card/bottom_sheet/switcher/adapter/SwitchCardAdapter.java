@@ -20,7 +20,7 @@ import java.util.Objects;
 import java.util.Random;
 
 import me.muhammadfaisal.mycarta.R;
-import me.muhammadfaisal.mycarta.v1.helper.CartaHelper;
+import me.muhammadfaisal.mycarta.v2.helper.CartaHelper;
 import me.muhammadfaisal.mycarta.v1.home.fragment.card.bottom_sheet.switcher.SwitchCardBottomSheetFragment;
 import me.muhammadfaisal.mycarta.v1.home.fragment.card.model.Card;
 

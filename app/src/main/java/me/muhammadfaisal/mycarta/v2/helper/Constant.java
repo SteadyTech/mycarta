@@ -2,7 +2,13 @@ package me.muhammadfaisal.mycarta.v2.helper;
 
 public class Constant {
     public static final String CARD_PATH = "CARDS";
+    public static final String USER_PATH = "users";
     public static final String TRANSACTION_PATH = "TRANSACTIONS";
+    public static final String IMAGE_PATH = "IMAGES";
+
+    public static class URL {
+        public static final String BASE_URL = "http://www.mycarta.muhammadfaisal.me/";
+    }
 
 
     public static class CODE {
@@ -29,15 +35,19 @@ public class Constant {
         public static final String REFUND = "Refunds";
         public static final String LOTTERY = "Lottery";
 
-
         public static final String QRCODE = "QR_CODE";
         public static final String BARCODE = "BARCODE";
+        public static final String PIN_INVALID = "400";
+        public static final String USER = "User";
+        public static final int GET_IMAGE_REQUEST = 1002;
     }
 
     public static class TAG {
         public static final String DETAIL_CARD_ACTIVITY_TAG = "DETAIL_CARD_ACTIVITY";
         public static final String HOME_ACTIVITY_TAG = "HOME_ACTIVITY";
         public static final String TRANSACTION_ADAPTER = "TRANSACTION_ADAPTER";
+        public static final String EDITED_CARD_NUMBER = "EDITED_CARD_NUMBER";
+        public static final String UPDATE_PROFILE = "UpdateProfile";
     }
 
     public class PREFERENCE {
@@ -46,5 +56,9 @@ public class Constant {
 
     public class KEY {
         public static final String BALANCE = "Balance";
+        public static final String TITLE_MESSAGE = "TitleMessage";
+        public static final String DESCRIPTION_MESSAGE = "DescriptionMessage";
+        public static final String CODE = "Code";
+        public static final String DELAY = "Delay";
     }
 }

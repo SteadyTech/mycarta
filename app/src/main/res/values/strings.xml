@@ -6,7 +6,7 @@
     <string name="glad_to_see_you">Glad to see you!</string>
     <string name="password">Password</string>
     <string name="createAccount" translatable="true">Create Account</string>
-    <string name="subtitleMyCarta" translatable="true">They know MyCarta\nmake it easier</string>
+    <string name="subtitleMyCarta" translatable="true">Make your Life\nSmarter and Easier</string>
     <string name="forgot_password" translatable="true">Forgot Password?</string>
     <string name="don_t_be_sad">Don\'t be sad</string>
     <string name="your_account_will_be_restore">Your Account will Be Restore !</string>
@@ -36,10 +36,10 @@
     <string name="number_card">Card Number</string>
     <string name="cvv">CVV</string>
     <string name="typeCard">Type Card</string>
-    <string name="pin">Pin</string>
+    <string name="pinModel">Pin</string>
     <string name="security_data">Security Data</string>
     <string name="secure_account">Make your account secure by changing password every month</string>
-    <string name="secure_pin">Make your account secure by changing pin every week</string>
+    <string name="secure_pin">Make your account secure by changing Pin every week</string>
 
     <string name="terms_of_service">
         <b>Terms and conditions</b>\n\nThese terms and conditions ("Terms", "Agreement") are an agreement between Mobile Application Developer ("Mobile Application Developer", "us", "we" or "our") and you ("User", "you" or "your"). This Agreement sets forth the general terms and conditions of your use of the My Carta mobile application and any of its products or services (collectively, "Mobile Application" or "Services").\n\n
@@ -92,11 +92,12 @@
     <string name="edit">Edit</string>
     <string name="add_transaction">Add Transaction</string>
     <string name="delete">Delete</string>
+    <string name="delete_success">Success Delete Card!</string>
     <string name="edit_card">Edit Card</string>
     <string name="delete_card">Delete Card</string>
     <string name="card_info">Card Info</string>
     <string name="description">Description</string>
-    <string name="name_card">Card Name <i>(ex : E-Money Card)</i></string>
+    <string name="card_name_hint">Card Name <i>(ex : E-Money Card)</i></string>
     <string name="prioritize_card">Prioritize Card</string>
     <string name="create_transaction">Create Transaction</string>
     <string name="Save">save</string>
@@ -114,5 +115,41 @@
     <string name="finance_balance">Your financial balance between expense and income</string>
     <string name="card_list">Card List</string>
     <string name="test_card_number">\u2022 4094</string>
+    <string name="sign_up">Sign up</string>
+    <string name="new_user">New user?</string>
+    <string name="already_account">Already Account?</string>
+    <string name="make_your_life_easier_now">Make your life easier now!</string>
+    <string name="setup_pin">Setup PIN</string>
+    <string name="pin_is_used_for_security_of_your_data">PIN is used for security of your data</string>
+    <string name="card_name">Card Name</string>
+    <string name="love_this_article">Interesting article?\nTell a friend</string>
+    <string name="share_article">Share Article</string>
+    <string name="current_balance">Current Balance</string>
+    <string name="profile">Profile</string>
+    <string name="test_name">My Carta</string>
+    <string name="test_email">cartavers@mycarta.com</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="change_pin">Change PIN</string>
+    <string name="statistic">Statistic</string>
+    <string name="carta_board">Cartaboard</string>
+    <string name="share_app">Share App</string>
+    <string name="delete_account">Delete Account</string>
+    <string name="publisher_name">Steady Tech.</string>
+    <string name="app_name_hint">App Name</string>
+    <string name="app_version">App Version</string>
+    <string name="publisher">Publisher</string>
+    <string name="copyright">\u00A9 2020 Steady Tech.</string>
+    <string name="caution">Caution</string>
+    <string name="affirmative">Affirmative</string>
+    <string name="card_number_can_t_be_edit">Card Number Can\'t be Edit!.</string>
+    <string name="mycarta_can_t_update_your_card_number_because_is_it_linked_with_your_transaction">MyCarta can\'t update your card number because it\'s linked with your transaction</string>
+    <string name="pin_invalid">Pin Invalid</string>
+    <string name="pin_filled_incorrectly">Your pin filled incorrectly</string>
+    <string name="insert_pin">Insert PIN</string>
+    <string name="are_you_sure_want_to_update">Are you sure want to update your profile?</string>
+    <string name="yes_update">Yes, Update</string>
+    <string name="update_profile">Update Profile</string>
+    <string name="login">Login</string>
+    <string name="save_pin">Save PIN</string>
 
 </resources>

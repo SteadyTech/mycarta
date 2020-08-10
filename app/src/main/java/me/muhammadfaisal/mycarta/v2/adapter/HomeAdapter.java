@@ -1,9 +1,8 @@
 package me.muhammadfaisal.mycarta.v2.adapter;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,24 +15,29 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+import io.realm.Realm;
 import me.muhammadfaisal.mycarta.R;
-import me.muhammadfaisal.mycarta.v1.helper.CartaHelper;
+import me.muhammadfaisal.mycarta.v2.helper.CartaHelper;
 import me.muhammadfaisal.mycarta.v2.activity.DetailCardActivity;
-import me.muhammadfaisal.mycarta.v2.helper.Constant;
-import me.muhammadfaisal.mycarta.v2.model.CardModel;
+import me.muhammadfaisal.mycarta.v2.model.firebase.CardModel;
+import me.muhammadfaisal.mycarta.v2.model.realm.BalanceDatabase;
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 
     private ArrayList<CardModel> cards;
     private Activity activity;
+    private Realm realm;
+    private BalanceDatabase databases;
 
     public HomeAdapter(ArrayList<CardModel> cards, Activity context) {
         this.cards = cards;
         this.activity = context;
+        this.realm = Realm.getDefaultInstance();
     }
 
     @NonNull
@@ -47,12 +51,13 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         final CardModel card = cards.get(position);
 
-        Log.d("Get Key-Preference", card.getCardNumber());
+        this.databases = realm.where(BalanceDatabase.class).equalTo("cardID", card.getCardNumber()).findFirst();
 
-        SharedPreferences sharedPreferences = activity.getSharedPreferences(Constant.PREFERENCE.TRANSACTION, Context.MODE_PRIVATE);
-        long balance = sharedPreferences.getLong(card.getCardNumber(), 0);
+        if (databases != null) {
+            Log.d("Balance Database", databases.getBalance() + " " + databases.getCardID());
+            holder.textBalance.setText(CartaHelper.currencyFormat(Long.parseLong(databases.getBalance())));
+        }
 
-        holder.textBalance.setText(CartaHelper.currencyFormat(balance));
         holder.textOwner.setText(CartaHelper.decryptString(card.getCardOwner()));
         holder.textCardNumber.setText(CartaHelper.decryptString(card.getCardNumber()).substring(CartaHelper.decryptString(card.getCardNumber()).length() - 4));
 
@@ -76,6 +81,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 
         private TextView textBalance;
         private TextView textOwner;
+        private TextView textTitleOwner;
         private TextView textCardNumber;
 
         private CardView cardView;
@@ -87,6 +93,15 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
             this.textOwner = itemView.findViewById(R.id.textOwner);
             this.textCardNumber = itemView.findViewById(R.id.textCardNumber);
             this.cardView = itemView.findViewById(R.id.cardView);
+            this.textTitleOwner = itemView.findViewById(R.id.textTitleOwner);
+
+            Typeface mavenPro = ResourcesCompat.getFont(activity, R.font.maven_pro);
+            this.textTitleOwner.setTypeface(mavenPro);
+
+            Typeface mavenProMedium = ResourcesCompat.getFont(activity, R.font.maven_pro_medium);
+            this.textBalance.setTypeface(mavenProMedium);
+            this.textCardNumber.setTypeface(mavenProMedium);
+            this.textOwner.setTypeface(mavenProMedium);
         }
     }
 }

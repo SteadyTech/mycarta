@@ -19,8 +19,8 @@ import java.util.List;
 import me.muhammadfaisal.mycarta.R;
 import me.muhammadfaisal.mycarta.v1.home.fragment.article.adapter.ArticleAdapter;
 import me.muhammadfaisal.mycarta.v1.home.fragment.article.adapter.ArticleInterface;
-import me.muhammadfaisal.mycarta.v1.home.fragment.article.model.Article;
-import me.muhammadfaisal.mycarta.v1.home.fragment.article.retrofit.WPArticle;
+import me.muhammadfaisal.mycarta.v2.model.api.Article;
+import me.muhammadfaisal.mycarta.v2.retrofit.WPArticle;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -38,7 +38,7 @@ public class ArticleFragment extends Fragment {
     private ArrayList<Article> articles;
     private ArticleAdapter adapter;
 
-    private String baseURL = "http://www.mycarta.muhammadfaisal.me/";
+    private String baseURL = "";
 
     public static List<WPArticle> wpArticles;
     public ArticleFragment() {
@@ -57,7 +57,7 @@ public class ArticleFragment extends Fragment {
         getRetrofit();
 
 
-        adapter = new ArticleAdapter(articles, getActivity(), this);
+        adapter = new ArticleAdapter(articles, getActivity(), getActivity());
         recyclerArticle.setAdapter(adapter);
 
         return v;

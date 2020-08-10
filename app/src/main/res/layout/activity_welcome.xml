@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    tools:context=".v1.welcome.WelcomeActivity">
+    tools:context=".v2.activity.WelcomeActivity">
 
     <LinearLayout
         android:id="@+id/linearMain"
@@ -16,7 +16,7 @@
         <TextView
             android:padding="2dp"
             android:foreground="?attr/selectableItemBackground"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="16dp"
             android:id="@+id/textCreateAccount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -28,17 +28,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:fontFamily="@font/poppins_bold"
+            android:fontFamily="@font/maven_pro_medium"
             android:lines="2"
             android:text="@string/subtitleMyCarta"
             android:textColor="@color/buttonPrimary"
             android:textSize="18sp" />
-
-<!--        <com.roughike.swipeselector.SwipeSelector-->
-<!--            android:id="@+id/swipeSelector"-->
-<!--            android:value="@+value/swipeSelector"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content" />-->
 
         <ImageView
             android:layout_width="match_parent"

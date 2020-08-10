@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".v1.home.fragment.money.bottom_sheet.DetailTransactionBottomSheet">
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize">
+
+        <RelativeLayout
+            android:layout_marginEnd="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/icClose"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerInParent="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:padding="12dp"
+                android:src="@drawable/ic_close" />
+
+            <TextView
+                android:id="@+id/textTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Detail"
+                android:layout_toEndOf="@id/icClose"
+                android:textSize="16sp"
+                android:fontFamily="@font/maven_pro_bold"
+                android:layout_centerInParent="true"
+                android:textColor="@color/buttonPrimary"/>
+
+        </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_marginTop="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardHeader"
+                android:layout_marginBottom="14dp"
+                app:cardBackgroundColor="@color/colorExpense"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                app:cardCornerRadius="16dp"
+                android:layout_marginEnd="-12dp"
+                android:layout_marginStart="16dp">
+
+                <RelativeLayout
+                    android:layout_marginEnd="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:paddingTop="12dp"
+                        android:paddingStart="6dp"
+                        android:layout_marginBottom="-10dp"
+                        android:id="@+id/imageCategory"
+                        android:layout_width="200dp"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentStart="true"
+                        android:src="@drawable/pic_education"/>
+
+                    <LinearLayout
+                        android:gravity="center|start"
+                        android:layout_marginStart="4dp"
+                        android:layout_toEndOf="@id/imageCategory"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/hintExpenseOrIncome"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Your Expense"
+                            android:textSize="12sp"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/maven_pro_medium"/>
+
+                        <TextView
+                            android:id="@+id/textTotalExpenseOrIncome"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Rp70.000"
+                            android:maxLines="1"
+                            android:autoSizeTextType="uniform"
+                            android:autoSizeMaxTextSize="24sp"
+                            android:autoSizeMinTextSize="14sp"
+                            android:textSize="24sp"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/poppins_bold"/>
+                    </LinearLayout>
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardFooter"
+                android:layout_marginBottom="14dp"
+                app:cardBackgroundColor="@color/colorExpense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="16dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginStart="-16dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:id="@+id/linearDescription"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginBottom="12dp"
+                        android:gravity="start"
+                        android:layout_marginStart="28dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Description"
+                            android:textSize="12sp"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/maven_pro_bold"/>
+
+                        <TextView
+                            android:layout_marginTop="16dp"
+                            android:layout_marginEnd="16dp"
+                            android:id="@+id/textDescription"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Makan di bu Madura pakai sapi ayam kentang tahhu tempe nasi kerupuk 2 minumnya es teh tawar"
+                            android:textSize="16sp"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/maven_pro"/>
+                    </LinearLayout>
+                    <ImageView
+                        android:foreground="?attr/selectableItemBackground"
+                        android:id="@+id/imageShare"
+                        android:layout_margin="16dp"
+                        android:layout_below="@id/linearDescription"
+                        android:layout_alignParentEnd="true"
+                        android:layout_width="48dp"
+                        android:padding="12dp"
+                        android:layout_height="48dp"
+                        android:src="@drawable/ic_share"/>
+
+                    <TextView
+                        android:id="@+id/textDate"
+                        android:layout_below="@id/linearDescription"
+                        android:layout_marginStart="28dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Description"
+                        android:textSize="12sp"
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/roboto"/>
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

@@ -95,13 +95,13 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <me.muhammadfaisal.mycarta.v1.helper.BulletTextView
+                <me.muhammadfaisal.mycarta.v2.helper.BulletTextView
                     android:fontFamily="@font/roboto_bold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Open MyCarta APP"/>
 
-                <me.muhammadfaisal.mycarta.v1.helper.BulletTextView
+                <me.muhammadfaisal.mycarta.v2.helper.BulletTextView
                     android:layout_marginTop="4dp"
                     android:fontFamily="@font/roboto_bold"
                     android:layout_width="match_parent"
@@ -109,7 +109,7 @@
                     android:text="Move to tab Cards and choose the cards you want to make a payment"
                     tools:ignore="HardcodedText" />
 
-                <me.muhammadfaisal.mycarta.v1.helper.BulletTextView
+                <me.muhammadfaisal.mycarta.v2.helper.BulletTextView
                     android:fontFamily="@font/roboto_bold"
                     android:layout_marginTop="4dp"
                     android:layout_width="match_parent"
@@ -117,7 +117,7 @@
                     android:text="Click Pay button below cards display in cards tab"
                     tools:ignore="HardcodedText" />
 
-                <me.muhammadfaisal.mycarta.v1.helper.BulletTextView
+                <me.muhammadfaisal.mycarta.v2.helper.BulletTextView
                     android:layout_marginTop="4dp"
                     android:fontFamily="@font/roboto_bold"
                     android:layout_width="match_parent"
@@ -125,7 +125,7 @@
                     android:text="The Barcode or QR is your card number"
                     tools:ignore="HardcodedText" />
 
-                <me.muhammadfaisal.mycarta.v1.helper.BulletTextView
+                <me.muhammadfaisal.mycarta.v2.helper.BulletTextView
                     android:layout_marginTop="4dp"
                     android:fontFamily="@font/roboto_bold"
                     android:layout_width="match_parent"
@@ -133,7 +133,7 @@
                     android:text="Show Pay Page into a cashier for a scan the Barcode or QRCode"
                     tools:ignore="HardcodedText" />
 
-                <me.muhammadfaisal.mycarta.v1.helper.BulletTextView
+                <me.muhammadfaisal.mycarta.v2.helper.BulletTextView
                     android:layout_marginTop="4dp"
                     android:fontFamily="@font/roboto_bold"
                     android:layout_width="match_parent"
@@ -160,20 +160,20 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <me.muhammadfaisal.mycarta.v1.helper.BulletTextView
+                <me.muhammadfaisal.mycarta.v2.helper.BulletTextView
                     android:fontFamily="@font/roboto_bold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="CartaPay make a transaction cashless and cardless!"/>
 
-                <me.muhammadfaisal.mycarta.v1.helper.BulletTextView
+                <me.muhammadfaisal.mycarta.v2.helper.BulletTextView
                     android:layout_marginTop="4dp"
                     android:fontFamily="@font/roboto_bold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Pay what you need just scan the barcode!"/>
 
-                <me.muhammadfaisal.mycarta.v1.helper.BulletTextView
+                <me.muhammadfaisal.mycarta.v2.helper.BulletTextView
                     android:layout_marginTop="4dp"
                     android:fontFamily="@font/roboto_bold"
                     android:layout_width="match_parent"

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    tools:context=".v1.splashscreen.SplashScreenActivity">
+    tools:context=".v2.activity.SplashScreenActivity">
 
 
     <com.airbnb.lottie.LottieAnimationView

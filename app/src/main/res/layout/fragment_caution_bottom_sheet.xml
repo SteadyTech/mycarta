@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".v2.bottomsheet.CautionBottomSheetFragment">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="256dp"
+        android:src="@drawable/ic_caution"/>
+
+    <TextView
+        android:id="@+id/textTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/card_number_can_t_be_edit"
+        android:fontFamily="@font/maven_pro_bold"
+        android:textColor="@color/colorExpense"
+        android:textSize="18sp"
+        android:gravity="center"/>
+    <TextView
+        android:id="@+id/textMessage"
+        android:layout_margin="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/mycarta_can_t_update_your_card_number_because_is_it_linked_with_your_transaction"
+        android:fontFamily="@font/maven_pro_medium"
+        android:textColor="@color/colorExpense"
+        android:textSize="12sp"
+        android:gravity="center"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonOk"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/dialog_ok"
+        android:textAllCaps="false"
+        android:layout_marginHorizontal="16dp"
+        app:backgroundTint="@color/colorBluePrimary"
+        app:cornerRadius="8dp"/>
+
+</LinearLayout>

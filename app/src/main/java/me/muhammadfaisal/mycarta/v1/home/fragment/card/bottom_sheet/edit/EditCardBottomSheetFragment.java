@@ -1,16 +1,23 @@
 package me.muhammadfaisal.mycarta.v1.home.fragment.card.bottom_sheet.edit;
 
 
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -18,72 +25,69 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Objects;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import me.muhammadfaisal.mycarta.R;
-import me.muhammadfaisal.mycarta.v1.helper.CartaHelper;
-import me.muhammadfaisal.mycarta.v1.home.fragment.card.model.Card;
+import me.muhammadfaisal.mycarta.v2.activity.DetailCardActivity;
+import me.muhammadfaisal.mycarta.v2.activity.HomeActivity;
+import me.muhammadfaisal.mycarta.v2.adapter.SpinnerAdapter;
+import me.muhammadfaisal.mycarta.v2.bottomsheet.CautionBottomSheetFragment;
+import me.muhammadfaisal.mycarta.v2.helper.CartaHelper;
+import me.muhammadfaisal.mycarta.v2.helper.Constant;
+import me.muhammadfaisal.mycarta.v2.model.firebase.CardModel;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class EditCardBottomSheetFragment extends BottomSheetDialogFragment {
+public class EditCardBottomSheetFragment extends BottomSheetDialogFragment implements View.OnClickListener {
 
-    private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference getReference;
-    public TextInputEditText inputName, inputNumber, inputCVV, inputDesc;
-    private Spinner inputType, inputMonthExp, inputYearExp;
-    private Button save;
-    private ImageView icClose;
+    private EditText inputOwner;
+    private EditText inputName;
+    private EditText inputNumber;
+    private EditText inputDesc;
+    private Spinner inputType;
+    private CheckBox ckbPrioritize;
 
-    private CartaHelper helper = new CartaHelper();
+    private CardModel cardModel;
 
-    public FirebaseAuth firebaseAuth;
-    public String userID;
     public FirebaseUser user;
-    public String nameCard, descCard, cardType, stringNumberCard, stringCvvCard, monthExpCard, yearExpCard;
+    private DatabaseReference databaseReference;
 
     public EditCardBottomSheetFragment() {
         // Required empty public constructor
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.bottom_sheet_fragment_edit_card, container, false);
-
-        initWidget(v);
-
-        initSpinnerCardType();
-
-        initSpinnerMonthExp();
-
-        initSpinnerYearExp();
-
-        setTextForEditText();
-
-        return  v;
+        return inflater.inflate(R.layout.bottom_sheet_fragment_edit_card, container, false);
     }
 
-    private void initWidget(View v) {
-        inputName = v.findViewById(R.id.inputCardHolderName);
-        inputNumber = v.findViewById(R.id.inputCardNumber);
-        inputCVV = v.findViewById(R.id.inputCvv);
-        inputMonthExp = v.findViewById(R.id.spinnerMonthExp);
-        inputYearExp = v.findViewById(R.id.spinnerYearExp);
-        inputDesc = v.findViewById(R.id.inputDescription);
-        inputType = v.findViewById(R.id.spinnerCardType);
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        this.inputOwner = view.findViewById(R.id.inputCardHolderName);
+        this.inputNumber = view.findViewById(R.id.inputCardNumber);
+        this.inputDesc = view.findViewById(R.id.inputDescription);
+        this.inputType = view.findViewById(R.id.spinnerCardType);
+        this.inputName = view.findViewById(R.id.inputCardName);
+        this.ckbPrioritize = view.findViewById(R.id.ckbPrioritize);
 
-        icClose = v.findViewById(R.id.icClose);
+        this.data();
 
+        ImageView icClose = view.findViewById(R.id.icClose);
         icClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -91,135 +95,149 @@ public class EditCardBottomSheetFragment extends BottomSheetDialogFragment {
             }
         });
 
-        save = v.findViewById(R.id.buttonSave);
-        firebaseAuth = FirebaseAuth.getInstance();
-        user = firebaseAuth.getCurrentUser();
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        getReference = firebaseDatabase.getReference();
+        this.initSpinnerCardType();
 
-        save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (view == save) {
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        Button save = view.findViewById(R.id.buttonSave);
+        save.setOnClickListener(this);
 
-                    Card card = new Card();
+        this.user = firebaseAuth.getCurrentUser();
+        this.databaseReference = firebaseDatabase.getReference();
+    }
 
-                    stringCvvCard = Objects.requireNonNull(inputCVV.getText()).toString();
-                    monthExpCard = Objects.requireNonNull(inputMonthExp.getSelectedItem().toString());
-                    cardType = inputType.getSelectedItem().toString();
-                    yearExpCard = Objects.requireNonNull(inputYearExp.getSelectedItem().toString());
-                    nameCard = Objects.requireNonNull(inputName.getText()).toString();
-                    stringNumberCard = Objects.requireNonNull(inputNumber.getText()).toString();
+    private void data() {
+        if (this.getArguments() != null) {
+            this.cardModel = (CardModel) this.getArguments().getSerializable("card");
+            if (this.cardModel != null) {
+                this.inputDesc.setText(CartaHelper.decryptString(this.cardModel.getCardDescription()));
+                this.inputName.setText(CartaHelper.decryptString(this.cardModel.getCardName()));
+                this.inputNumber.setText(CartaHelper.decryptString(this.cardModel.getCardNumber()));
+                this.inputOwner.setText(CartaHelper.decryptString(this.cardModel.getCardOwner()));
 
-                    if (inputDesc.getText().toString().equals("")){
-                        descCard = "No Description";
-                    }else{
-                        descCard = inputDesc.getText().toString();
-                    }
-
-
-                    String finalYear = yearExpCard.substring(Math.max(yearExpCard.length() - 2, 0));
-
-                    final String expiry = monthExpCard + "/" + finalYear;
-
-                    card.setName(helper.encryptString(inputName.getText().toString()));
-                    card.setCvv(helper.encryptString(stringCvvCard));
-                    card.setDescripton(helper.encryptString(descCard));
-                    card.setExp(helper.encryptString(expiry));
-                    card.setNumberCard(helper.encryptString(stringNumberCard));
-                    card.setType(helper.encryptString(cardType));
-
-                    final SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.SUCCESS_TYPE);
-                    sweetAlertDialog.setTitle("Success");
-                    sweetAlertDialog.setContentText("Your card has been edited!");
-
-                    if (inputNumber.getText().toString().isEmpty() || inputCVV.getText().toString().isEmpty() || inputName.getText().toString().isEmpty()) {
-                        SweetAlertDialog dialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE);
-                        dialog.setContentText("Please fill all field");
-                        dialog.setTitle("Error");
-                        dialog.show();
-                    } else {
-                        updateWithDescription(card);
-                    }
+                if (this.cardModel.isPrioritize().equals(CartaHelper.encryptString(Constant.CODE.YES))){
+                    this.ckbPrioritize.setChecked(true);
+                }else{
+                    this.ckbPrioritize.setChecked(false);
                 }
             }
-        });
-    }
-
-    private void updateWithDescription(Card card) {
-
-        final SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.SUCCESS_TYPE);
-        sweetAlertDialog.setTitle("Success");
-        sweetAlertDialog.setContentText("Your card has been edited!");
-
-        final SweetAlertDialog loading = new SweetAlertDialog(getActivity(), SweetAlertDialog.PROGRESS_TYPE);
-        loading.setTitle("Loading");
-        loading.show();
-
-        userID = user.getUid();
-        getReference.child("card").child(userID).child(getArguments().getString("keyPrimary")).setValue(card)
-                .addOnCompleteListener(getActivity(), new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()){
-                            loading.cancel();
-                            sweetAlertDialog.show();
-                            dismiss();
-                        }else{
-                            loading.cancel();
-                            Toast.makeText(getActivity(), "Something Went Wrong", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-    }
-
-
-    private void setTextForEditText() {
-        inputName.setText(getArguments().getString("nameOnCard"));
-        inputCVV.setText(getArguments().getString("cvv"));
-        inputNumber.setText(getArguments().getString("numberOnCard"));
-        inputDesc.setText(getArguments().getString("desc"));
-
-        String type = getArguments().getString("typeOnCard");
-
-        switch (type) {
-            case "Visa":
-                inputType.setSelection(0);
-                break;
-            case "Mastercard":
-                inputType.setSelection(1);
-                break;
-            case "American Express":
-                inputType.setSelection(2);
-                break;
-            case "JCB":
-                inputType.setSelection(3);
-                break;
-            default:
-                inputType.setSelection(4);
-                break;
         }
     }
 
-    private void initSpinnerYearExp() {
-        String[] YEAR = {"2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030", "2031", "2032", "2035", "2036"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, YEAR);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        inputYearExp.setAdapter(adapter);
-    }
-
-    private void initSpinnerMonthExp() {
-        String[] MONTH = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, MONTH);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        inputMonthExp.setAdapter(adapter);
-    }
-
     private void initSpinnerCardType() {
-        String[] CARD_TYPE = {"Visa", "Mastercard", "American Express", "JCB" , "Other"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, CARD_TYPE);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        inputType.setAdapter(adapter);
+
+        if (cardModel != null) {
+            String[] CARD_TYPE = {CartaHelper.decryptString(this.cardModel.getCardType()), "Member Card", "Debit Card", "Other"};
+
+            SpinnerAdapter adapter = new SpinnerAdapter(Objects.requireNonNull(this.getActivity()), android.R.layout.simple_spinner_item, CARD_TYPE);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            inputType.setAdapter(adapter);
+
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        this.saveCard();
+    }
+
+    private void saveCard() {
+        Query query = databaseReference.child(Constant.CARD_PATH).child(Objects.requireNonNull(user.getUid())).orderByChild("cardNumber").equalTo(this.cardModel.getCardNumber());
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    final CardModel cardModel = snapshot.getValue(CardModel.class);
+
+                    if (cardModel != null) {
+
+                        if (EditCardBottomSheetFragment.this.cardModel.getCardNumber().equals(cardModel.getCardNumber())) {
+                            String cardType = inputType.getSelectedItem().toString();
+                            String ownerName = Objects.requireNonNull(inputOwner.getText()).toString();
+                            String stringNumberCard = Objects.requireNonNull(inputNumber.getText()).toString();
+                            String descriptionCard = Objects.requireNonNull(inputDesc.getText().toString());
+                            String cardName = inputName.getText().toString();
+
+                            final String encryptedOwner = CartaHelper.encryptString(ownerName);
+                            final String encryptedNumberCard = CartaHelper.encryptString(stringNumberCard);
+                            final String encryptedCardType = CartaHelper.encryptString(cardType);
+                            final String encryptedDescription = CartaHelper.encryptString(descriptionCard);
+                            final String encryptedName = CartaHelper.encryptString(cardName);
+                            final String encryptedPrioritize;
+
+                            if (EditCardBottomSheetFragment.this.ckbPrioritize.isChecked()) {
+                                encryptedPrioritize = CartaHelper.encryptString(Constant.CODE.YES);
+                            } else {
+                                encryptedPrioritize = CartaHelper.encryptString(Constant.CODE.NO);
+                            }
+
+                            final SweetAlertDialog dialogProgress = new SweetAlertDialog(Objects.requireNonNull(EditCardBottomSheetFragment.this.getActivity()), SweetAlertDialog.PROGRESS_TYPE);
+                            dialogProgress.setContentText("Loading");
+                            dialogProgress.setCancelable(false);
+                            dialogProgress.show();
+
+                            if (inputNumber.getText().toString().isEmpty() || inputOwner.getText().toString().isEmpty() || inputName.getText().toString().isEmpty()) {
+                                dialogProgress.changeAlertType(SweetAlertDialog.ERROR_TYPE);
+                                dialogProgress.setContentText("Please Fill all Field!");
+                            } else {
+                                String userID = user.getUid();
+                                CardModel model;
+                                if (descriptionCard.isEmpty()) {
+                                    model = new CardModel(encryptedNumberCard, encryptedOwner, encryptedCardType, CartaHelper.encryptString("No Description"), encryptedName, encryptedPrioritize);
+                                } else {
+                                    model = new CardModel(encryptedNumberCard, encryptedOwner, encryptedCardType, encryptedDescription, encryptedName, encryptedPrioritize);
+                                }
+
+                                System.out.println(snapshot.getKey() + " Key Reference");
+
+                                EditCardBottomSheetFragment.this.databaseReference.child(Constant.CARD_PATH).child(userID).child(snapshot.getKey())
+                                        .setValue(model)
+                                        .addOnCompleteListener(getActivity(), new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (!task.isSuccessful()) {
+                                                    dialogProgress.changeAlertType(SweetAlertDialog.ERROR_TYPE);
+                                                    dialogProgress.setContentText("Ooops... Error " + task.getException());
+                                                } else {
+                                                    dialogProgress.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
+                                                    dialogProgress.setContentText("Your card has been Updated!");
+                                                    dialogProgress.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                                        @Override
+                                                        public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                                            EditCardBottomSheetFragment.this.dismiss();
+                                                            sweetAlertDialog.dismissWithAnimation();
+
+                                                            if (EditCardBottomSheetFragment.this.getActivity() != null) {
+                                                                CartaHelper.move(EditCardBottomSheetFragment.this.getActivity(), HomeActivity.class, true);
+                                                            }
+                                                        }
+                                                    });
+                                                }
+                                            }
+                                        });
+
+                            }
+                        } else {
+                            if (EditCardBottomSheetFragment.this.getActivity() != null) {
+
+                                Bundle bundle = new Bundle();
+                                bundle.putString(Constant.KEY.TITLE_MESSAGE, getResources().getString(R.string.card_number_can_t_be_edit));
+                                bundle.putString(Constant.KEY.DESCRIPTION_MESSAGE, getResources().getString(R.string.mycarta_can_t_update_your_card_number_because_is_it_linked_with_your_transaction));
+
+                                CautionBottomSheetFragment cautionBottomSheetFragment = new CautionBottomSheetFragment();
+                                cautionBottomSheetFragment.setArguments(bundle);
+                                cautionBottomSheetFragment.show(EditCardBottomSheetFragment.this.getActivity().getSupportFragmentManager(), Constant.TAG.EDITED_CARD_NUMBER);
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
     }
 }
