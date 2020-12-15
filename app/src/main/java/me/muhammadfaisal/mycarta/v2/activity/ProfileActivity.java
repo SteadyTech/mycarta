@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -23,6 +24,7 @@ import me.muhammadfaisal.mycarta.v1.home.fragment.account.bottom_sheet.AboutAppB
 import me.muhammadfaisal.mycarta.v1.home.fragment.account.bottom_sheet.ChangeCartaBoardBottomSheetFragment;
 import me.muhammadfaisal.mycarta.v1.register.model.UserModel;
 import me.muhammadfaisal.mycarta.v2.bottomsheet.PinBottomSheetFragment;
+import me.muhammadfaisal.mycarta.v2.bottomsheet.TermsOfService;
 import me.muhammadfaisal.mycarta.v2.helper.CartaHelper;
 import me.muhammadfaisal.mycarta.v2.helper.Constant;
 
@@ -72,6 +74,7 @@ public class ProfileActivity extends AppCompatActivity {
                         ProfileActivity.this.textEmail.setText(user.getEmail());
                         Glide.with(ProfileActivity.this).load(user.getImage()).into(ProfileActivity.this.civProfile);
                     }
+
                 }
 
                 @Override
@@ -95,6 +98,11 @@ public class ProfileActivity extends AppCompatActivity {
     public void aboutApp(View view){
         AboutAppBottomSheetFragment aboutAppBottomSheetFragment = new AboutAppBottomSheetFragment();
         aboutAppBottomSheetFragment.show(this.getSupportFragmentManager(), "AboutApp");
+    }
+
+    public void privacyPolicy(View view){
+        BottomSheetDialogFragment dialogFragment = new TermsOfService();
+        dialogFragment.show(this.getSupportFragmentManager(), "Terms Of Service");
     }
 
     public void share(View view){

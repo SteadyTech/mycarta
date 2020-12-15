@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -27,7 +28,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import me.muhammadfaisal.mycarta.R;
@@ -45,7 +48,6 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
     private UserModel userModel;
 
     private Uri uri;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,7 +113,7 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void uploadProfilePicture() {
-        super.startActivityForResult(new Intent().setType("image/*").setAction(Intent.ACTION_GET_CONTENT), Constant.CODE.GET_IMAGE_REQUEST);
+        super.startActivityForResult(new Intent().setType("image/*").setAction(Intent.ACTION_PICK), Constant.CODE.GET_IMAGE_REQUEST);
     }
 
     @Override
@@ -121,10 +123,12 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
         if (requestCode == Constant.CODE.GET_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null){
             this.uri = data.getData();
             try{
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), this.uri);
+                InputStream imageStream = this.getContentResolver().openInputStream(this.uri);
+                Bitmap bitmap = BitmapFactory.decodeStream(imageStream);
                 this.imageProfile.setImageBitmap(bitmap);
+                Log.d("EditProfileSelectImage", this.uri.toString());
                 this.userModel.setImage(this.uri.toString());
-            }catch (IOException e){
+            }catch (FileNotFoundException e){
                 e.printStackTrace();
             }
         }

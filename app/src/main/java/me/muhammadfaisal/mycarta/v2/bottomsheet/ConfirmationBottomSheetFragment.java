@@ -169,7 +169,7 @@ public class ConfirmationBottomSheetFragment extends BottomSheetDialogFragment i
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()){
-                            CartaHelper.move(getActivity(), ProfileActivity.class, false);
+                            CartaHelper.move(getActivity(), ProfileActivity.class, true);
                         }else{
                             Toast.makeText(getActivity(), "error", Toast.LENGTH_SHORT).show();
                         }
@@ -193,7 +193,7 @@ public class ConfirmationBottomSheetFragment extends BottomSheetDialogFragment i
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
                                                 if (task.isSuccessful()){
-                                                    CartaHelper.move(getActivity(), ProfileActivity.class, false);
+                                                    CartaHelper.move(getActivity(), ProfileActivity.class, true);
                                                 }else{
                                                     Toast.makeText(getActivity(), "error", Toast.LENGTH_SHORT).show();
                                                 }

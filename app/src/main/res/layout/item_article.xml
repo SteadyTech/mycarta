@@ -44,34 +44,7 @@
                 android:textSize="14sp" />
 
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_marginBottom="8dp"
-            android:layout_marginHorizontal="16dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/top_rounded"
-            android:gravity="center_vertical"
-            android:orientation="vertical">
-
-            <TextView
-                android:drawableTint="@color/black"
-                android:drawableStart="@drawable/ic_category"
-                android:drawablePadding="8dp"
-                android:textColor="@color/black"
-                android:id="@+id/textAuthor"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:ellipsize="end"
-                android:fontFamily="@font/maven_pro_medium"
-                android:gravity="center|start"
-                android:maxLines="5"
-                android:text="Saving Money"
-                android:textSize="12sp" />
-
-        </LinearLayout>
-
+        
     </LinearLayout>
 </androidx.cardview.widget.CardView>
 

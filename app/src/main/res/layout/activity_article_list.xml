@@ -37,15 +37,6 @@
             android:textColor="@color/darkGray"
             android:textSize="18sp" />
 
-        <ImageView
-            android:id="@+id/imageSearch"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_alignParentEnd="true"
-            android:layout_centerInParent="true"
-            android:src="@drawable/ic_search"
-            android:tint="@color/grayPrimary" />
-
     </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView

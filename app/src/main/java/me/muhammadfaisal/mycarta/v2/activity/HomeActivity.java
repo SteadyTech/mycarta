@@ -9,8 +9,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -22,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import me.muhammadfaisal.mycarta.R;
 import me.muhammadfaisal.mycarta.v1.register.model.UserModel;
 import me.muhammadfaisal.mycarta.v2.helper.CartaHelper;
@@ -30,15 +35,19 @@ import me.muhammadfaisal.mycarta.v2.adapter.HomeAdapter;
 import me.muhammadfaisal.mycarta.v2.bottomsheet.MenuBottomSheetFragment;
 import me.muhammadfaisal.mycarta.v2.helper.Constant;
 import me.muhammadfaisal.mycarta.v2.model.firebase.CardModel;
+import me.muhammadfaisal.mycarta.v2.model.firebase.TransactionModel;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
 
     private RecyclerView recyclerView;
-    private ImageView imageProfile;
+    private CircleImageView imageProfile;
+    private TextView textView;
 
     private ArrayList<CardModel> cards;
 
     private Query query;
+
+    private String balance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +60,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private void init() {
         this.recyclerView = findViewById(R.id.recyclerCard);
         this.imageProfile = findViewById(R.id.imageProfile);
+        this.textView = findViewById(R.id.textView);
 
         this.recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
 
@@ -65,7 +75,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()){
                         CardModel card = snapshot.getValue(CardModel.class);
-
                         cards.add(card);
                     }
 
@@ -81,16 +90,23 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-        reference.child(Constant.USER_PATH).child(auth.getUid()).addValueEventListener(new ValueEventListener() {
+
+        reference.child(Constant.TRANSACTION_PATH).child(auth.getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                UserModel userModel = dataSnapshot.getValue(UserModel.class);
 
-                if (userModel != null) {
-                    Glide.with(HomeActivity.this)
-                            .load(userModel.getImage())
-                            .into(HomeActivity.this.imageProfile);
+                long balance = 0;
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    TransactionModel transactionModel = snapshot.getValue(TransactionModel.class);
+                    if (transactionModel != null) {
+                        if (CartaHelper.decryptString(transactionModel.getType()).equals(Constant.CODE.INCOME)){
+                            balance += Long.parseLong(CartaHelper.decryptString(transactionModel.getAmount()));
+                        }else{
+                            balance -= Long.parseLong(CartaHelper.decryptString(transactionModel.getAmount()));
+                        }
+                    }
                 }
+                HomeActivity.this.textView.setText(CartaHelper.currencyFormat(balance));
             }
 
             @Override
